@@ -14,11 +14,11 @@ jobs:
     - name: Deleting current contents of remote repository
       uses: appleboy/ssh-action@master
       with:
-        host: ${{ secrets.HOST }}
-        USERNAME: ${{ secrets.USERNAME }}
-        PASSPHRASE: ${{ secrets.PASSPHRASE }}
-        PORT: ${{ secrets.PORT }}
-        KEY: ${{ secrets.SSHKEY }}
+        host: ${{ secrets.MUTEZONE_HOST }}
+        USERNAME: ${{ secrets.MUTEZONE_USERNAME }}
+        PASSPHRASE: ${{ secrets.MUTEZONE_PASSPHRASE }}
+        PORT: ${{ secrets.MUTEZONE_PORT }}
+        KEY: ${{ secrets.MUTEZONE_SSHKEY }}
         script: |
           cd ~/deployment
           shopt -s extglob
@@ -27,11 +27,11 @@ jobs:
     - name: Copy file via scp
       uses: appleboy/scp-action@master
       env:
-        HOST: ${{ secrets.HOST }}
-        USERNAME: ${{ secrets.USERNAME }}
-        PASSPHRASE: ${{ secrets.PASSPHRASE }}
-        PORT: ${{ secrets.PORT }}
-        KEY: ${{ secrets.SSHKEY }}
+        HOST: ${{ secrets.MUTEZONE_HOST }}
+        USERNAME: ${{ secrets.MUTEZONE_USERNAME }}
+        PASSPHRASE: ${{ secrets.MUTEZONE_PASSPHRASE }}
+        PORT: ${{ secrets.MUTEZONE_PORT }}
+        KEY: ${{ secrets.MUTEZONE_SSHKEY }}
       with:
         source: "."
         target: "~/deployment"
@@ -39,14 +39,14 @@ jobs:
     - name: Executing remote command
       uses: appleboy/ssh-action@master
       with:
-        host: ${{ secrets.HOST }}
-        USERNAME: ${{ secrets.USERNAME }}
-        PASSPHRASE: ${{ secrets.PASSPHRASE }}
-        PORT: ${{ secrets.PORT }}
-        KEY: ${{ secrets.SSHKEY }}
+        host: ${{ secrets.MUTEZONE_HOST }}
+        USERNAME: ${{ secrets.MUTEZONE_USERNAME }}
+        PASSPHRASE: ${{ secrets.MUTEZONE_PASSPHRASE }}
+        PORT: ${{ secrets.MUTEZONE_PORT }}
+        KEY: ${{ secrets.MUTEZONE_SSHKEY }}
         script: |
           cd ~/deployment
-          docker-compose -f docker-compose.prod.yml up -d --build
+          docker-compose -f docker-compose.yml up -d --build
 
 
 
