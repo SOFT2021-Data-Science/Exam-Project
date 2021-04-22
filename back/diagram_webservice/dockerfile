@@ -10,4 +10,4 @@ COPY . .
 
 # Change this to gunicorn after testing period.
 
-CMD ["gunicorn","--chdir","src","main:app" ]
+CMD ["gunicorn","--chdir","src","main:app", '-b'. '0.0.0.0:8000']
