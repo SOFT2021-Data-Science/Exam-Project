@@ -46,7 +46,7 @@ jobs:
         KEY: ${{ secrets.MUTEZONE_SSHKEY }}
         script: |
           cd ~/deployment
-          docker-compose -f docker-compose.yml up -d --build
+          docker-compose up --build
 
 
 
