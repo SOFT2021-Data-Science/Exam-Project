@@ -9,5 +9,6 @@ RUN pip install gunicorn
 COPY . .
 
 # Change this to gunicorn after testing period.
+EXPOSE 8000
 
-CMD ["gunicorn","--chdir","src","main:app", "-b". "0.0.0.0:8000"]
+CMD ["gunicorn","--chdir","src","main:app","-b","0.0.0.0:8000"]
