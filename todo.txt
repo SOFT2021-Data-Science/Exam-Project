@@ -1,0 +1,10 @@
+Misc:
+nginx
+
+
+back:
+gunicorn in dockerfile
+
+
+front:
+initial
