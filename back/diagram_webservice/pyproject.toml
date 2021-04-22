@@ -1,0 +1,21 @@
+[tool.poetry]
+name = "diagram_webservice"
+version = "0.1.0"
+description = ""
+authors = ["Mutestock <doublenegative@protonmail.com>"]
+
+[tool.poetry.dependencies]
+python = "^3.9"
+Flask = "^1.1.2"
+nose2 = "^0.10.0"
+black = "^20.8b1"
+pandas = "^1.2.4"
+numpy = "^1.20.2"
+matplotlib = "^3.4.1"
+scikit-learn = "^0.24.1"
+
+[tool.poetry.dev-dependencies]
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
