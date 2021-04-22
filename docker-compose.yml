@@ -5,4 +5,5 @@ services:
         build:
             context: ./back/diagram_webservice
             dockerfile: dockerfile
-        ports: 8000:8000
+        ports: 
+            - "8000:8000"
