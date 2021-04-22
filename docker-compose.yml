@@ -9,7 +9,9 @@ services:
             - 8000
     
     nginx:
-        build: ./services/nginx
+        build:
+            context: ./services/nginx
+            dockerfile: dockerfile
         ports:
             - 1337:80
         depends_on:
