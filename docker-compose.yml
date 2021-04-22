@@ -1,0 +1,7 @@
+version: '3'
+
+services:
+    diagram_webservice:
+        build:
+            context: ./back/diagram_webservice
+            dockerfile: dockerfile
