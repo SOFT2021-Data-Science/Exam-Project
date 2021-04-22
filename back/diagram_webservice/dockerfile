@@ -7,4 +7,8 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 COPY . .
 
+# Change this to gunicorn after testing period.
+EXPOSE 5000
+
+
 CMD [ "python", "./src/main.py" ]
