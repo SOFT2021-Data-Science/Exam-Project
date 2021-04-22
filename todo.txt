@@ -1,6 +1,7 @@
 Misc:
 nginx
-
+logging
+testing
 
 back:
 gunicorn in dockerfile

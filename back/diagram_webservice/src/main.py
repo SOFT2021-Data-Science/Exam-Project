@@ -2,9 +2,13 @@ from flask import Flask
 
 app = Flask(__name__)
 
-@app.route("/")
+@app.route('/')
 def index():
     return "stuff works"
+
+@app.route('/stuff')
+def stuff_route():
+    return "some other route works"
 
 
 if __name__ == "__main__":
