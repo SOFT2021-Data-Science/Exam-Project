@@ -1,12 +1,12 @@
 Misc:
 nginx
+
+back:
 logging
 testing
 
-back:
-gunicorn in dockerfile
-
-
 front:
 initial
-shared resource folder with backend
+shared resource folder with backend (implemented needs testing)
+
+
