@@ -175,3 +175,13 @@ sketch
 *.code-workspace
 
 # End of https://www.toptal.com/developers/gitignore/api/react,python,vscode
+
+### Vuejs ###
+# Recommended template: Node.gitignore
+
+node_modules/
+dist/
+npm-debug.log
+yarn-error.log
+
+# End of https://www.toptal.com/developers/gitignore/api/vue,vuejs

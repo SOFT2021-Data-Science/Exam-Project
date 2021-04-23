@@ -5,15 +5,23 @@ services:
         build:
             context: ./back/diagram_webservice
             dockerfile: dockerfile
-        expose: 
-            - 8000
-    
-    nginx:
-        build:
-            context: ./services/nginx
-            dockerfile: dockerfile
+        networks:
+            - "net"
         ports:
-            - 1337:80
-        depends_on:
-            - diagram_webservice
+            - "8000:8000"
+
+    front_vue:
+        build:
+            context:
+                .front/diagram_display
+            dockerfile: dockerfile
+        networks:
+            - "net"
+        ports:
+            - "80:80"
         
+
+    
+networks:
+    net:
+        driver: "bridge"
