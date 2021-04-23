@@ -13,7 +13,7 @@ services:
     front_vue:
         build:
             context:
-                .front/diagram_display
+                ./front/diagram_display
             dockerfile: dockerfile
         networks:
             - "net"
