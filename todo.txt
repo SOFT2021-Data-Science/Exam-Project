@@ -1,14 +1,16 @@
 Misc:
 nginx
+collect data sets
 
 back:
 logging
 testing
 sphinx documentation
-
+api-keys
 
 front:
-initial
+clean up initial files
+create header
 shared resource folder with backend (implemented needs testing)
 
 
