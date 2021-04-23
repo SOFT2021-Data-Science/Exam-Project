@@ -9,3 +9,4 @@ gunicorn in dockerfile
 
 front:
 initial
+shared resource folder with backend

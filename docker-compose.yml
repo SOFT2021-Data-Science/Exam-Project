@@ -5,6 +5,10 @@ services:
         build:
             context: ./back/diagram_webservice
             dockerfile: dockerfile
+        environment:
+            - PRODUCTION_VARIABLES=1
+        volumes:
+            - ./resources:/usr/resources
         networks:
             - "net"
         ports:
@@ -12,15 +16,18 @@ services:
 
     front_vue:
         build:
-            context:
-                ./front/diagram_display
+            context: ./front/diagram_display
             dockerfile: dockerfile
+        restart: always
         networks:
             - "net"
+        environment:
+            - PRODUCTION_VARIABLES=1
         ports:
-            - "8080:80"
+            - "80:8080"
+        volumes:
+            - ./resources:/usr/resources
         
-
     
 networks:
     net:
