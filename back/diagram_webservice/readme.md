@@ -18,3 +18,6 @@ For development purposes, the backend can be run with:
     <li>Whenever someone else has made changes and you need to update your shell: <br>>  poetry update</li>
 </ul>
     
+
+
+<p>Run tests with nose2 -v</p>

@@ -4,9 +4,12 @@ nginx
 back:
 logging
 testing
+sphinx documentation
+
 
 front:
 initial
 shared resource folder with backend (implemented needs testing)
+
 
 

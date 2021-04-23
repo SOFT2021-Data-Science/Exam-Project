@@ -1,5 +1,7 @@
-from diagram_webservice import __version__
+from src import __version__
+import unittest
 
-
-def test_version():
-    assert __version__ == '0.1.0'
+class TestStrings(unittest.TestCase):
+    def test_upper(self):
+        self.assertEqual("spam".upper(), "SPAM")
+    
