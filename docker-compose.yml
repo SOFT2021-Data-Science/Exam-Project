@@ -28,7 +28,6 @@ services:
         volumes:
             - ./resources:/usr/resources
         
-    
 networks:
     net:
         driver: "bridge"
