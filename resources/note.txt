@@ -6,3 +6,4 @@ Data set Origin:
 https://data.world/chhs/bba07a91-bf3f-438b-b7c9-92e6ce351f62
 suicide-deaths-per-100-000-population-lghc-indicator-1.csv
 suicide-lghc-indicator-21.csv
+
