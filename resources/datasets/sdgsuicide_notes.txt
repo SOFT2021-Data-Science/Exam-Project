@@ -1,0 +1,6 @@
+ 
+SDGSUICIDE,SDG_SH_STA_SCIDEN.csv
+
+origin:
+Somewhere on the who website
+
