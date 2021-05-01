@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-    <p></p>
+    <p>Graph stuff goes here</p>
   </div>
 </template>
 

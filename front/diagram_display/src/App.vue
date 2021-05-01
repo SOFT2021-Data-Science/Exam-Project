@@ -1,10 +1,20 @@
 <template>
-  <div id="nav">
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
+  <div>
+    <Header />
   </div>
-  <router-view/>
 </template>
 
 <style>
 </style>
+
+<script lang="ts">
+import Header from '@/components/layout/Header.vue'
+import { Options, Vue } from 'vue-class-component'
+
+@Options({
+  components: {
+    Header
+  }
+})
+export default class Guide extends Vue {}
+</script>
