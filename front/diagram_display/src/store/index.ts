@@ -5,7 +5,7 @@ import { RootState } from '@/store/types';
 export default createStore({
   state: {
     helloMessage: 'hello',
-    currentDiagram: require("@/../../../resources/logo.png")
+    currentDiagram: ""
   },
   mutations: {
     SET_DIAGRAM(state, imgName) {
