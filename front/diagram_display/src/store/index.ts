@@ -5,7 +5,7 @@ import { RootState } from '@/store/types';
 export default createStore({
   state: {
     helloMessage: 'hello',
-    currentDiagram: "https://www.steadygo.digital/wp-content/uploads/2016/09/12.jpg"
+    currentDiagram: require("@/../../../resources/logo.png")
   },
   mutations: {
     SET_DIAGRAM(state, imgName) {
