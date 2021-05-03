@@ -27,10 +27,7 @@ import store from "vuex";
   },
   methods:{
     getCurrentDiagram(img: string){
-      //return require("./assets/logo.png")
-      
-      return require("@/../../../resources/"+img)
-      //return this.$store.state.currentDiagram;
+      return require(process.env.VUE_APP_RESOURCES_DIRECTORY+img)
     }
   }
 })
