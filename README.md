@@ -52,15 +52,19 @@ Stage 2.
 
 1. csv files found, saved and sources documented in "./resources/datasets". Further exploration of population density and urbanization required. Consider the necessary for prototyping and proof of concepts.
 
-2. Shared repository on github. Data stored on server in cloud. Data is shared between docker containers through volumes. The paths to these volumes change from development to production versions. The correct path is assigned through environment variables. The project uses an ELT approach, due to the multiple ways the data can be interpreted.
-
+2. Shared repository on github. Data stored on server in cloud. Data is shared between docker containers through volumes. The paths to these volumes change from development to production versions. The correct path is assigned through environment variables. The project uses an ELT approach, due to the multiple ways the data can be interpreted.  
+3.
 <ul>
-   <p>3. </p>
    <li>a. Decide on data processing parameters and methods</li>
-   <li>b. Choose data visualization techniques<li/>
-   <li>c. Create visual representations<li/>
-   <li>d. Create dashboards <li/>
-   <li>e. Create a prototype of data story<li/>
+   <p></p>
+   <li>b. Choose data visualization techniques</li>
+   <p>Matplotlib will generate the images. Images will be saved ./resources/out. Vue will show the image on the home page.</p>
+   <li>c. Create visual representations</li>
+   <p>Visual representations can be found as .png files in ./resources/out</p>
+   <li>d. Create dashboards </li>
+   <p>Dashboards can be run in the frontend with npm run serve</p>
+   <li>e. Create a prototype of data story</li>
 </ul>
 
-1. Export your solution in a file and upload it to your git repository.
+4. Export your solution in a file and upload it to your git repository.
+<p>Done. In this repository</p>
