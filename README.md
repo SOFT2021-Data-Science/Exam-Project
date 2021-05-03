@@ -52,11 +52,17 @@ Stage 2.
 
 1. csv files found, saved and sources documented in "./resources/datasets". Further exploration of population density and urbanization required. Consider the necessary for prototyping and proof of concepts.
 
-2. Shared repository on github. Data stored on server in cloud. Data is shared between docker containers through volumes. The paths to these volumes change from development to production versions. The correct path is assigned through environment variables. The project uses an ELT approach, due to the multiple ways the data can be interpreted.  
+2. Shared repository on github. Data stored on server in cloud. Data is shared between docker containers through volumes. The paths to these volumes change from development to production versions. The correct path is assigned through environment variables. The project uses an ELT approach, due to the multiple ways the data can be interpreted.
+
 3.
 <ul>
    <li>a. Decide on data processing parameters and methods</li>
-   <p></p>
+   <p>
+    Machine learning model predictions allows us to make highly accurate guesses as to the likely outcomes of a question based on historical data, therefore we plan on implementing both the Forecast Model and the Clustering Model. K-means.
+    Basic visual representation.
+   </p>
+    <p>
+    Available parameters include "age", "gender", "location/urbanization", "population density", "race", "geolocation"</p>
    <li>b. Choose data visualization techniques</li>
    <p>Matplotlib will generate the images. Images will be saved ./resources/out. Vue will show the image on the home page.</p>
    <li>c. Create visual representations</li>
@@ -66,5 +72,5 @@ Stage 2.
    <li>e. Create a prototype of data story</li>
 </ul>
 
-4. Export your solution in a file and upload it to your git repository.
+1. Export your solution in a file and upload it to your git repository.
 <p>Done. In this repository</p>
