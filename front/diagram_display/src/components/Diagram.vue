@@ -4,8 +4,6 @@
         <p>{{ flerp }}</p>
         <img :src="getCurrentDiagram('logo.png')" />
         <img src="@/assets/logo.png" />
-        <img :src="stuff" alt="">
-        <img src=@/../../../resources/logo.png>
         <img :src="$store.state.currentDiagram">
     </div>
 </template>
@@ -21,9 +19,6 @@ import store from "vuex";
     flerp(){
       return this.$store.state.helloMessage;
     },
-    stuff(){
-      return require("@/../../../resources/logo.png");
-    }
   },
   methods:{
     getCurrentDiagram(img: string){
