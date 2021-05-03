@@ -35,10 +35,6 @@ Stage 1: Business Case Foundation
 
 Suicide rates. Male / Female. Rural
 
-
-
-
-
 2. Search Internet and get inspired by sources of information, related to your ideas.
 3. Formulate context, purpose, questions, and hypotheses for a data science experiment.
 4. Technology
@@ -52,8 +48,19 @@ annotation of your ideas, in minimum four sentences, telling:
 • which outcome do you expect from your research?
 • who may be a user of the results?
 
+Stage 2.
 
+1. csv files found, saved and sources documented in "./resources/datasets". Further exploration of population density and urbanization required. Consider the necessary for prototyping and proof of concepts.
 
+2. Shared repository on github. Data stored on server in cloud. Data is shared between docker containers through volumes. The paths to these volumes change from development to production versions. The correct path is assigned through environment variables. The project uses an ELT approach, due to the multiple ways the data can be interpreted.
 
+<ul>
+   <p>3. </p>
+   <li>a. Decide on data processing parameters and methods</li>
+   <li>b. Choose data visualization techniques<li/>
+   <li>c. Create visual representations<li/>
+   <li>d. Create dashboards <li/>
+   <li>e. Create a prototype of data story<li/>
+</ul>
 
-
+1. Export your solution in a file and upload it to your git repository.
