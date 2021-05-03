@@ -2,7 +2,7 @@
     <div>
         <p>Stuff</p>
         <p>{{ flerp }}</p>
-        <img :src="getCurrentDiagram('logo.png')" />
+        <img :src="getCurrentDiagram('bad_stock_photo.jpeg')" />
         <img src="@/assets/logo.png" />
         <img :src="$store.state.currentDiagram">
     </div>
