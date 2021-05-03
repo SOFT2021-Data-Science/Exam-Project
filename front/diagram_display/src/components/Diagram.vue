@@ -22,6 +22,8 @@ import store from "vuex";
   },
   methods:{
     getCurrentDiagram(img: string){
+      console.log(process.env.VUE_APP_RESOURCES_DIRECTORY);
+      
       return require(process.env.VUE_APP_RESOURCES_DIRECTORY+img)
     }
   }
