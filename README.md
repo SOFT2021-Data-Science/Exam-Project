@@ -25,10 +25,8 @@ The suicide rate among isolated individuals will be higher. Cases of prolonged m
 Gathering information about other cases might provide insight, about how the possible trends in suicide rates in America fluxes with isolation. 
 
 Who may be the user of the results?
-The results are primarily targeted towards interested organisations, herein suicide prevention organisations. 
+The results are primarily targeted towards interested organisations, herein suicide prevention organisations.
 The statistics will be publically available.
-
-
 
 Stage 1: Business Case Foundation
 1. Collect ideas and define a business or social domain, where data science can bring a value.
