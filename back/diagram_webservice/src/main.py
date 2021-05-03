@@ -4,11 +4,9 @@ from logic.basic import basic_sdg
 
 app = Flask(__name__)
 
-
 @app.route("/")
 def index():
     return "stuff works"
-
 
 @app.route("/stuff")
 def stuff_route():

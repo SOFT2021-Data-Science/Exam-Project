@@ -3,7 +3,6 @@ import pandas as pd
 import matplotlib.pyplot as plt
 
 
-
 def prepare_sdg():
     df = pd.read_csv(DATASETS.get("sdg"))
     
@@ -18,7 +17,7 @@ def prepare_sdg():
     
 
 # prototype
-def basic_sdg():
+def basic_sdg(min_date=2000, max_date=2019):
     df = prepare_sdg()
     df = df[df["WHO region"] == "Global"]
     df.drop(columns=["WHO region"],inplace=True)

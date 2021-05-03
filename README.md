@@ -70,5 +70,5 @@ Stage 2.
    <li>e. Create a prototype of data story</li>
 </ul>
 
-1. Export your solution in a file and upload it to your git repository.
+4. Export your solution in a file and upload it to your git repository.
 <p>Done. In this repository</p>

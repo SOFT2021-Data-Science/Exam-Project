@@ -21,3 +21,7 @@ import store from "vuex";
 export default class GuideComponent extends Vue {
 }
 </script>
+
+<style lang="scss">
+
+</style>
