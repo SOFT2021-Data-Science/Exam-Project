@@ -25,8 +25,8 @@ import store from "vuex";
       console.log(process.env.VUE_APP_RESOURCES_DIRECTORY);
       let imgPath: string = process.env.VUE_APP_RESOURCES_DIRECTORY+img
       console.log(imgPath);
-      return require("@/assets/logo.png")
-      //return require(process.env.VUE_APP_RESOURCES_DIRECTORY+img)
+      //return require("@/assets/logo.png")
+      return require(process.env.VUE_APP_RESOURCES_DIRECTORY+img)
     }
   }
 })

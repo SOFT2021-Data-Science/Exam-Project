@@ -23,7 +23,6 @@ services:
             - "net"
         environment:
             - PRODUCTION_VARIABLES=1
-            - VUE_APP_RESOURCES_DIRECTORY="/usr/resources"
         ports:
             - "80:8080"
         volumes:
