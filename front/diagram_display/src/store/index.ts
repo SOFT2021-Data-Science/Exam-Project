@@ -1,5 +1,7 @@
+import Vue from 'vue';
 import { createStore } from 'vuex'
-// import { RootState } from '@/store/types';
+import { RootState } from '@/store/types';
+ 
 export default createStore({
   state: {
     helloMessage: 'hello',

@@ -1,6 +1,6 @@
 <template>
   <div class="hello">
-    <p></p>
+    <p>{{ flerp() }}</p>
   </div>
 </template>
 
@@ -10,6 +10,12 @@ import { Options, Vue } from 'vue-class-component'
 @Options({
   props: {
     msg: String
+  },
+  computed: {
+    flerp(): string {
+      let stuff = this.$store.state.helloMessage;
+      return stuff;
+    }
   }
 })
 export default class HelloWorld extends Vue {
