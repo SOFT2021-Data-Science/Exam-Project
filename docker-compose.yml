@@ -26,7 +26,7 @@ services:
         ports:
             - "80:8080"
         volumes:
-            - ./resources:/app/src/assets
+            - ./resources:/resources
         
 networks:
     net:
