@@ -2,9 +2,12 @@
     <div>
         <p>Stuff</p>
         <p>{{ flerp }}</p>
-        <img :src="getCurrentDiagram('bad_stock_photo.jpeg')" />
         <img src="@/assets/logo.png" />
         <img :src="$store.state.currentDiagram">
+        <div v-for="n in $store.state.inputFields.length" :key=n>
+          <input type="text" id=paramInput{{n}}>
+        </div>
+        <button>Submit</button>
     </div>
 </template>
 

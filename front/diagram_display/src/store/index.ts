@@ -5,7 +5,9 @@ import { RootState } from '@/store/types';
 export default createStore({
   state: {
     helloMessage: 'hello',
-    currentDiagram: ""
+    currentDiagram: "",
+    // Plqceholder. Must be made dynamic.
+    inputFields: [null, null, null, null]
   },
   mutations: {
     SET_DIAGRAM(state, imgName) {
@@ -14,7 +16,7 @@ export default createStore({
         resourcesDirectory = process.env.VUE_APP_RESOURCES_DIRECTORY;
       }
       state.currentDiagram = resourcesDirectory + "/" + imgName;
-    }
+    },
   },
   actions: {
     setDiagramFromResources(context, imgName){

@@ -67,7 +67,9 @@ Stage 2.
    <p>Visual representations can be found as .png files in ./resources/out</p>
    <li>d. Create dashboards </li>
    <p>Dashboards can be run in the frontend with npm run serve</p>
+   <p>More variations will be added over time as we implement more functionalities</p>
    <li>e. Create a prototype of data story</li>
+   <p>Dashboard fetches information from the backend, which is the full setup for the data story. Again, the dashboard will be populated with options as the project progresses.</p>
 </ul>
 
 4. Export your solution in a file and upload it to your git repository.
