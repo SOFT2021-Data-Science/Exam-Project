@@ -1,38 +1,24 @@
 <template>
   <div>
-    <p>{{ name }}</p>
-    <p> {{ lastName }}</p>
-    <input type="text">
-    <button @click="someFunction">Click me daddy</button>
-    <button @click="anotherFunction">Click me daddy</button>
+    <p>hi</p>
   </div>
 </template>
 
 <script lang="ts">
-import { ref } from "vue"
+import axios from "axios";
 export default {
   // Static. Not reactive by default.
   setup() {
-      // Not reactive
-    let name = "Bob";
 
-    const someFunction = () => {
-      console.log(name);
+    const load = async () => {
+      try {
+        let data = await axios.get("${process.env.VUE_APP_RESOURCES_DIRECTORY}/basic/2012&2017")
+      } catch (error) {
+
+      }
     };
 
-    // Reactive
-    const lastName = ref("Johnson")
-
-    const anotherFunction = () => {
-        lastName.value = "John"
-    }
-
-    return {
-      name,
-      someFunction,
-      lastName,
-      anotherFunction
-    };
+    return {};
   },
 };
 </script>
