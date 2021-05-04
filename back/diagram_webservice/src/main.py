@@ -1,10 +1,11 @@
 from flask import Flask
+from flask_cors import CORS
 from utils.aliases import RESOURCES_DIR
 from logic.basic import basic_sdg
 import os
 
 app = Flask(__name__)
-
+CORS(app)
 
 @app.route("/")
 def index():
