@@ -1,0 +1,2 @@
+https://www.npmjs.com/package/vue-property-decorator/v/10.0.0-rc.2
+https://www.youtube.com/watch?v=u8lMkgb-8iA&ab_channel=AlexanderZiskind

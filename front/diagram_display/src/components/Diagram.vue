@@ -16,8 +16,6 @@ import {
     Vue
 } from "vue-class-component";
 import store from "vuex";
-
-
 @Options({
     computed: {
         flerp() {
@@ -36,14 +34,13 @@ import store from "vuex";
             let num: number = this.$store.state.inputFields.length
             let i: number;
             
-
             for (i = 0; i <= num - 1; i++) {
                 console.log(this.$store.state.inputFields[i]);
             }
         }
     },
 })
-export default class GuideComponent extends Vue {
+export default class Diagram extends Vue {
   get inputId(): number {
     return 2
   }
