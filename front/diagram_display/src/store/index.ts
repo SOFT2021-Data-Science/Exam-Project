@@ -6,8 +6,9 @@ export default createStore({
   state: {
     helloMessage: 'hello',
     currentDiagram: "",
-    // Plqceholder. Must be made dynamic.
-    inputFields: [null, null, null, null]
+    // Placeholder. Must be made dynamic.
+    inputFields: [null, null, null, null],
+    currentInputIterationId: 0
   },
   mutations: {
     SET_DIAGRAM(state, imgName) {
@@ -17,6 +18,9 @@ export default createStore({
       }
       state.currentDiagram = resourcesDirectory + "/" + imgName;
     },
+  },
+  getters: {
+    getCurrentInputIterationId: state => state.currentInputIterationId
   },
   actions: {
     setDiagramFromResources(context, imgName){
