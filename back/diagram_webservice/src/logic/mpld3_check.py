@@ -18,6 +18,7 @@ def mpld3_check():
 
     for key, val in df.iteritems():
         l, = ax.plot(val.index, val.values, label=key)
+        print(f"{val.index} {val.values}")
         ax.fill_between(val.index,
                         val.values * .5, val.values * 1.5,
                         color=l.get_color(), alpha=.4)

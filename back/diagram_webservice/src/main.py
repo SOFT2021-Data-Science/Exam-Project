@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, render_template_string
 from flask_cors import CORS, cross_origin
 from utils.aliases import RESOURCES_DIR
 from logic.basic import basic_sdg
@@ -27,8 +27,10 @@ def sdg_basic_route(min, max):
     if min > max:
         return "400 - Minimum value is larger than max"
     try:
-        basic_sdg(min, max)
-        return "ok"
+        img = basic_sdg(min, max)
+        return render_template_string(img)
+        #return img
+        #return {"msg":"ok"}
     except Exception as e:
         if bool(os.getenv("DEBUG")):
             return f"500 - {e}"

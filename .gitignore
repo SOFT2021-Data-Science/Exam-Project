@@ -3,6 +3,8 @@
 /resources/out
 */resources/out
 resources/out/
+**/out
+resources/out/**
 
 # End custom
 
