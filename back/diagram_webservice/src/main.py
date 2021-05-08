@@ -6,15 +6,16 @@ from logic.mpld3_check import mpld3_check
 import os
 
 app = Flask(__name__)
-cors = CORS(app)
-app.config["CORS_HEADERS"] = "*"
+#cors = CORS(app)
+#app.config["CORS_HEADERS"] = "*"
 
 
+#@cross_origin()
 @app.route("/")
-@cross_origin()
 def index():
     return "This is the backend for the dsc project"
 
+#@cross_origin()
 @app.route("/mpld3check")
 def mpld3_check_stuff():
     mpld3_check()
@@ -22,6 +23,7 @@ def mpld3_check_stuff():
 
 
 # E.g. http://localhost:5000/basic/2002&2012
+#@cross_origin()
 @app.route("/basic/<int:min>&<int:max>")
 def sdg_basic_route(min, max):
     if min > max:
