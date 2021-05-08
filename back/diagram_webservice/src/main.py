@@ -1,15 +1,24 @@
-from flask import Flask
-from flask_cors import CORS
+from flask import Flask, render_template
+from flask_cors import CORS, cross_origin
 from utils.aliases import RESOURCES_DIR
 from logic.basic import basic_sdg
+from logic.mpld3_check import mpld3_check
 import os
 
 app = Flask(__name__)
-CORS(app)
+cors = CORS(app)
+app.config["CORS_HEADERS"] = "*"
+
 
 @app.route("/")
+@cross_origin()
 def index():
     return "This is the backend for the dsc project"
+
+@app.route("/mpld3check")
+def mpld3_check_stuff():
+    mpld3_check()
+    return "ok"
 
 
 # E.g. http://localhost:5000/basic/2002&2012
@@ -21,11 +30,11 @@ def sdg_basic_route(min, max):
         basic_sdg(min, max)
         return "ok"
     except Exception as e:
-        if bool(os.getenv('DEBUG')):
+        if bool(os.getenv("DEBUG")):
             return f"500 - {e}"
         return 500
 
 
 if __name__ == "__main__":
-    os.environ['DEBUG'] = "True"
+    os.environ["DEBUG"] = "True"
     app.run(host="127.0.0.1", debug=True)
