@@ -1,4 +1,11 @@
 
+# Custom
+/resources/out
+*/resources/out
+resources/out/
+
+# End custom
+
 # Created by https://www.toptal.com/developers/gitignore/api/react,python,vscode
 # Edit at https://www.toptal.com/developers/gitignore?templates=react,python,vscode
 
