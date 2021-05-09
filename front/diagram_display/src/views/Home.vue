@@ -1,19 +1,28 @@
 <template>
   <div>
     <p>Graph stuff goes here</p>
+    <DiagramSelectionDropdown :helloMsgProp="helloMsg"/>
     <DiagramAlt />
   </div>
 </template>
 
 <script lang="ts">
-import { Options, Vue } from "vue-class-component";
+import { defineComponent } from "vue";
 // import HelloWorld from '@/components/HelloWorld.vue' // @ is an alias to /src
 import DiagramAlt from "@/components/DiagramAlt.vue";
+import DiagramSelectionDropdown from "@/components/DiagramSelectionDropdown.vue";
 
-@Options({
+export default defineComponent({
   components: {
     DiagramAlt,
+    DiagramSelectionDropdown
   },
+  setup(){
+    let helloMsg="hello"
+
+    return {
+      helloMsg
+    }
+  }
 })
-export default class Home extends Vue {}
 </script>
