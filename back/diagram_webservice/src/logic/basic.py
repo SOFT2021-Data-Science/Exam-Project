@@ -97,20 +97,16 @@ def basic_sdg(min_date, max_date, preview, file_name=False):
         alpha_over=1.5,
         start_visible=True,
     )
-    
+
     plugins.connect(fig, interactive_legend)
 
     ax.set_xlabel("x")
     ax.set_ylabel("y")
     ax.set_title(f"sdg suicide {min_date}-{max_date}", size=20)
 
-
-    
-    if preview: 
+    if preview:
         full_file_out_path = f"{OUT_DIR}/{file_name}{IMAGE_FORMAT}"
         plt.savefig(full_file_out_path)
         return
     else:
         return mpld3.fig_to_html(fig)
-
-    

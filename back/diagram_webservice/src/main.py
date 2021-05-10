@@ -72,6 +72,7 @@ def sdg_basic_route_template(min, max):
     except Exception as e:
         check_debug(e)
 
+
 # E.g. http://localhost:5000/sdg/preview/region=Africa&gender=Male
 @cross_origin()
 @app.route("/sdg/preview/region=<string:region>&gender=<string:gender>")

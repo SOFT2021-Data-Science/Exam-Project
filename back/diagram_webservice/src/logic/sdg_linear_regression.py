@@ -24,7 +24,10 @@ def _move_down_header(df):
     df.columns = header
     return df
 
-def _create_and_save_plot(title, X_axis, y_axis, X_train, X_test, y_pred, regressor, full_file_out_path):
+
+def _create_and_save_plot(
+    title, X_axis, y_axis, X_train, X_test, y_pred, regressor, full_file_out_path
+):
     # Regression coe
     a = regressor.coef_
     b = regressor.intercept_
@@ -35,7 +38,9 @@ def _create_and_save_plot(title, X_axis, y_axis, X_train, X_test, y_pred, regres
     plt.plot(X_test, y_pred, color="orange")
     plt.xlabel("Hours")
     plt.ylabel("Scores")
+
     plt.savefig(full_file_out_path)
+
 
 
 def sdg_linear_regression(region, gender, preview, file_name=False):
@@ -45,8 +50,6 @@ def sdg_linear_regression(region, gender, preview, file_name=False):
     print("################")
     print("################")
     print("################")
-    if file_name == False and preview == True:
-        return False
 
     df = prepare_sdg()  # Prepare the dataset
 
@@ -70,7 +73,6 @@ def sdg_linear_regression(region, gender, preview, file_name=False):
     data = [df["date"].astype(int), df[gender].astype(float)]
     headers = ["date", gender]
     df = pd.concat(data, axis=1, keys=headers)
-    print(df)
 
     # Train Model
     # Split data into independent X_axis and Y_axis
@@ -115,10 +117,24 @@ def sdg_linear_regression(region, gender, preview, file_name=False):
 
     if preview:
         full_file_out_path = f"{OUT_DIR}/{file_name}{IMAGE_FORMAT}"
-        p = multiprocessing.Process(target=_create_and_save_plot, args=("Linear Regression", X_axis, y_axis, X_train, X_test, y_pred, regressor, full_file_out_path))
+        p = multiprocessing.Process(
+            target=_create_and_save_plot,
+            args=(
+                "Linear Regression",
+                X_axis,
+                y_axis,
+                X_train,
+                X_test,
+                y_pred,
+                regressor,
+                full_file_out_path,
+            ),
+        )
         p.start()
         p.join()
-        #plt.savefig(full_file_out_path)
         return
     else:
+        # p = multiprocessing.Process(target=_create_and_save_plot, args=("Linear Regression", X_axis, y_axis, X_train, X_test, y_pred, regressor, full_file_out_path))
+        # p.start()
+        # p.join()
         return mpld3.fig_to_html(plt)

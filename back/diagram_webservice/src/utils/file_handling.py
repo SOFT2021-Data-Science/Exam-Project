@@ -11,5 +11,6 @@ def generate_file_name(*args):
         file_name = f"{file_name}_{str(arg)}"
     return file_name
 
+
 def file_name_exists(file_name):
     return os.path.isfile(f"{OUT_DIR}/{file_name}{IMAGE_FORMAT}")
