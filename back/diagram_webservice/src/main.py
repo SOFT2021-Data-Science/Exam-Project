@@ -96,7 +96,7 @@ def sdg_linear_regression_template(region, gender):
     if gender not in ["both", "male", "female"]:
         return "400"
     try:
-        img = sdg_linear_regression(min, max, region, gender, preview=False)
+        img = sdg_linear_regression(region, gender, preview=False)
         return render_template_string(img)
     except Exception as e:
         check_debug(e)

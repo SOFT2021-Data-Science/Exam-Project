@@ -26,21 +26,21 @@ def _move_down_header(df):
 
 
 def _create_and_save_plot(
-    title, X_axis, y_axis, X_train, X_test, y_pred, regressor, full_file_out_path
+    title, X_axis, y_axis, X_train, X_test, y_pred, coefficient, intercept, full_file_out_path
 ):
-    # Regression coe
-    a = regressor.coef_
-    b = regressor.intercept_
 
-    plt.title(title)
-    plt.scatter(X_axis, y_axis, color="green")
-    plt.plot(X_train, a * X_train + b, color="blue")
-    plt.plot(X_test, y_pred, color="orange")
-    plt.xlabel("Hours")
-    plt.ylabel("Scores")
+    figure = plt.figure()
+    ax = plt.axes()
+    ax.scatter(X_axis, y_axis, edgecolor='k', facecolor='grey', label ="Sample Data")
+    ax.plot(X_train, coefficient * X_train + intercept, label ="Regression Model")
+    ax.plot(X_test, y_pred, label = "Regression Model Predicted")
+    ax.set_title(title, fontsize=18)
+    ax.set_xlabel("Suicide Rate", fontsize=14)
+    ax.set_ylabel("Years", fontsize=14)
+    ax.legend(facecolor='white', fontsize=11)
+    ax.axis('tight')
 
-    plt.savefig(full_file_out_path)
-
+    return figure
 
 
 def sdg_linear_regression(region, gender, preview, file_name=False):
@@ -93,48 +93,27 @@ def sdg_linear_regression(region, gender, preview, file_name=False):
         X_train, y_train
     )  # Fit the X_train and y_train into the regressor model
 
-    # Regression coe
-    a = regressor.coef_
-    b = regressor.intercept_
+    # Regression coefficient
+    coefficient = regressor.coef_
+    # Regression intercept
+    intercept = regressor.intercept_
 
     # Predicted response vector
     y_pred = regressor.predict(X_test)
 
-    # fig = plt.figure()
-
-    # full_file_out_path = f"{OUT_DIR}/{file_name}{IMAGE_FORMAT}"
-    # plt.savefig(full_file_out_path)
-
-    # fig = plt.figure()
-    # plt.title('Linear Regression')
-    # ax = fig.add_axes([0,0,1,1])
-    # ax.scatter(X_axis, y_axis, color='green')
-    # ax.plot(X_train, a*X_train + b, color='blue')
-    # ax.plot(X_test, y_pred, color='orange')
-    # ax.set_xlabel('Years')
-    # ax.set_ylabel('Suicide Rate')
-    # ax.set_title(f"Linear Regression {region} {gender}")
+    full_file_out_path = f"{OUT_DIR}/{file_name}{IMAGE_FORMAT}"
+    fig = _create_and_save_plot("Linear Regression",
+            X_axis,
+            y_axis,
+            X_train,
+            X_test,
+            y_pred,
+            coefficient,
+            intercept,
+            full_file_out_path)
 
     if preview:
-        full_file_out_path = f"{OUT_DIR}/{file_name}{IMAGE_FORMAT}"
-        p = multiprocessing.Process(
-            target=_create_and_save_plot,
-            args=(
-                "Linear Regression",
-                X_axis,
-                y_axis,
-                X_train,
-                X_test,
-                y_pred,
-                regressor,
-                full_file_out_path,
-            ),
-        )
-        p.start()
-        p.join()
+        fig.savefig(full_file_out_path)
         return
     else:
-        # p = multiprocessing.Process(target=_create_and_save_plot, args=("Linear Regression", X_axis, y_axis, X_train, X_test, y_pred, regressor, full_file_out_path))
-        # p.start()
-        # p.join()
-        return mpld3.fig_to_html(plt)
+        return mpld3.fig_to_html(fig)
