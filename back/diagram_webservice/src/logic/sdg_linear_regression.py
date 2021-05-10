@@ -24,6 +24,19 @@ def _move_down_header(df):
     df.columns = header
     return df
 
+def _create_and_save_plot(title, X_axis, y_axis, X_train, X_test, y_pred, regressor, full_file_out_path):
+    # Regression coe
+    a = regressor.coef_
+    b = regressor.intercept_
+
+    plt.title(title)
+    plt.scatter(X_axis, y_axis, color="green")
+    plt.plot(X_train, a * X_train + b, color="blue")
+    plt.plot(X_test, y_pred, color="orange")
+    plt.xlabel("Hours")
+    plt.ylabel("Scores")
+    plt.savefig(full_file_out_path)
+
 
 def sdg_linear_regression(region, gender, preview, file_name=False):
 
@@ -85,13 +98,6 @@ def sdg_linear_regression(region, gender, preview, file_name=False):
     # Predicted response vector
     y_pred = regressor.predict(X_test)
 
-    plt.title("Linear Regression")
-    plt.scatter(X_axis, y_axis, color="green")
-    plt.plot(X_train, a * X_train + b, color="blue")
-    plt.plot(X_test, y_pred, color="orange")
-    plt.xlabel("Hours")
-    plt.ylabel("Scores")
-
     # fig = plt.figure()
 
     # full_file_out_path = f"{OUT_DIR}/{file_name}{IMAGE_FORMAT}"
@@ -109,7 +115,10 @@ def sdg_linear_regression(region, gender, preview, file_name=False):
 
     if preview:
         full_file_out_path = f"{OUT_DIR}/{file_name}{IMAGE_FORMAT}"
-        plt.savefig(full_file_out_path)
+        p = multiprocessing.Process(target=_create_and_save_plot, args=("Linear Regression", X_axis, y_axis, X_train, X_test, y_pred, regressor, full_file_out_path))
+        p.start()
+        p.join()
+        #plt.savefig(full_file_out_path)
         return
     else:
         return mpld3.fig_to_html(plt)
