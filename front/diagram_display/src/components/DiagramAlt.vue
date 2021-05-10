@@ -1,20 +1,32 @@
 <template>
   <div>
-    <button @click="loadExternalGraph()">Load resource</button>
-    <div v-html="dynamic_html"></div>
+    <div
+      v-for="(selection, index) in Object.entries(
+        $store.getters.getSelectedFromOptions
+      )"
+      :key="selection[0]"
+    >
+      <label :for="selection[0]">{{ selection[1] }}</label>
+      <input :id="selection[0]" v-model="$store.state.inputValues[index]" />
+    </div>
+    <button @click="loadPreviewGraph($event)">Load resource</button>
+    {{ $store.state.inputValues }}
   </div>
 </template>
 
 <script lang="ts">
-import axios, { AxiosResponse } from "axios";
-import { ref } from "vue";
-export default {
-  // Static. Not reactive by default.
+import axios from "axios";
+import { defineComponent } from "vue";
+import { useStore } from "vuex";
+
+export default defineComponent({
   setup() {
+    let store = useStore();
+
     const loadExternalGraph = async () => {
       let url_string: string = process.env.VUE_APP_BACKEND + "/basic/2012&2017";
-      //let url_string = "http://127.0.0.1:5000/basic/2012&2017"
       console.log(url_string);
+
       try {
         let data = await axios
           .get(url_string)
@@ -22,25 +34,30 @@ export default {
           .then((data) => data.data);
         console.log(data);
 
-        dynamic_html.value = data;
         window.location.href = url_string;
       } catch (error) {
         console.log(error);
       }
     };
 
-    const loadPreviewGraph = async () => {
-      console.log("Boop");
-      
-    }
+    const loadPreviewGraph = () => {
+      let url_string: string =
+        process.env.VUE_APP_BACKEND + "/" + store.state.selected + "/preview/";
 
-    const dynamic_html = ref(`
-    <p>Hi from dynamic html</p>
-    `);
+      let options = store.getters.getSelectedFromOptions;
+      console.log(options);
 
-    return { loadExternalGraph, dynamic_html };
+      for (const [key, value] of Object.entries(store.state.inputValues)) {
+        if (parseInt(key) != 0) {
+          url_string += "&";
+        }
+        url_string += options[key] + "=" + value;
+      }
+      console.log(url_string);
+    };
+    return { loadExternalGraph, loadPreviewGraph };
   },
-};
+});
 </script>
 
 <style lang="scss">

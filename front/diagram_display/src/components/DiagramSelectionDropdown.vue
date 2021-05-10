@@ -1,48 +1,35 @@
 <template>
   <div>
     <button @click="toggleDropdown">Toggle</button>
-    <label for="dropped-down"></label>
-    <select v-model="selected">
-      <option disabled value="">Available diagram options:</option>
-      <option>sdg - basic</option>
-      <option>sdg - Linear Regression</option>
+    <select v-model="$store.state.selected" @click="resetInputValues" >
+      <option
+        v-for="selection in Object.entries($store.state.selectionOptions)"
+        :key="selection.key"
+        @click="resetInputValues"
+      >
+        {{ selection[0] }}
+      </option>
     </select>
-    <span>Selected: {{ selected }}</span>
-    <div v-if="toggle">
-      <p>Toggled</p>
-    </div>
-    <p>{{ helloMsg }}</p>
-    <p>{{ helloMsgProp }}</p>
+    <span
+      >Selected: {{ $store.state.selected }}
+      {{ $store.getters.getSelectedFromOptions }}</span
+    >
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from "vue";
+import { defineComponent } from "vue";
+import { useStore } from "vuex";
 
 export default defineComponent({
-  props: {
-    helloMsgProp: String,
-  },
   setup() {
-    let helloMsg = "Hello from dropdown";
-    let toggle = ref(true);
-    let selected = ref("");
-
-    let selectionOptions = {
-        sdgBasic: ["min","max"],
-        sdgLinearRegression: ["gender"]
+    let store = useStore();
+    const resetInputValues = () => {
+      store.dispatch("setInputValues", []);
     };
-
-    // let sdgBasicOptions = ["min", "max"];
-    // let sdgLinearRegression = ["gender"];
-
-    const toggleDropdown = () => {
-      console.log(toggle);
-
-      toggle.value = !toggle.value;
+    return {
+      resetInputValues,
     };
-
-    return { helloMsg, toggleDropdown, toggle, selected };
   },
 });
 </script>
