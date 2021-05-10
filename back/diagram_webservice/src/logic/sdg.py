@@ -1,34 +1,46 @@
-from utils.aliases import DATASETS, OUT_DIR
-from utils.file_handling import IMAGE_FORMAT
-from logic.basic import prepare_sdg
-
-import pandas as pd
+from numpy import log
 import numpy as np
+import pandas as pd
 import matplotlib.pyplot as plt
 import mpld3
 from mpld3 import plugins
 import multiprocessing
 
-import random
-import time
+# Sklearn data analysis
+import sklearn.metrics as sm  
+from sklearn.preprocessing import StandardScaler  
+from sklearn import linear_model  
+from sklearn.linear_model import LinearRegression  
+from sklearn.model_selection import train_test_split  
 
-# from numpy import log
+from utils.aliases import DATASETS, OUT_DIR
+from utils.file_handling import IMAGE_FORMAT
 
-import sklearn.metrics as sm  # Data analysis
-from sklearn.preprocessing import StandardScaler  # Data analysis
-from sklearn import linear_model  # Data analysis
-from sklearn.linear_model import LinearRegression  # Data analysis
-from sklearn.model_selection import train_test_split  # Data analysis
+def prepare_sdg():
+    df = pd.read_csv(DATASETS.get("sdg"))
 
-processing_queue = multiprocessing.Queue()
+    # The format of this file is weird, in the way, that it comes with two headers.
+    # Where in the first row is the second header.
+    # See file for 1st header
 
-
-def _move_down_header(df):
     header = df.iloc[0]
     df = df[1:]
     df.columns = header
     return df
 
+
+# Simplifying list comprehension
+def _is_digit_and_is_between_range(column, min, max):
+    if column.isdigit():
+        if int(column) < min or int(column) > max:
+            return True
+    return False
+  
+def _move_down_header(df):
+    header = df.iloc[0]
+    df = df[1:]
+    df.columns = header
+    return df
 
 def _create_plot(
     title,
@@ -52,10 +64,10 @@ def _create_plot(
     ax.scatter(X_axis, y_axis, edgecolor="k", facecolor="grey", label="Sample Data")
 
     # Add regression model to plot
-    ax.plot(X_train, coefficient * X_train + intercept, label="Regression Model")
+    ax.plot(X_train, coefficient * X_train + intercept, label="Regression Model Prediction")
 
     # Add predicted regression model
-    ax.plot(X_test, y_pred, label="Regression Model Prediction")
+    ax.plot(X_test, y_pred, label="Regression Model")
 
     # Defining plot labels and styling
     ax.set_title(title, fontsize=18)
@@ -71,13 +83,6 @@ def _create_plot(
     return figure
 
 def sdg_linear_regression(region, gender, preview, file_name=False):
-
-    print("################")
-    print("################")
-    print("################")
-    print("################")
-    print("################")
-
     df = prepare_sdg()  # Prepare the dataset
 
     # Iterate through every value in the dataframe and remove split the data at every space (" "
@@ -100,7 +105,7 @@ def sdg_linear_regression(region, gender, preview, file_name=False):
     # Iterate through every column value and change them to be lowercased
     df.columns = [x.lower() for x in df.columns]
 
-    # AFter calling Transpose on the dataframe, the date column is defined as "sex" which is wrong, therefor we rename it back to "date"
+    # After calling Transpose on the dataframe, the date column is defined as "sex" which is wrong, therefore we rename it back to "date"
     df = df.rename(columns={"sex": "date"})
 
     # Filter the current dataframe into a new dataframe with only the "date" column and specified gender colum
@@ -126,10 +131,7 @@ def sdg_linear_regression(region, gender, preview, file_name=False):
         X_train, y_train
     )  # Fit the X_train and y_train into the regressor model
 
-    # Regression coefficient
     coefficient = regressor.coef_
-
-    # Regression intercept
     intercept = regressor.intercept_
 
     # Predicted response vector
@@ -138,17 +140,18 @@ def sdg_linear_regression(region, gender, preview, file_name=False):
     # Output path for generated plot image
     full_file_out_path = f"{OUT_DIR}/{file_name}{IMAGE_FORMAT}"
 
-    # Process Manager
     manager = multiprocessing.Manager()
 
     # Return Dict (used to save the data we return from the plot process)
     return_dict = manager.dict()
 
+    plot_title = f"sdg linear regression {region} {gender}"
+
     # Create multiprocess to generate plot
     create_plot_process = multiprocessing.Process(
         target=_create_plot,
         args=(
-            "Linear Regression",
+            plot_title,
             X_axis,
             y_axis,
             X_train,
@@ -161,13 +164,12 @@ def sdg_linear_regression(region, gender, preview, file_name=False):
         ),
     )
 
-    # Start plot creation process
     create_plot_process.start()
     # Join the plot process. This is usually only nessesary if we have multiple processes running,
-    # however we want to make sure the function is finished before we proceed, therefor we add "join()"
-    create_plot_process .join()
+    # however we want to make sure the function is finished before we proceed, therefore we add "join()"
+    create_plot_process.join()
 
-    # The finished plot - return_dict is an array of values, but we generate only one value, therefor we pick the one at index [0]
+    # The finished plot - return_dict is an array of values, but we generate only one value, therefore we pick the one at index [0]
     finished_plot = return_dict.values()[0]
 
     if preview:
