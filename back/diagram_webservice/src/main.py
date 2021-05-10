@@ -79,7 +79,7 @@ def sdg_basic_route_template(min, max):
         check_debug(e)
 
 
-# E.g. http://localhost:5000/sdg/preview/region=Africa&gender=Male
+# E.g. http://localhost:5000/sdg/preview/region=Africa&gender=male
 @cross_origin()
 @app.route("/sdg/preview/region=<string:region>&gender=<string:gender>")
 def sdg_linear_regression_preview(region, gender):
@@ -98,7 +98,7 @@ def sdg_linear_regression_preview(region, gender):
         create_and_updatelog(e)
 
 
-# E.g. http://localhost:5000/sdg/template/region=Africa&gender=Male
+# E.g. http://localhost:5000/sdg/template/region=Africa&gender=male
 @cross_origin()
 @app.route("/sdg/template/region=<string:region>&gender=<string:gender>")
 def sdg_linear_regression_template(region, gender):

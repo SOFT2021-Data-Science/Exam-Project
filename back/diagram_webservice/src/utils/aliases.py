@@ -6,7 +6,7 @@ ROOT_DIR = os.path.dirname(ROOT_DIR)
 RESOURCES_DIR = os.path.dirname(ROOT_DIR)
 RESOURCES_DIR = os.path.dirname(RESOURCES_DIR)
 RESOURCES_DIR = os.path.dirname(RESOURCES_DIR) + "/resources"
-LOGGING_DIR = ROOT_DIR + "/log"
+LOGGING_DIR = os.path.dirname(ROOT_DIR) + "/log"
 _DATASET_DIR = RESOURCES_DIR + "/datasets"
 OUT_DIR = RESOURCES_DIR + "/out"
 
