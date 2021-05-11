@@ -16,11 +16,9 @@ LOGGING_DIR = os.path.dirname(ROOT_DIR) + "/log"
 _DATASET_DIR = RESOURCES_DIR + "/datasets"
 OUT_DIR = RESOURCES_DIR + "/out"
 
-ENV_DEVELOPMENT_PATH = ROOT_DIR + '/.env.development'
+ENV_DEVELOPMENT_PATH = ROOT_DIR + "/.env.development"
 
 if not os.path.isdir(OUT_DIR):
     os.mkdir(OUT_DIR)
 
-DATASETS = {
-    "sdg": f"{_DATASET_DIR}/SDGSUICIDE,SDG_SH_STA_SCIDEN.csv"
-}
+DATASETS = {"sdg": f"{_DATASET_DIR}/SDGSUICIDE,SDG_SH_STA_SCIDEN.csv"}

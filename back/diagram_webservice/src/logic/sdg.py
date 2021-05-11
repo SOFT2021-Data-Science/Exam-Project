@@ -64,12 +64,12 @@ def _create_plot(
     ax = plt.axes()
 
     # Make scatterplot
-    ax.scatter(X_axis, y_axis, edgecolor="k",
-               facecolor="grey", label="Sample Data")
+    ax.scatter(X_axis, y_axis, edgecolor="k", facecolor="grey", label="Sample Data")
 
     # Add regression model to plot
-    ax.plot(X_train, coefficient * X_train + intercept,
-            label="Regression Model Prediction")
+    ax.plot(
+        X_train, coefficient * X_train + intercept, label="Regression Model Prediction"
+    )
 
     # Add predicted regression model
     ax.plot(X_test, y_pred, label="Regression Model")
