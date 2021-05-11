@@ -4,18 +4,22 @@
             "basic": ["min", "max],
             "linear_regression": ["region", "gender"]
         },
-        "gender_enums": ["male", "female","both"],
-        "region_enums": ["Africa", "Europe"],
-        "date_range": [2000, 2019]
+        "header_enums": {
+            "gender_enums": ["male", "female","both"],
+            "region_enums": ["Africa", "Europe"],
+            "date_range": [2000, 2019]
+        }
     },
     "kaggle": {
         "models":{        
             "basic": ["min", "max],
             "linear_regression": ["region", "gender"]
         },
-        "gender_enums": ["male", "female"],
-        "country_enums": [ALL OF THE COUNTRIES..!?],
-        "date_range": [1985, 2016]
+        "header_enums": {
+            "gender_enums": ["male", "female"],
+            "country_enums": [ALL OF THE COUNTRIES..!?],
+            "date_range": [1985, 2016]
+        }
     }
 }
 
