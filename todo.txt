@@ -13,5 +13,8 @@ clean up initial files
 create header
 shared resource folder with backend (implemented needs testing)
 
-
-
+Insert explanation
+Insert equation
+Insert values inside the equation
+Insert description
+Insert into redis response.

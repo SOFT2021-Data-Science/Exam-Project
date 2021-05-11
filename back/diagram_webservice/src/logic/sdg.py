@@ -7,14 +7,15 @@ from mpld3 import plugins
 import multiprocessing
 
 # Sklearn data analysis
-import sklearn.metrics as sm  
-from sklearn.preprocessing import StandardScaler  
-from sklearn import linear_model  
-from sklearn.linear_model import LinearRegression  
-from sklearn.model_selection import train_test_split  
+import sklearn.metrics as sm
+from sklearn.preprocessing import StandardScaler
+from sklearn import linear_model
+from sklearn.linear_model import LinearRegression
+from sklearn.model_selection import train_test_split
 
 from utils.aliases import DATASETS, OUT_DIR
 from utils.file_handling import IMAGE_FORMAT
+
 
 def prepare_sdg():
     df = pd.read_csv(DATASETS.get("sdg"))
@@ -35,12 +36,14 @@ def _is_digit_and_is_between_range(column, min, max):
         if int(column) < min or int(column) > max:
             return True
     return False
-  
+
+
 def _move_down_header(df):
     header = df.iloc[0]
     df = df[1:]
     df.columns = header
     return df
+
 
 def _create_plot(
     title,
@@ -59,12 +62,14 @@ def _create_plot(
 
     # Define the axes
     ax = plt.axes()
-    
+
     # Make scatterplot
-    ax.scatter(X_axis, y_axis, edgecolor="k", facecolor="grey", label="Sample Data")
+    ax.scatter(X_axis, y_axis, edgecolor="k",
+               facecolor="grey", label="Sample Data")
 
     # Add regression model to plot
-    ax.plot(X_train, coefficient * X_train + intercept, label="Regression Model Prediction")
+    ax.plot(X_train, coefficient * X_train + intercept,
+            label="Regression Model Prediction")
 
     # Add predicted regression model
     ax.plot(X_test, y_pred, label="Regression Model")
@@ -81,6 +86,7 @@ def _create_plot(
 
     # Return figure (this does nothing when running it as a process, thats why we have the return_dict)
     return figure
+
 
 def sdg_linear_regression(region, gender, preview, file_name=False):
     df = prepare_sdg()  # Prepare the dataset

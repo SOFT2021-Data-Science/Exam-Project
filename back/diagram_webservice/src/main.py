@@ -23,17 +23,20 @@ def index():
     return "This is the backend for the dsc project"
 
 # E.g. http://localhost:5000/sdg/preview/region=Africa&gender=male
+
+
 @cross_origin()
 @app.route("/sdg/preview/region=<string:region>&gender=<string:gender>")
 def sdg_linear_regression_preview(region, gender):
     if gender not in ["both", "male", "female"]:
         create_and_updatelog("400")
         return "400"
-        
+
         # File name is false if a file with the same name already exists.
     file_name = generate_file_name("sdg_linear_regression", region, gender)
     if not file_name_exists(file_name):
-        sdg_linear_regression(region, gender, preview=True, file_name=file_name)
+        sdg_linear_regression(
+            region, gender, preview=True, file_name=file_name)
     try:
         return send_file(f"{OUT_DIR}/{file_name}{IMAGE_FORMAT}")
     except Exception as e:
@@ -48,7 +51,7 @@ def sdg_linear_regression_template(region, gender):
     if gender not in ["both", "male", "female"]:
         create_and_updatelog("400")
         return "400"
-        
+
     try:
         img = sdg_linear_regression(region, gender, preview=False)
         return render_template_string(img)
