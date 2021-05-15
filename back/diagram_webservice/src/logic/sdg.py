@@ -189,9 +189,11 @@ def sdg_linear_regression(region, gender, preview, file_name=False):
 
 
 def _create_plot_clusters(
+    title,
     dataframe,
     centroids,
     kmeans,
+    return_dict
 ):
     # Create plot figure
     figure = plt.figure()
@@ -203,14 +205,14 @@ def _create_plot_clusters(
     ax.scatter(dataframe.iloc[:,0],dataframe.iloc[:,1],c=kmeans.labels_.astype(float),s=50,alpha=0.5)
     ax.scatter(centroids[:,0],centroids[:,1], c="red",s=50)
 
+    return_dict[title] = figure
 
     # Return figure (this does nothing when running it as a process, thats why we have the return_dict)
     return figure
 
 
 
-def scatterplot_all_clustered(region, gender, preview, file_name=False):# Create an instance of KMeans classifier
-
+def sdg_kmeans_cluster(region, gender, preview, file_name=False):# Create an instance of KMeans classifier
     df=prepare_sdg()
      # Iterate through every value in the dataframe and remove split the data at every space (" "
     # E.g:  9.2 [4.2, 6.7] --> 9.2
@@ -240,15 +242,48 @@ def scatterplot_all_clustered(region, gender, preview, file_name=False):# Create
     data = [df["date"].astype(int), df[gender].astype(float)]
     headers = ["date", gender]
     df = pd.concat(data, axis=1, keys=headers)
-    print(df)
+   
     full_file_out_path = f"{OUT_DIR}/{file_name}{IMAGE_FORMAT}"
     kmeans = KMeans(n_clusters=4).fit(df)
-    print(kmeans)
+  
     centroids = kmeans.cluster_centers_
-    print(centroids)
     
-    fig=_create_plot_clusters(df,centroids,kmeans)
-    fig.savefig(full_file_out_path)
+    
+    # fig=_create_plot_clusters(df,centroids,kmeans)
+    # fig.savefig(full_file_out_path)
+
+    manager = multiprocessing.Manager()
+
+    # Return Dict (used to save the data we return from the plot process)
+    return_dict = manager.dict()
+
+    plot_title = f"sdg Cluster k-means {region} {gender}"
+
+    # Create multiprocess to generate plot
+    create_plot_process = multiprocessing.Process(
+        target=_create_plot_clusters,
+        args=(
+            plot_title,
+            df,
+            centroids,
+            kmeans,
+            return_dict,        
+        ),
+    )
+
+    create_plot_process.start()
+    # Join the plot process. This is usually only nessesary if we have multiple processes running,
+    # however we want to make sure the function is finished before we proceed, therefore we add "join()"
+    create_plot_process.join()
+
+    # The finished plot - return_dict is an array of values, but we generate only one value, therefore we pick the one at index [0]
+    finished_plot = return_dict.values()[0]
+
+    if preview:
+        finished_plot.savefig(full_file_out_path)
+        return
+    else:
+        return mpld3.fig_to_html(finished_plot)
 
 
 
