@@ -6,15 +6,21 @@ import mpld3
 from mpld3 import plugins
 import multiprocessing
 
+
+
 # Sklearn data analysis
-import sklearn.metrics as sm  
-from sklearn.preprocessing import StandardScaler  
-from sklearn import linear_model  
-from sklearn.linear_model import LinearRegression  
-from sklearn.model_selection import train_test_split  
+import sklearn.metrics as sm
+from sklearn.preprocessing import StandardScaler
+from sklearn import linear_model
+from sklearn.linear_model import LinearRegression
+from sklearn.model_selection import train_test_split
 
 from utils.aliases import DATASETS, OUT_DIR
 from utils.file_handling import IMAGE_FORMAT
+
+
+from sklearn.cluster import KMeans
+from scipy.spatial.distance import cdist
 
 def prepare_sdg():
     df = pd.read_csv(DATASETS.get("sdg"))
@@ -35,7 +41,7 @@ def _is_digit_and_is_between_range(column, min, max):
         if int(column) < min or int(column) > max:
             return True
     return False
-  
+
 def _move_down_header(df):
     header = df.iloc[0]
     df = df[1:]
@@ -59,7 +65,7 @@ def _create_plot(
 
     # Define the axes
     ax = plt.axes()
-    
+
     # Make scatterplot
     ax.scatter(X_axis, y_axis, edgecolor="k", facecolor="grey", label="Sample Data")
 
@@ -177,3 +183,85 @@ def sdg_linear_regression(region, gender, preview, file_name=False):
         return
     else:
         return mpld3.fig_to_html(finished_plot)
+
+
+
+
+
+def _create_plot_clusters(
+    dataframe,
+    centroids,
+    kmeans,
+):
+    # Create plot figure
+    figure = plt.figure()
+  
+
+    # Define the axes
+    ax = plt.axes()
+
+    ax.scatter(dataframe.iloc[:,0],dataframe.iloc[:,1],c=kmeans.labels_.astype(float),s=50,alpha=0.5)
+    ax.scatter(centroids[:,0],centroids[:,1], c="red",s=50)
+
+
+    # Return figure (this does nothing when running it as a process, thats why we have the return_dict)
+    return figure
+
+
+
+def scatterplot_all_clustered(region, gender, preview, file_name=False):# Create an instance of KMeans classifier
+
+    df=prepare_sdg()
+     # Iterate through every value in the dataframe and remove split the data at every space (" "
+    # E.g:  9.2 [4.2, 6.7] --> 9.2
+    for index in df:
+        column = df[index].str.split(" ").str[0]
+        df.update(column)
+
+    # Select row by region
+    df = df[df["WHO region"] == region]
+    # Transpose the dataframe
+    df = df.T
+    # Move down the dataframes header
+    df = _move_down_header(df)
+    # Reset the dataframes index
+    df.reset_index(level=0, inplace=True)
+    # Move down the dataframe's header again
+    df = _move_down_header(df)
+
+    # Iterate through every column value and change them to be lowercased
+    df.columns = [x.lower() for x in df.columns]
+
+    # After calling Transpose on the dataframe, the date column is defined as "sex" which is wrong, therefore we rename it back to "date"
+    df = df.rename(columns={"sex": "date"})
+
+    # Filter the current dataframe into a new dataframe with only the "date" column and specified gender colum
+    # E.g. if "gender" is defined as "male", a dataframe with two rows: "date" and "male" is created
+    data = [df["date"].astype(int), df[gender].astype(float)]
+    headers = ["date", gender]
+    df = pd.concat(data, axis=1, keys=headers)
+    print(df)
+    full_file_out_path = f"{OUT_DIR}/{file_name}{IMAGE_FORMAT}"
+    kmeans = KMeans(n_clusters=4).fit(df)
+    print(kmeans)
+    centroids = kmeans.cluster_centers_
+    print(centroids)
+    
+    fig=_create_plot_clusters(df,centroids,kmeans)
+    fig.savefig(full_file_out_path)
+
+
+
+# def scatterplot_all_clustered(X=X):# Create an instance of KMeans classifier
+#     # Optimal number of clusters K
+#     CLUSTER_COUNT = 4  # In our case it's 4
+#     kmeans = KMeans(init='k-means++', n_clusters=CLUSTER_COUNT, n_init=20)
+#     kmeans.fit(X)
+#     print("> All Clusters in One Plot")
+#     plt.scatter(X[:,0], X[:,1])
+#     centers = kmeans.cluster_centers_
+#     plt.scatter(centers[:, 0], centers[:, 1], s=300, c='red')
+#     plt.title('All Clusters in One Plot w/ centers')
+#     print(kmeans.cluster_centers_)
+#     plt.savefig('resources/scatterplot_with_all_clusters.jpeg', bbox_inches='tight')
+#     plt.close()
