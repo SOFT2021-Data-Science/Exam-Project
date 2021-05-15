@@ -1,6 +1,9 @@
 import redis
-import os
 
+def make_redis_pool():
+    """Creates and returns redis connection pool
 
-def get_redis_pool():
+    :return: Redis connection pool
+    :rtype: redis.Redis()
+    """    
     return redis.Redis(host="localhost", port=6379, db=0)

@@ -1,3 +1,4 @@
+from re import sub
 from flask import Flask, render_template_string, send_file
 from flask_cors import CORS, cross_origin
 import os
@@ -7,15 +8,17 @@ from utils.misc import check_debug
 from utils.logging import create_and_updatelog
 from utils.file_handling import generate_file_name, IMAGE_FORMAT, file_name_exists
 from logic.sdg import sdg_linear_regression
-import service.instruction_routes as instructions
+from service.abstract_instructions import AbstractInstruction
 
 
 app = Flask(__name__)
 CORS(app)
 app.config["CORS_HEADERS"] = "*"
 
-app.add_url_rule("/instructions/sdg", view_func=instructions.sdg_instructions)
-
+for subclass in AbstractInstruction.__subclasses__():
+    subclass = subclass()
+    url = f"/instructions/{subclass.dataset_name}"
+    app.add_url_rule(url, f"{subclass.dataset_name}", subclass.get_instruction)
 
 # Should contain swagger like structure
 # E.g.http://localhost:5000/
@@ -26,8 +29,6 @@ def index():
 
 
 # E.g. http://localhost:5000/sdg/preview/region=Africa&gender=male
-
-
 @cross_origin()
 @app.route("/sdg/preview/region=<string:region>&gender=<string:gender>")
 def sdg_linear_regression_preview(region, gender):
@@ -35,7 +36,7 @@ def sdg_linear_regression_preview(region, gender):
         create_and_updatelog("400")
         return "400"
 
-        # File name is false if a file with the same name already exists.
+    # File name is false if a file with the same name already exists.
     file_name = generate_file_name("sdg_linear_regression", region, gender)
     if not file_name_exists(file_name):
         sdg_linear_regression(region, gender, preview=True, file_name=file_name)
@@ -53,7 +54,6 @@ def sdg_linear_regression_template(region, gender):
     if gender not in ["both", "male", "female"]:
         create_and_updatelog("400")
         return "400"
-
     try:
         img = sdg_linear_regression(region, gender, preview=False)
         return render_template_string(img)

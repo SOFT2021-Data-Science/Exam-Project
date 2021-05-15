@@ -8,6 +8,23 @@ resources/out/**
 
 # End custom
 
+
+# Created by https://www.toptal.com/developers/gitignore/api/visualstudiocode
+# Edit at https://www.toptal.com/developers/gitignore?templates=visualstudiocode
+
+### VisualStudioCode ###
+.vscode
+*/.vscode
+**/.vscode
+
+### VisualStudioCode Patch ###
+# Ignore all local history of files
+.history
+.ionide
+
+# End of https://www.toptal.com/developers/gitignore/api/visualstudiocode
+
+
 # Created by https://www.toptal.com/developers/gitignore/api/react,python,vscode
 # Edit at https://www.toptal.com/developers/gitignore?templates=react,python,vscode
 

@@ -1,14 +1,14 @@
 version: '3'
 services:
-  redis:
-    container_name: redis
+  dsc_suicide_redis:
+    container_name: dsc_suicide_redis
     hostname: redis
     image: redis
     ports:
     -  "6379:6379"
 
-  redis-commander:
-    container_name: redis-commander
+  dsc_suicide_redis-commander:
+    container_name: dsc_suicide_redis-commander
     hostname: redis-commander
     image: rediscommander/redis-commander:latest
     restart: always
