@@ -14,46 +14,24 @@ from sklearn.cluster import KMeans
 from utils.aliases import DATASETS, OUT_DIR
 from utils.file_handling import IMAGE_FORMAT
 
-def prepare_sdg(region, gender):
-    df = pd.read_csv(DATASETS.get("sdg"))
+def prepare_kaggle(region, gender):
+    df = pd.read_csv(DATASETS.get("kaggle_1985_2016"))
 
-    # The format of this file is weird, in the way, that it comes with two headers.
-    # Where in the first row is the second header.
-    # See file for 1st header
 
-    header = df.iloc[0]
-    df = df[1:]
-    df.columns = header
-    
-    # Iterate through every value in the dataframe and remove split the data at every space (" "
-    # E.g:  9.2 [4.2, 6.7] --> 9.2
-    for index in df:
-        column = df[index].str.split(" ").str[0]
-        df.update(column)
+    df = df[df.country == region]
+    df = df[df.sex == gender]
 
-    # Select row by region
-    df = df[df["WHO region"] == region]
-    # Transpose the dataframe
-    df = df.T
-    # Move down the dataframes header
-    df = _move_down_header(df)
-    # Reset the dataframes index
-    df.reset_index(level=0, inplace=True)
-    # Move down the dataframe's header again
-    df = _move_down_header(df)
+    #df.reset_index(level=0, inplace=True)
 
-    # Iterate through every column value and change them to be lowercased
-    df.columns = [x.lower() for x in df.columns]
 
-    # After calling Transpose on the dataframe, the date column is defined as "sex" which is wrong, therefore we rename it back to "date"
-    df = df.rename(columns={"sex": "date"})
-
-    # Filter the current dataframe into a new dataframe with only the "date" column and specified gender colum
-    # E.g. if "gender" is defined as "male", a dataframe with two rows: "date" and "male" is created
-    data = [df["date"].astype(int), df[gender].astype(float)]
-    headers = ["date", gender]
+    data = [df["year"], df["suicides_no"]]
+    headers = ["year", "suicides_no"]
     df = pd.concat(data, axis=1, keys=headers)
-    
+
+    # Group 
+    df = df.groupby('year', as_index=False).sum()
+
+    df.index=df.year
     return df
 
 
@@ -235,8 +213,8 @@ def _create_kmeans_elbow_plot(min, max, wcss, title, return_dict):
     return figure
 
 
-def sdg_linear_regression(region, gender, preview, file_name=False):
-    """Function to generate linear regression model for the sdg dataset
+def kaggle_linear_regression(region, gender, preview, file_name=False):
+    """Function to generate linear regression model for the kaggle dataset
 
     :param region: Used to filter the dataset by region
     :type region: String
@@ -250,9 +228,8 @@ def sdg_linear_regression(region, gender, preview, file_name=False):
     :rtype: mpld3.fig_to_html
     """    
 
-
     # Prepare the dataset
-    df = prepare_sdg(region, gender)
+    df = prepare_kaggle(region, gender) 
 
     ### === Train Model === ###
 
@@ -285,7 +262,7 @@ def sdg_linear_regression(region, gender, preview, file_name=False):
     # Return Dict (used to save the data we return from the plot process)
     return_dict = manager.dict()
 
-    plot_title = f"sdg linear regression {region} {gender}"
+    plot_title = f"kaggle linear regression {region} {gender}"
 
     # Create multiprocess to generate plot
     create_plot_process = multiprocessing.Process(
@@ -318,8 +295,8 @@ def sdg_linear_regression(region, gender, preview, file_name=False):
         return mpld3.fig_to_html(finished_plot)
 
 
-def sdg_kmeans_cluster(region, gender, clusters, preview, file_name=False):
-    """Function to generate k-means elbow method for the sdg dataset
+def kaggle_kmeans_cluster(region, gender, clusters, preview, file_name=False):
+    """Function to generate k-means elbow method for the kaggle dataset
 
     :param region: Used to filter the dataset by region
     :type region: String
@@ -336,7 +313,7 @@ def sdg_kmeans_cluster(region, gender, clusters, preview, file_name=False):
     """    
 
     # Prepare the dataset
-    df=prepare_sdg(region, gender)
+    df=prepare_kaggle(region, gender)
 
     # Generate Kmeans 
     kmeans = KMeans(init='k-means++',n_clusters=clusters,n_init=3, random_state = 10)
@@ -353,7 +330,7 @@ def sdg_kmeans_cluster(region, gender, clusters, preview, file_name=False):
     return_dict = manager.dict()
 
     # The title of the plot
-    plot_title = f"sdg Cluster k-means {region} {gender}"
+    plot_title = f"kaggle Cluster k-means {region} {gender}"
 
     # Create multiprocess to generate plot
     create_plot_process = multiprocessing.Process(
@@ -383,8 +360,8 @@ def sdg_kmeans_cluster(region, gender, clusters, preview, file_name=False):
     else:
         return mpld3.fig_to_html(finished_plot)
 
-def sdg_kmeans_elbow(region, gender, clusters, preview, file_name=False):
-    """Function to generate k-means elbow method for the sdg dataset
+def kaggle_kmeans_elbow(region, gender, clusters, preview, file_name=False):
+    """Function to generate k-means elbow method for the kaggle dataset
 
     :param region: Used to filter the dataset by region
     :type region: String
@@ -401,7 +378,7 @@ def sdg_kmeans_elbow(region, gender, clusters, preview, file_name=False):
     """      
 
     # Prepare the data
-    df = prepare_sdg(region, gender)
+    df = prepare_kaggle(region, gender)
 
     # The values of the dataframe
     X=df.values
@@ -423,7 +400,7 @@ def sdg_kmeans_elbow(region, gender, clusters, preview, file_name=False):
     return_dict = manager.dict()
 
     # The title of the plot
-    plot_title = f"sdg k-means elbow {region} {gender}"
+    plot_title = f"kaggle k-means elbow {region} {gender}"
 
     # Create multiprocess to generate plot
     create_plot_process = multiprocessing.Process(
