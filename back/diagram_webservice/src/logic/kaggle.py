@@ -167,7 +167,7 @@ def _create_kmeans_cluster_plot(
     centroids =kmeans.cluster_centers_
     # Plot the data into a scatter plot
     ax.scatter(X[:,0],X[:,1],c=kmeans.labels_.astype(float),s=100,alpha=0.5)
-    ax.scatter(centroids[:,0],centroids[:,1], edgecolor="k", facecolor="grey", s=500, alpha=0.75)
+    ax.scatter(centroids[:,0],centroids[:,1], edgecolor="k", facecolor="red", s=50, alpha=0.75)
     ax.set_title(title, fontsize=18)
     ax.set_xlabel("years", fontsize=14)
     ax.set_ylabel("suicide rate", fontsize=14)
