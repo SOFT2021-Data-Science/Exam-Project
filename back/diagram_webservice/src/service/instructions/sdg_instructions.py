@@ -6,7 +6,8 @@ class SDGInstruction(AbstractInstruction):
 
     :param AbstractInstruction: Instructions for what the frontend must display. Stored with redis
     :type AbstractInstruction: ABC
-    """    
+    """
+
     def __init__(self):
         self.dataset_name = "sdg"
         self.models = {"linear_regression": {"params": ["region", "gender"]}}

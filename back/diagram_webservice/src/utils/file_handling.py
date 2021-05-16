@@ -10,7 +10,7 @@ def generate_file_name(*args):
 
     :return: String created with args
     :rtype: String
-    """    
+    """
     file_name = ""
     for arg in args:
         file_name = f"{file_name}_{str(arg)}"
@@ -20,9 +20,9 @@ def generate_file_name(*args):
 def file_name_exists(file_name):
     """Checks whether or not a file exists
 
-    :param file_name: File name to check for
+    :param file_name: Checks whether file exists
     :type file_name: String
     :return: Returns true if the file exists
     :rtype: Bool
-    """    
+    """
     return os.path.isfile(f"{OUT_DIR}/{file_name}{IMAGE_FORMAT}")

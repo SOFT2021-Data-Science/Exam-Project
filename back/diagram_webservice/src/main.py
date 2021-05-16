@@ -8,17 +8,27 @@ from utils.misc import check_debug
 from utils.logging import create_and_updatelog
 from utils.file_handling import generate_file_name, IMAGE_FORMAT, file_name_exists
 from logic.sdg import sdg_linear_regression
-from service.abstract_instructions import AbstractInstruction
+from service.instructions.abstract_instructions import AbstractInstruction
+from service.utility_routes import *
 
 
 app = Flask(__name__)
 CORS(app)
 app.config["CORS_HEADERS"] = "*"
 
+INSTRUCTIONS_BASE_PATH = "/instructions"
+
+
 for subclass in AbstractInstruction.__subclasses__():
     subclass = subclass()
-    url = f"/instructions/{subclass.dataset_name}"
+    url = f"{INSTRUCTIONS_BASE_PATH}/{subclass.dataset_name}"
     app.add_url_rule(url, f"{subclass.dataset_name}", subclass.get_instruction)
+
+app.add_url_rule(
+    f"{INSTRUCTIONS_BASE_PATH}/available_datasets",
+    "available_datasets",
+    available_datasets_route,
+)
 
 # Should contain swagger like structure
 # E.g.http://localhost:5000/

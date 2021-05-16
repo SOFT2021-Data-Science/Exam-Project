@@ -27,5 +27,5 @@ class AbstractInstruction(ABC):
 
         :return: Bytes containing the json string
         :rtype: Bytes
-        """        
+        """
         return make_redis_pool().get(self.dataset_name)
