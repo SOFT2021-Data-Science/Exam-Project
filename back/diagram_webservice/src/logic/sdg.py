@@ -22,6 +22,8 @@ from utils.file_handling import IMAGE_FORMAT
 from sklearn.cluster import KMeans
 from scipy.spatial.distance import cdist
 
+_CLUSTER_COUNT = 4
+
 def prepare_sdg():
     df = pd.read_csv(DATASETS.get("sdg"))
 
@@ -48,7 +50,7 @@ def _move_down_header(df):
     df.columns = header
     return df
 
-def _create_plot(
+def _create_linear_regression_plot(
     title,
     X_axis,
     y_axis,
@@ -87,6 +89,47 @@ def _create_plot(
 
     # Return figure (this does nothing when running it as a process, thats why we have the return_dict)
     return figure
+
+def _create_plot_clusters(
+    title,
+    X,
+    kmeans,
+    return_dict
+):
+    """Function to generate scatterplot for k-means clustering
+
+    :param title: Scatterplot title
+    :type title: String
+    :param X: Suicide data values
+    :type X: Pandas.DataFrame.values
+    :param kmeans: [description]
+    :type kmeans: [type]
+    :param return_dict: [description]
+    :type return_dict: [type]
+    :return: [description]
+    :rtype: [type]
+    """    
+    centroids =kmeans.cluster_centers_
+    # Create plot figure
+    figure = plt.figure()
+  
+
+    # Define the axes
+    ax = plt.axes()
+
+    ax.scatter(X[:,0],X[:,1],c=kmeans.labels_.astype(float),s=100,alpha=0.5)
+    ax.scatter(centroids[:,0],centroids[:,1], c="red",s=300)
+    ax.set_title(title, fontsize=18)
+    ax.set_xlabel("years", fontsize=14)
+    ax.set_ylabel("suicide rate", fontsize=14)
+    ax.legend(facecolor="white", fontsize=11)
+    ax.axis("tight")
+
+    return_dict[title] = figure
+
+    # Return figure (this does nothing when running it as a process, thats why we have the return_dict)
+    return figure
+
 
 def sdg_linear_regression(region, gender, preview, file_name=False):
     df = prepare_sdg()  # Prepare the dataset
@@ -155,7 +198,7 @@ def sdg_linear_regression(region, gender, preview, file_name=False):
 
     # Create multiprocess to generate plot
     create_plot_process = multiprocessing.Process(
-        target=_create_plot,
+        target=_create_linear_regression_plot,
         args=(
             plot_title,
             X_axis,
@@ -183,33 +226,6 @@ def sdg_linear_regression(region, gender, preview, file_name=False):
         return
     else:
         return mpld3.fig_to_html(finished_plot)
-
-
-
-
-
-def _create_plot_clusters(
-    title,
-    dataframe,
-    centroids,
-    kmeans,
-    return_dict
-):
-    # Create plot figure
-    figure = plt.figure()
-  
-
-    # Define the axes
-    ax = plt.axes()
-
-    ax.scatter(dataframe.iloc[:,0],dataframe.iloc[:,1],c=kmeans.labels_.astype(float),s=50,alpha=0.5)
-    ax.scatter(centroids[:,0],centroids[:,1], c="red",s=50)
-
-    return_dict[title] = figure
-
-    # Return figure (this does nothing when running it as a process, thats why we have the return_dict)
-    return figure
-
 
 
 def sdg_kmeans_cluster(region, gender, preview, file_name=False):# Create an instance of KMeans classifier
@@ -244,10 +260,10 @@ def sdg_kmeans_cluster(region, gender, preview, file_name=False):# Create an ins
     df = pd.concat(data, axis=1, keys=headers)
    
     full_file_out_path = f"{OUT_DIR}/{file_name}{IMAGE_FORMAT}"
-    kmeans = KMeans(n_clusters=4).fit(df)
-  
-    centroids = kmeans.cluster_centers_
-    
+    kmeans = KMeans(init='k-means++',n_clusters=_CLUSTER_COUNT,n_init=20)
+    X=df.values
+    kmeans.fit(X)
+
     
     # fig=_create_plot_clusters(df,centroids,kmeans)
     # fig.savefig(full_file_out_path)
@@ -264,8 +280,7 @@ def sdg_kmeans_cluster(region, gender, preview, file_name=False):# Create an ins
         target=_create_plot_clusters,
         args=(
             plot_title,
-            df,
-            centroids,
+            X,
             kmeans,
             return_dict,        
         ),
@@ -284,19 +299,3 @@ def sdg_kmeans_cluster(region, gender, preview, file_name=False):# Create an ins
         return
     else:
         return mpld3.fig_to_html(finished_plot)
-
-
-
-# def scatterplot_all_clustered(X=X):# Create an instance of KMeans classifier
-#     # Optimal number of clusters K
-#     CLUSTER_COUNT = 4  # In our case it's 4
-#     kmeans = KMeans(init='k-means++', n_clusters=CLUSTER_COUNT, n_init=20)
-#     kmeans.fit(X)
-#     print("> All Clusters in One Plot")
-#     plt.scatter(X[:,0], X[:,1])
-#     centers = kmeans.cluster_centers_
-#     plt.scatter(centers[:, 0], centers[:, 1], s=300, c='red')
-#     plt.title('All Clusters in One Plot w/ centers')
-#     print(kmeans.cluster_centers_)
-#     plt.savefig('resources/scatterplot_with_all_clusters.jpeg', bbox_inches='tight')
-#     plt.close()
