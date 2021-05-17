@@ -453,3 +453,5 @@ def sdg_kmeans_elbow(region, gender, clusters, preview, file_name=False):
         return
     else:
         return mpld3.fig_to_html(finished_plot)
+
+
