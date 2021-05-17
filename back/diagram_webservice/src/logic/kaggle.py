@@ -16,13 +16,8 @@ from utils.file_handling import IMAGE_FORMAT
 
 def prepare_kaggle(region, gender):
     df = pd.read_csv(DATASETS.get("kaggle_1985_2016"))
-
-
     df = df[df.country == region]
     df = df[df.sex == gender]
-
-    #df.reset_index(level=0, inplace=True)
-
 
     data = [df["year"], df["suicides_no"]]
     headers = ["year", "suicides_no"]
@@ -33,6 +28,14 @@ def prepare_kaggle(region, gender):
 
     df.index=df.year
     return df
+
+def kaggle_get_list_of_all_values_in_row_by_column_name(column_name):
+    column_name = column_name.lower()
+    df = pd.read_csv(DATASETS.get("kaggle_1985_2016"))
+    df.columns = [x.lower() for x in df.columns]
+    df = df.groupby(column_name, as_index=False).sum()
+    return df[column_name].values.tolist()
+
 
 
 # Simplifying list comprehension

@@ -52,9 +52,32 @@ def prepare_sdg(region, gender):
     # E.g. if "gender" is defined as "male", a dataframe with two rows: "date" and "male" is created
     data = [df["date"].astype(int), df[gender].astype(float)]
     headers = ["date", gender]
-    df = pd.concat(data, axis=1, keys=headers)
-    
+    df = pd.concat(data, axis=1, keys=headers)    
     return df
+
+
+def sdg_get_list_of_all_values_in_row_by_column_name(column_name):
+    column_name = column_name.lower()
+    df = pd.read_csv(DATASETS.get("sdg"))
+
+    # The format of this file is weird, in the way, that it comes with two headers.
+    # Where in the first row is the second header.
+    # See file for 1st header
+
+    header = df.iloc[0]
+    df = df[1:]
+    df.columns = header
+
+    # Iterate through every value in the dataframe and remove split the data at every space (" "
+    # E.g:  9.2 [4.2, 6.7] --> 9.2
+    for index in df:
+        column = df[index].str.split(" ").str[0]
+        df.update(column)
+
+    df.columns = [x.lower() for x in df.columns]
+    df = df.groupby(column_name, as_index=False).sum()
+
+    return df[column_name].values.tolist()
 
 
 # Simplifying list comprehension

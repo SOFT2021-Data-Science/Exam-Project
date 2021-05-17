@@ -8,10 +8,12 @@ from utils.file_handling import generate_file_name, IMAGE_FORMAT, file_name_exis
 from logic.sdg import sdg_linear_regression
 from logic.sdg import sdg_kmeans_cluster
 from logic.sdg import sdg_kmeans_elbow
+from logic.sdg import sdg_get_list_of_all_values_in_row_by_column_name
 
 from logic.kaggle import kaggle_linear_regression
 from logic.kaggle import kaggle_kmeans_cluster
 from logic.kaggle import kaggle_kmeans_elbow
+from logic.kaggle import kaggle_get_list_of_all_values_in_row_by_column_name
 
 from utils.logging import create_and_updatelog
 
@@ -26,7 +28,13 @@ app.config["CORS_HEADERS"] = "*"
 @cross_origin()
 @app.route("/")
 def index():
-    return "This is the backend for the dsc project"
+    return "Hello World!"
+
+
+# E.g. http://localhost:5000/sdg/row_values=who%20region
+@app.route("/sdg/row_values=<string:row_values>")
+def sdg_row_values(row_values):
+    return str(sdg_get_list_of_all_values_in_row_by_column_name(row_values))
 
 # E.g. http://localhost:5000/sdg/linearregression/preview/region=Africa&gender=male
 @cross_origin()
@@ -120,7 +128,7 @@ def sdg_kmeans_elbow_preview(region, gender, clusters):
         create_and_updatelog(e)
 
 
-# E.g. http://localhost:5000/sdg/kmeans/elbow/template/region=Africa&gender=male&clusters=5
+# E.g. http://localhost:5000/sdg/kmeans/elbow/template/regio    n=Africa&gender=male&clusters=5
 @cross_origin()
 @app.route("/sdg/kmeans/elbow/template/region=<string:region>&gender=<string:gender>&clusters=<int:clusters>")
 def sdg_kmeans_elbow_template(region, gender, clusters):
@@ -141,6 +149,12 @@ def sdg_kmeans_elbow_template(region, gender, clusters):
 
 
 # ---- Kaggle ----- #
+
+# E.g. http://localhost:5000/kaggle/row_values=country
+@app.route("/kaggle/row_values=<string:row_values>")
+def kaggle_row_values(row_values):
+    return str(kaggle_get_list_of_all_values_in_row_by_column_name(row_values))
+
 
 # E.g. http://localhost:5000/kaggle/linearregression/preview/region=United_States&gender=male
 @cross_origin()
