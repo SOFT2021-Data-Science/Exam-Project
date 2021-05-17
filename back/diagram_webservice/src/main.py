@@ -1,4 +1,4 @@
-from flask import Flask, render_template_string, send_file
+from flask import Flask, json, render_template_string, send_file, jsonify
 from flask_cors import CORS, cross_origin
 import os
 
@@ -34,7 +34,7 @@ def index():
 # E.g. http://localhost:5000/sdg/row_values=who%20region
 @app.route("/sdg/row_values=<string:row_values>")
 def sdg_row_values(row_values):
-    return str(sdg_get_list_of_all_values_in_row_by_column_name(row_values))
+    return jsonify(sdg_get_list_of_all_values_in_row_by_column_name(row_values))
 
 # E.g. http://localhost:5000/sdg/linearregression/preview/region=Africa&gender=male
 @cross_origin()
@@ -153,7 +153,7 @@ def sdg_kmeans_elbow_template(region, gender, clusters):
 # E.g. http://localhost:5000/kaggle/row_values=country
 @app.route("/kaggle/row_values=<string:row_values>")
 def kaggle_row_values(row_values):
-    return str(kaggle_get_list_of_all_values_in_row_by_column_name(row_values))
+    return jsonify(kaggle_get_list_of_all_values_in_row_by_column_name(row_values))
 
 
 # E.g. http://localhost:5000/kaggle/linearregression/preview/region=United_States&gender=male
