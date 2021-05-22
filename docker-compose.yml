@@ -7,9 +7,9 @@ services:
             dockerfile: dockerfile
         environment:
             - DSC_SUICIDE_PRODUCTION_VARIABLES=1
-            - REDIS_HOST = mutezone.site
-            - REDIS_PORT = 6379
-            - REDIS_DB = 0
+            - REDIS_HOST=dsc_suicide_redis
+            - REDIS_PORT=6379
+            - REDIS_DB=0
         volumes:
             - ./resources:/usr/resources
         networks:

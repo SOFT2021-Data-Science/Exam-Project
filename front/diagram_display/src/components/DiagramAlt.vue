@@ -1,18 +1,70 @@
 <template>
   <div>
-    <div
-      v-for="(selection, index) in Object.entries(
-        $store.getters.getSelectedFromOptions
-      )"
-      :key="selection[0]"
-    >
-      <label :for="selection[0]">{{ selection[1] }}</label>
-      <input :id="selection[0]" v-model="$store.state.inputValues[index]" />
+    <div v-if="$store.state.instructions">
+      <p>Data link: {{ $store.state.instructions.dataset_link }}</p>
+      <p>Description: {{ $store.state.instructions.description }}</p>
+      <span>Choose model: </span>
+      <select
+        v-model="$store.state.selectedModel"
+        @click="$store.dispatch('setSelectedModel', $store.state.selectedModel)"
+      >
+        <option
+          v-for="selection in Object.entries($store.state.instructions.models)"
+          :key="selection.key"
+          :value="selection[1]"
+        >
+          {{ selection[0] }}
+        </option>
+      </select>
     </div>
-    <button @click="loadPreviewGraph($event)">Load resource</button>
-    <button @click="$store.dispatch('fetchInstructions')">asdf</button>
-    {{ $store.state.inputValues }}
-    {{ $store.state.instructions }}
+    <div v-if="$store.state.selectedModel">
+      <div
+        v-for="selection in Object.entries($store.state.selectedModel.params)"
+        :key="selection[1]"
+      >
+        <br />
+        <br />
+        <br />
+        {{ selection[0] }}:
+
+        <div v-if="(selection.input_type = 'enum')">
+          <select
+            v-model="tempInputValue"
+            @click="
+              $store.dispatch('appendToURLParams', [
+                selection[0],
+                tempInputValue,
+              ])
+            "
+          >
+            <option
+              v-for="value in Object.values(selection[1])[0]"
+              :key="value"
+              :value="value"
+            >
+              {{ value }}
+            </option>
+          </select>
+        </div>
+      </div>
+    </div>
+    <div v-if="$store.state.selectedModel">
+      <button @click="$store.dispatch('rerouteToTemplate')">
+        Reroute to template
+      </button>
+    </div>
+    <div v-if="$store.state.selectedModel">
+      <button @click="$store.dispatch('setImgTagValue')">
+        Display image
+      </button>
+      <div v-if="$store.getters.imgTagValue">
+        <img :src="$store.getters.imgTagValue" alt="">
+      </div>
+    </div>
+    <button @click="boop">
+      asd
+    </button>
+    {{ $store.state.URLParams }}
   </div>
 </template>
 
@@ -22,9 +74,14 @@ import { defineComponent, ref } from "vue";
 import { useStore } from "vuex";
 
 export default defineComponent({
-  setup() {
+  beforeMount() {
     let store = useStore();
+    store.dispatch("fetchAvailableDatasets");
+  },
+  setup() {
+    let tempInputValue = ref("");
 
+    let store = useStore();
     const loadExternalGraph = async () => {
       let url_string: string = process.env.VUE_APP_BACKEND + "/basic/2012&2017";
       try {
@@ -39,6 +96,12 @@ export default defineComponent({
         console.log(error);
       }
     };
+
+    const boop = () => {
+      for (const keyval in store.state.URLParams){
+        console.log(keyval + ":" +store.state.URLParams[keyval]);
+      }
+    }
 
     const loadDataset = async () => {
       let url: string = process.env.VUE_APP_BACKEND + "/instructions/sdg";
@@ -69,9 +132,8 @@ export default defineComponent({
       console.log(url_string);
     };
     return {
-      loadExternalGraph,
-      loadPreviewGraph,
-      loadDataset,
+      tempInputValue,
+      boop
     };
   },
 });

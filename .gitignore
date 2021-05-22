@@ -5,6 +5,8 @@
 resources/out/
 **/out
 resources/out/**
+**/package-lock.json
+*/package-lock.json
 
 # End custom
 

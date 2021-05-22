@@ -11,13 +11,14 @@ class AbstractInstruction(ABC):
     models = ""
     headers = ""
     dataset_link = ""
+    description = ""
 
     def set_instruction(self):
         """Converts object variables into json format and stores it on redis database"""
         dataset_format = {}
         dataset_format["models"] = self.models
-        dataset_format["header_enums"] = self.header_enums
         dataset_format["dataset_link"] = self.dataset_link
+        dataset_format["description"] = self.description
 
         JSON = json.dumps(dataset_format)
         make_redis_pool().set(self.dataset_name, JSON)

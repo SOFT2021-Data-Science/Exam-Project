@@ -1,19 +1,15 @@
 <template>
   <div>
-    <button @click="toggleDropdown">Toggle</button>
-    <select v-model="$store.state.selected" @click="resetInputValues" >
+    <span>Choose dataset:</span>
+    <select v-model="$store.state.selected" @click="$store.dispatch('fetchInstructions', $store.state.selected)">
       <option
-        v-for="selection in Object.entries($store.state.selectionOptions)"
+        v-for="selection in $store.getters.availableDatasets"
         :key="selection.key"
-        @click="resetInputValues"
+        @click="logStuff"
       >
-        {{ selection[0] }}
+        {{ selection }}
       </option>
     </select>
-    <span
-      >Selected: {{ $store.state.selected }}
-      {{ $store.getters.getSelectedFromOptions }}</span
-    >
   </div>
 </template>
 
@@ -22,8 +18,13 @@ import { defineComponent } from "vue";
 import { useStore } from "vuex";
 
 export default defineComponent({
+  beforeMount() {
+    let store = useStore();
+    store.dispatch("fetchAvailableDatasets");
+  },
   setup() {
     let store = useStore();
+
     const resetInputValues = () => {
       store.dispatch("setInputValues", []);
     };
