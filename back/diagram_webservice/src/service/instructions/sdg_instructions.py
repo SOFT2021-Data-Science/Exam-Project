@@ -1,6 +1,9 @@
 from .abstract_instructions import AbstractInstruction
 from .param import Param
+from logic.sdg import sdg_get_list_of_all_values_in_row_by_column_name
 
+regions = sdg_get_list_of_all_values_in_row_by_column_name("WHO region")
+genders = sdg_get_list_of_all_values_in_row_by_column_name("sex")
 
 class SDGInstruction(AbstractInstruction):
     """Instructions for the SDG dataset. Implements AbstractInstruction
@@ -14,8 +17,23 @@ class SDGInstruction(AbstractInstruction):
         self.models = {
             "linear_regression": {
                 "params": {
-                    "region": Param(["Africa", "Europe"], "enum").as_json(),
-                    "gender": Param(["male", "female", "both"], "enum").as_json(),
+                    "regions": Param(regions, "enum").as_json(),
+                    "gender": Param(genders, "enum").as_json(),
+                    "date_range": Param([2000, 2019], "range").as_json(),
+                }
+            },
+            "kmeans/clustering":{
+                "params": {
+                    "regions": Param(regions, "enum").as_json(),
+                    "gender": Param(genders, "enum").as_json(),
+                    "clusters": Param([1, 10], "range").as_json(),
+                }
+            },
+            "kmeans/elbow":{
+                "params": {
+                    "regions": Param(regions, "enum").as_json(),
+                    "gender": Param(genders, "enum").as_json(),
+                    "clusters": Param([1, 10], "range").as_json(),
                 }
             }
         }

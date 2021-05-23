@@ -74,3 +74,6 @@ Stage 2.
 
 4. Export your solution in a file and upload it to your git repository.
 <p>Done. In this repository</p>
+
+Machine Learning Algorithms:
+Linear Regression & Clustering : [Kaggle](https://github.com/SOFT2021-Data-Science/Exam-Project/blob/development/back/diagram_webservice/src/logic/kaggle.py) & [sdg](https://github.com/SOFT2021-Data-Science/Exam-Project/blob/development/back/diagram_webservice/src/logic/sdg.py)

@@ -1,7 +1,7 @@
 import { createStore } from 'vuex'
 import axios from "axios";
 
-class Map<T> {
+export class Map<T> {
   [key: string]: T
 }
 
@@ -50,11 +50,16 @@ export default createStore({
       state.selectedModel = selectedModel
     },
     APPEND_TO_URL_PARAMS(state, params: Array<string>) {
-      console.log(state.URLParams);
       state.URLParams[params[0]] = params[1]
     },
-    SET_IMG_TAG_VALUE(state, value){
+    SET_IMG_TAG_VALUE(state, value) {
       state.imgTagValue = value
+    },
+    RESET_URL_PARAMS(state){
+      state.URLParams = new Map();
+    },
+    SET_URL_PARAMS_INITIAL_VALUES(state, URLParams){
+      state.URLParams = URLParams
     }
   },
   getters: {
@@ -89,21 +94,44 @@ export default createStore({
       context.commit("APPEND_TO_URL_PARAMS", values)
     },
     rerouteToTemplate() {
-      let url_string = process.env.VUE_APP_BACKEND + "/" + this.state.selected + "/template/"
-      for (const key_val in this.state.URLParams){
-        url_string += key_val+"="+this.state.URLParams[key_val]+"&"
+      const model = this.state.selectedModel as any | null;
+      let stuff
+
+      for (const value in Object.values(model)) {
+        console.log(value);
       }
-      url_string = url_string.substring(0, url_string.length-1);
+
+      if (typeof model !== null) {
+        stuff = Object.entries(model)
+        console.log(stuff);
+        
+      }
+      stuff = Object.values(model)[0]
+      console.log(stuff);
       
-      window.open(url_string, "_blank")
+
+
+      let url_string = process.env.VUE_APP_BACKEND + "/" + this.state.selected + "/" + stuff + "/template/"
+      for (const key_val in this.state.URLParams) {
+        url_string += key_val + "=" + this.state.URLParams[key_val] + "&"
+      }
+      url_string = url_string.substring(0, url_string.length - 1);
+
+      //window.open(url_string, "_blank")
+    },
+    setURLParamsInitialValues(context, URLParams){
+      context.commit("SET_URL_PARAMS_INITIAL_VALUES", URLParams)
     },
     setImgTagValue(context) {
       let url_string = process.env.VUE_APP_BACKEND + "/" + this.state.selected + "/preview/"
-      for (const key_val in this.state.URLParams){
-        url_string += key_val+"="+this.state.URLParams[key_val]+"&"
+      for (const key_val in this.state.URLParams) {
+        url_string += key_val + "=" + this.state.URLParams[key_val] + "&"
       }
-      url_string = url_string.substring(0, url_string.length-1);
+      url_string = url_string.substring(0, url_string.length - 1);
       context.commit("SET_IMG_TAG_VALUE", url_string)
+    },
+    resetURLParams(context){
+      context.commit("RESET_URL_PARAMS")
     }
   },
   modules: {

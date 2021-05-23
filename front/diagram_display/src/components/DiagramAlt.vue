@@ -4,10 +4,7 @@
       <p>Data link: {{ $store.state.instructions.dataset_link }}</p>
       <p>Description: {{ $store.state.instructions.description }}</p>
       <span>Choose model: </span>
-      <select
-        v-model="$store.state.selectedModel"
-        @click="$store.dispatch('setSelectedModel', $store.state.selectedModel)"
-      >
+      <select v-model="$store.state.selectedModel" @click="setModel">
         <option
           v-for="selection in Object.entries($store.state.instructions.models)"
           :key="selection.key"
@@ -54,16 +51,11 @@
       </button>
     </div>
     <div v-if="$store.state.selectedModel">
-      <button @click="$store.dispatch('setImgTagValue')">
-        Display image
-      </button>
+      <button @click="$store.dispatch('setImgTagValue')">Display image</button>
       <div v-if="$store.getters.imgTagValue">
-        <img :src="$store.getters.imgTagValue" alt="">
+        <img :src="$store.getters.imgTagValue" alt="" />
       </div>
     </div>
-    <button @click="boop">
-      asd
-    </button>
     {{ $store.state.URLParams }}
   </div>
 </template>
@@ -72,6 +64,8 @@
 import axios from "axios";
 import { defineComponent, ref } from "vue";
 import { useStore } from "vuex";
+import {Map} from "@/store/index";
+
 
 export default defineComponent({
   beforeMount() {
@@ -79,9 +73,26 @@ export default defineComponent({
     store.dispatch("fetchAvailableDatasets");
   },
   setup() {
+    let store = useStore();
     let tempInputValue = ref("");
 
-    let store = useStore();
+    const setModel = () => {
+      console.log(Object.entries(store.state.selectedModel));
+      
+      store.dispatch("setSelectedModel", store.state.selectedModel);
+      store.dispatch("resetURLParams");
+      let entries: any = Object.entries(store.state.selectedModel);
+      let values: any = Object.values(entries[0]);
+      values = Object.values(values);
+      values = Object.values(values[1]);
+      let URLParams = new Map();
+
+      for (const entry in entries[0][1]) {
+        URLParams[entry] = entries[0][1][entry].values[0];
+      }
+      store.dispatch("setURLParamsInitialValues", URLParams);
+    };
+
     const loadExternalGraph = async () => {
       let url_string: string = process.env.VUE_APP_BACKEND + "/basic/2012&2017";
       try {
@@ -96,12 +107,6 @@ export default defineComponent({
         console.log(error);
       }
     };
-
-    const boop = () => {
-      for (const keyval in store.state.URLParams){
-        console.log(keyval + ":" +store.state.URLParams[keyval]);
-      }
-    }
 
     const loadDataset = async () => {
       let url: string = process.env.VUE_APP_BACKEND + "/instructions/sdg";
@@ -133,7 +138,7 @@ export default defineComponent({
     };
     return {
       tempInputValue,
-      boop
+      setModel,
     };
   },
 });

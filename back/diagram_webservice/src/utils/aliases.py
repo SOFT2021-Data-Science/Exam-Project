@@ -21,4 +21,5 @@ ENV_DEVELOPMENT_PATH = os.path.dirname(ROOT_DIR) + "/.env.development"
 if not os.path.isdir(OUT_DIR):
     os.mkdir(OUT_DIR)
 
-DATASETS = {"sdg": f"{_DATASET_DIR}/SDGSUICIDE,SDG_SH_STA_SCIDEN.csv"}
+
+DATASETS = {"sdg": f"{_DATASET_DIR}/SDGSUICIDE,SDG_SH_STA_SCIDEN.csv", "kaggle": f"{_DATASET_DIR}/suicide_rates_overview_1985_to_2016.csv"}
