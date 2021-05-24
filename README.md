@@ -77,3 +77,17 @@ Stage 2.
 
 Machine Learning Algorithms:
 Linear Regression & Clustering : [Kaggle](https://github.com/SOFT2021-Data-Science/Exam-Project/blob/development/back/diagram_webservice/src/logic/kaggle.py) & [sdg](https://github.com/SOFT2021-Data-Science/Exam-Project/blob/development/back/diagram_webservice/src/logic/sdg.py)
+
+
+4. Stage 4: Immersive Analytics and Visualisation
+1. Missing
+2. Elaborate on the benefits of applying better visualisation techniques for data analytics.
+Better data visualisation allows for greater and faster understanding for big and complex datasets. This is because we as humans are better at spotting patterns when data is presented in easy to graph visuals, such as diagrams. Another method that makes the dataset easier to comprehend, is using the visuals to tell a story that the viewers can follow.  
+
+This is why when you have to represent specific concepts and new ideas it’s ideal to use better visualisation techniques that can create a narrative for the viewers to follow. This can better be achieved with 3D or VR/AR/MR visualisation. These tools can make it easier for the viewers to see new insights in the data that they otherwise would have missed if not for the new layer of visualisation.  
+
+A VR visualisation that we could apply to our project could be that we made a world map where you could click on the different regions on the map to get a 3D graph of the suicide rates in that specific region.  
+
+This would help the viewer to get a better scope of the dataset because of the intractability, while also giver the opportunity to better compare the the different regions suicide rates to notice different trendes in amound the data.  
+
+![img](/resources/visualisation.png)
