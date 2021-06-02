@@ -27,12 +27,12 @@ class KaggleInstruction(AbstractInstruction):
         kmeans_clustering_params = {
             "country": Param(country, "enum").as_json(),
             "gender": Param(genders, "enum").as_json(),
-            "clusters": Param([1, 10], "range").as_json(),
+            "clusters": Param([1,2,3,4,5,6,7,8,9,10], "range").as_json(),
         }
         kmeans_elbow_params = {
             "country": Param(country, "enum").as_json(),
             "gender": Param(genders, "enum").as_json(),
-            "clusters": Param([1, 10], "range").as_json(),
+            "clusters": Param([1,2,3,4,5,6,7,8,9,10], "range").as_json(),
         }
 
         linear_regression_model = Model(
