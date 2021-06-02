@@ -6,7 +6,9 @@ from pprint import pprint
 import json
 
 regions = sdg_get_list_of_all_values_in_row_by_column_name("WHO region")
-genders = [gender.lower() for gender in sdg_get_list_of_all_values_in_row_by_column_name("sex")]
+genders = [
+    gender.lower() for gender in sdg_get_list_of_all_values_in_row_by_column_name("sex")
+]
 
 
 class SDGInstruction(AbstractInstruction):
@@ -37,9 +39,11 @@ class SDGInstruction(AbstractInstruction):
         linear_regression_model = Model(
             "linear_regression", linear_regression_params
         ).as_json()
+        
         kmeans_clustering_model = Model(
             "kmeans/clustering", kmeans_clustering_params
         ).as_json()
+        
         kmeans_elbow_model = Model("kmeans/elbow", kmeans_elbow_params).as_json()
 
         self.dataset_name = "sdg"

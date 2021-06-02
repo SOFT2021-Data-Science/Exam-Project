@@ -5,6 +5,7 @@ services:
         build:
             context: ./back/diagram_webservice
             dockerfile: dockerfile
+        container_name: diagram_webservice
         environment:
             - DSC_SUICIDE_PRODUCTION_VARIABLES=1
             - REDIS_HOST=dsc_suicide_redis
@@ -22,14 +23,14 @@ services:
             context: ./front/diagram_display
             dockerfile: dockerfile
         restart: always
-        networks:
-            - "net"
         environment:
             - DSC_SUICIDE_PRODUCTION_VARIABLES=1
         ports:
             - "80:8080"
         volumes:
             - ./resources:/resources
+        networks:
+            - "net"
     
     dsc_suicide_redis:
         container_name: dsc_suicide_redis

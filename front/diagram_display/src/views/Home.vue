@@ -7,7 +7,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from "vue";
+import { defineComponent } from "vue";
 // import HelloWorld from '@/components/HelloWorld.vue' // @ is an alias to /src
 import DiagramAlt from "@/components/DiagramAlt.vue";
 import DiagramSelectionDropdown from "@/components/DiagramSelectionDropdown.vue";
@@ -18,10 +18,7 @@ export default defineComponent({
     DiagramSelectionDropdown,
   },
   setup() {
-    let helloMsg = "hello";
-
     return {
-      helloMsg,
     };
   },
 });
