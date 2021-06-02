@@ -1,8 +1,12 @@
 from .abstract_instructions import AbstractInstruction
 from .param import Param
+from .model import Model
 from logic.kaggle import kaggle_get_list_of_all_values_in_row_by_column_name
 
-genders = [gender.lower() for gender in kaggle_get_list_of_all_values_in_row_by_column_name("sex")]
+genders = [
+    gender.lower()
+    for gender in kaggle_get_list_of_all_values_in_row_by_column_name("sex")
+]
 country = kaggle_get_list_of_all_values_in_row_by_column_name("country")
 
 
@@ -13,28 +17,33 @@ class KaggleInstruction(AbstractInstruction):
     :type AbstractInstruction: ABC
     """
 
+
+
     def __init__(self):
-        self.dataset_name = "kaggle"
-        self.models = {
-            "name": "linear_regression",
-            "params": {
-                "country": Param(country, "enum").as_json(),
-                "gender": Param(genders, "enum").as_json(),
-                "date_range": Param([2000, 2019], "range").as_json(),
-            },
-            "name": "kmeans/clustering",
-            "params": {
-                "country": Param(country, "enum").as_json(),
-                "gender": Param(genders, "enum").as_json(),
-                "clusters": Param([1, 10], "range").as_json(),
-            },
-            "name": "kmeans/elbow",
-            "params": {
-                "country": Param(country, "enum").as_json(),
-                "gender": Param(genders, "enum").as_json(),
-                "clusters": Param([1, 10], "range").as_json(),
-            },
+        linear_regression_params = {
+            "country": Param(country, "enum").as_json(),
+            "gender": Param(genders, "enum").as_json(),
         }
+        kmeans_clustering_params = {
+            "country": Param(country, "enum").as_json(),
+            "gender": Param(genders, "enum").as_json(),
+            "clusters": Param([1, 10], "range").as_json(),
+        }
+        kmeans_elbow_params = {
+            "country": Param(country, "enum").as_json(),
+            "gender": Param(genders, "enum").as_json(),
+            "clusters": Param([1, 10], "range").as_json(),
+        }
+
+        linear_regression_model = Model(
+            "linear_regression", linear_regression_params
+        ).as_json()
+        kmeans_clustering_model = Model(
+            "kmeans/clustering", kmeans_clustering_params
+        ).as_json()
+        kmeans_elbow_model = Model("kmeans/elbow", kmeans_elbow_params).as_json()
+        self.dataset_name = "kaggle"
+        self.models = [linear_regression_model, kmeans_clustering_model, kmeans_elbow_model]
         self.dataset_link = (
             "https://apps.who.int/gho/data/view.sdg.3-4-data-reg?lang=en"
         )

@@ -168,18 +168,18 @@ def kaggle_row_values(row_values):
     return jsonify(kaggle_get_list_of_all_values_in_row_by_column_name(row_values))
 
 
-# E.g. http://localhost:5000/kaggle/linearregression/preview/region=United_States&gender=male
+# E.g. http://localhost:5000/kaggle/linear_regression/preview/country=United_States&gender=male
 @cross_origin()
-@app.route("/kaggle/linearregression/preview/region=<string:region>&gender=<string:gender>")
-def kaggle_linear_regression_preview(region, gender):
+@app.route("/kaggle/linear_regression/preview/country=<string:country>&gender=<string:gender>")
+def kaggle_linear_regression_preview(country, gender):
     if gender not in ["both", "male", "female"]:
         create_and_updatelog("400")
         return "400"
 
         # File name is false if a file with the same name already exists.
-    file_name = generate_file_name("kaggle_linear_regression", region, gender)
+    file_name = generate_file_name("kaggle_linear_regression", country, gender)
     if not file_name_exists(file_name):
-        kaggle_linear_regression(region, gender, preview=True, file_name=file_name)
+        kaggle_linear_regression(country, gender, preview=True, file_name=file_name)
     try:
         return send_file(f"{OUT_DIR}/{file_name}{IMAGE_FORMAT}")
     except Exception as e:
@@ -187,34 +187,34 @@ def kaggle_linear_regression_preview(region, gender):
         create_and_updatelog(e)
 
 
-# E.g. http://localhost:5000/kaggle/linearregression/template/region=United_States&gender=male
+# E.g. http://localhost:5000/kaggle/linear_regression/template/country=United_States&gender=male
 @cross_origin()
-@app.route("/kaggle/linearregression/template/region=<string:region>&gender=<string:gender>")
-def kaggle_linear_regression_template(region, gender):
+@app.route("/kaggle/linear_regression/template/country=<string:country>&gender=<string:gender>")
+def kaggle_linear_regression_template(country, gender):
     if gender not in ["both", "male", "female"]:
         create_and_updatelog("400")
         return "400"
 
     try:
-        img = kaggle_linear_regression(region, gender, preview=False)
+        img = kaggle_linear_regression(country, gender, preview=False)
         return render_template_string(img)
     except Exception as e:
         check_debug(e)
         create_and_updatelog(e)
 
 
-# E.g. http://localhost:5000/kaggle/kmeans/clustering/preview/region=United_States&gender=male&clusters=2
+# E.g. http://localhost:5000/kaggle/kmeans/clustering/preview/country=United_States&gender=male&clusters=2
 @cross_origin()
-@app.route("/kaggle/kmeans/clustering/preview/region=<string:region>&gender=<string:gender>&clusters=<int:clusters>")
-def kaggle_kmeans_clustering_preview(region, gender, clusters):
+@app.route("/kaggle/kmeans/clustering/preview/country=<string:country>&gender=<string:gender>&clusters=<int:clusters>")
+def kaggle_kmeans_clustering_preview(country, gender, clusters):
     if gender not in ["both", "male", "female"]:
         create_and_updatelog("400")
         return "400"
 
         # File name is false if a file with the same name already exists.
-    file_name = generate_file_name("kaggle_kmeans_clustering", region, gender, clusters)
+    file_name = generate_file_name("kaggle_kmeans_clustering", country, gender, clusters)
     if not file_name_exists(file_name):
-        kaggle_kmeans_cluster(region, gender, clusters, preview=True, file_name=file_name)
+        kaggle_kmeans_cluster(country, gender, clusters, preview=True, file_name=file_name)
     try:
         return send_file(f"{OUT_DIR}/{file_name}{IMAGE_FORMAT}")
     except Exception as e:
@@ -222,26 +222,26 @@ def kaggle_kmeans_clustering_preview(region, gender, clusters):
         create_and_updatelog(e)
 
 
-# E.g. http://localhost:5000/kaggle/kmeans/clustering/template/region=United_States&gender=male&clusters=2
+# E.g. http://localhost:5000/kaggle/kmeans/clustering/template/country=United_States&gender=male&clusters=2
 @cross_origin()
-@app.route("/kaggle/kmeans/clustering/template/region=<string:region>&gender=<string:gender>&clusters=<int:clusters>")
-def kaggle_kmeans_clustering_template(region, gender, clusters):
+@app.route("/kaggle/kmeans/clustering/template/country=<string:country>&gender=<string:gender>&clusters=<int:clusters>")
+def kaggle_kmeans_clustering_template(country, gender, clusters):
     if gender not in ["both", "male", "female"]:
         create_and_updatelog("400")
         return "400"
 
     try:
-        img = kaggle_kmeans_cluster(region, gender, clusters, preview=False)
+        img = kaggle_kmeans_cluster(country, gender, clusters, preview=False)
         return render_template_string(img)
     except Exception as e:
         check_debug(e)
         create_and_updatelog(e)
 
 
-# E.g. http://localhost:5000/kaggle/kmeans/elbow/preview/region=United_States&gender=male&clusters=5
+# E.g. http://localhost:5000/kaggle/kmeans/elbow/preview/country=United_States&gender=male&clusters=5
 @cross_origin()
-@app.route("/kaggle/kmeans/elbow/preview/region=<string:region>&gender=<string:gender>&clusters=<int:clusters>")
-def kaggle_kmeans_elbow_preview(region, gender, clusters):
+@app.route("/kaggle/kmeans/elbow/preview/country=<string:country>&gender=<string:gender>&clusters=<int:clusters>")
+def kaggle_kmeans_elbow_preview(country, gender, clusters):
     if gender not in ["both", "male", "female"]:
         create_and_updatelog("400")
         return "400"
@@ -250,9 +250,9 @@ def kaggle_kmeans_elbow_preview(region, gender, clusters):
         return "Max can not be less or equal to 1"
 
     # File name is false if a file with the same name already exists.
-    file_name = generate_file_name("kaggle_kmeans_elbow", region, gender, clusters)
+    file_name = generate_file_name("kaggle_kmeans_elbow", country, gender, clusters)
     if not file_name_exists(file_name):
-        kaggle_kmeans_elbow(region, gender, clusters, preview=True, file_name=file_name)
+        kaggle_kmeans_elbow(country, gender, clusters, preview=True, file_name=file_name)
     try:
         return send_file(f"{OUT_DIR}/{file_name}{IMAGE_FORMAT}")
     except Exception as e:
@@ -260,10 +260,10 @@ def kaggle_kmeans_elbow_preview(region, gender, clusters):
         create_and_updatelog(e)
 
 
-# E.g. http://localhost:5000/kaggle/kmeans/elbow/template/region=United_States&gender=male&clusters=5
+# E.g. http://localhost:5000/kaggle/kmeans/elbow/template/country=United_States&gender=male&clusters=5
 @cross_origin()
-@app.route("/kaggle/kmeans/elbow/template/region=<string:region>&gender=<string:gender>&clusters=<int:clusters>")
-def kaggle_kmeans_elbow_template(region, gender, clusters):
+@app.route("/kaggle/kmeans/elbow/template/country=<string:country>&gender=<string:gender>&clusters=<int:clusters>")
+def kaggle_kmeans_elbow_template(country, gender, clusters):
     if gender not in ["both", "male", "female"]:
         create_and_updatelog("400")
         return "400"
@@ -272,7 +272,7 @@ def kaggle_kmeans_elbow_template(region, gender, clusters):
         return "Max can not be less or equal to 1"
 
     try:
-        img = kaggle_kmeans_elbow(region, gender, clusters, preview=False)
+        img = kaggle_kmeans_elbow(country, gender, clusters, preview=False)
         return render_template_string(img)
     except Exception as e:
         check_debug(e)

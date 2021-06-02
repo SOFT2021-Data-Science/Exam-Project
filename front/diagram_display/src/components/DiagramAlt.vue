@@ -56,7 +56,6 @@
         <img :src="$store.getters.imgTagValue" alt="" />
       </div>
     </div>
-    {{ $store.state.selectedModel }}
     {{ $store.state.URLParams }}
   </div>
 </template>
@@ -78,19 +77,20 @@ export default defineComponent({
     let tempInputValue = ref("");
 
     const setModel = () => {
-      console.log(Object.entries(store.state.selectedModel));
+      console.log("bboop");
+      
+      console.log(Object.entries(store.state.selectedModel.params));
+      const selected_model_params = store.state.selectedModel.params;
+      const selected_model_params_keys = Object.keys(selected_model_params);
+      let URLParams = new Map()
+
+      selected_model_params_keys.forEach((key, index) => {
+        console.log(key + selected_model_params[key]);
+        URLParams[key] = selected_model_params[key].values[0]
+      })
       
       store.dispatch("setSelectedModel", store.state.selectedModel);
       store.dispatch("resetURLParams");
-      let entries: any = Object.entries(store.state.selectedModel);
-      let values: any = Object.values(entries[0]);
-      values = Object.values(values);
-      values = Object.values(values[1]);
-      let URLParams = new Map();
-
-      for (const entry in entries[0][1]) {
-        URLParams[entry] = entries[0][1][entry].values[0];
-      }
       store.dispatch("setURLParamsInitialValues", URLParams);
     };
 
