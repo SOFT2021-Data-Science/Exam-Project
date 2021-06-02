@@ -10,7 +10,7 @@
           :key="selection.key"
           :value="selection"
         >
-          {{ selection.name}}
+          {{ selection.name }}
         </option>
       </select>
     </div>
@@ -61,11 +61,9 @@
 </template>
 
 <script lang="ts">
-import axios from "axios";
 import { defineComponent, ref } from "vue";
 import { useStore } from "vuex";
-import {Map} from "@/store/index";
-
+import { Map } from "@/store/index";
 
 export default defineComponent({
   beforeMount() {
@@ -78,64 +76,20 @@ export default defineComponent({
 
     const setModel = () => {
       console.log("bboop");
-      
+
       console.log(Object.entries(store.state.selectedModel.params));
       const selected_model_params = store.state.selectedModel.params;
       const selected_model_params_keys = Object.keys(selected_model_params);
-      let URLParams = new Map()
+      let URLParams = new Map();
 
       selected_model_params_keys.forEach((key, index) => {
         console.log(key + selected_model_params[key]);
-        URLParams[key] = selected_model_params[key].values[0]
-      })
-      
+        URLParams[key] = selected_model_params[key].values[0];
+      });
+
       store.dispatch("setSelectedModel", store.state.selectedModel);
       store.dispatch("resetURLParams");
       store.dispatch("setURLParamsInitialValues", URLParams);
-    };
-
-    const loadExternalGraph = async () => {
-      let url_string: string = process.env.VUE_APP_BACKEND + "/basic/2012&2017";
-      try {
-        let data = await axios
-          .get(url_string)
-          .then((res) => res)
-          .then((data) => data.data);
-        console.log(data);
-
-        window.location.href = url_string;
-      } catch (error) {
-        console.log(error);
-      }
-    };
-
-    const loadDataset = async () => {
-      let url: string = process.env.VUE_APP_BACKEND + "/instructions/sdg";
-      try {
-        let data = await axios
-          .get(url)
-          .then((res) => res)
-          .then((data) => data.data);
-        console.log(data);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-
-    const loadPreviewGraph = () => {
-      let url_string: string =
-        process.env.VUE_APP_BACKEND + "/" + store.state.selected + "/preview/";
-
-      let options = store.getters.getSelectedFromOptions;
-      console.log(options);
-
-      for (const [key, value] of Object.entries(store.state.inputValues)) {
-        if (parseInt(key) != 0) {
-          url_string += "&";
-        }
-        url_string += options[key] + "=" + value;
-      }
-      console.log(url_string);
     };
     return {
       tempInputValue,
