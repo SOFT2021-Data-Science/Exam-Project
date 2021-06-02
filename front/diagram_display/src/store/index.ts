@@ -117,13 +117,18 @@ export default createStore({
       }
       url_string = url_string.substring(0, url_string.length - 1);
 
-      //window.open(url_string, "_blank")
+      window.open(url_string, "_blank")
     },
     setURLParamsInitialValues(context, URLParams){
       context.commit("SET_URL_PARAMS_INITIAL_VALUES", URLParams)
     },
     setImgTagValue(context) {
-      let url_string = process.env.VUE_APP_BACKEND + "/" + this.state.selected + "/preview/"
+      let model_name = ""
+      const selected_model = this.state.selectedModel as any | null;
+      if (typeof selected_model!==null){
+        model_name = selected_model.name
+      }
+      let url_string = process.env.VUE_APP_BACKEND + "/" + this.state.selected + "/" + model_name + "/" + "preview/"
       for (const key_val in this.state.URLParams) {
         url_string += key_val + "=" + this.state.URLParams[key_val] + "&"
       }

@@ -6,11 +6,11 @@
       <span>Choose model: </span>
       <select v-model="$store.state.selectedModel" @click="setModel">
         <option
-          v-for="selection in Object.entries($store.state.instructions.models)"
+          v-for="selection in Object.values($store.state.instructions)[0]"
           :key="selection.key"
-          :value="selection[1]"
+          :value="selection"
         >
-          {{ selection[0] }}
+          {{ selection.name}}
         </option>
       </select>
     </div>
@@ -56,6 +56,7 @@
         <img :src="$store.getters.imgTagValue" alt="" />
       </div>
     </div>
+    {{ $store.state.selectedModel }}
     {{ $store.state.URLParams }}
   </div>
 </template>

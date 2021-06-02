@@ -3,7 +3,6 @@ input_enums = ["any_number", "enum", "range"]
 
 class Param:
     def __init__(self, values, input_type):
-
         if input_type not in input_enums:
             raise Exception("Invalid enum in param. Must be one of: ", input_enums)
 

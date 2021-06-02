@@ -36,9 +36,11 @@ services:
         hostname: redis
         image: redis
         ports:
-        -  "6379:6379"
+            - "6379:6379"
         environment:
-            - "CONTAINERIZED_VARIABLES"
+            - CONTAINERIZED_VARIABLES=1
+        networks:
+            - "net"
 
         
 networks:

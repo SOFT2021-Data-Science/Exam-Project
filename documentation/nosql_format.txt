@@ -1,5 +1,6 @@
 "recipes" : {
-    "sdg": {
+    "name":"sdg",
+    "params": {
         "models": {
             "basic": ["min", "max],
             "linear_regression": ["region", "gender"]
@@ -10,7 +11,8 @@
             "date_range": [2000, 2019]
         }
     },
-    "kaggle": {
+    "name":"kaggle",
+    "params":{
         "models":{        
             "basic": ["min", "max],
             "linear_regression": ["region", "gender"]
@@ -22,7 +24,6 @@
         }
     }
 }
-
 
 
 

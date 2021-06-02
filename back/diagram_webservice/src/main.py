@@ -50,9 +50,9 @@ def index():
 def sdg_row_values(row_values):
     return jsonify(sdg_get_list_of_all_values_in_row_by_column_name(row_values))
 
-# E.g. http://localhost:5000/sdg/linearregression/preview/region=Africa&gender=male
+# E.g. http://localhost:5000/sdg/linear_regression/preview/region=Africa&gender=male
 @cross_origin()
-@app.route("/sdg/linearregression/preview/region=<string:region>&gender=<string:gender>")
+@app.route("/sdg/linear_regression/preview/region=<string:region>&gender=<string:gender>")
 def sdg_linear_regression_preview(region, gender):
     if gender not in ["both", "male", "female"]:
         create_and_updatelog("400")
@@ -68,9 +68,9 @@ def sdg_linear_regression_preview(region, gender):
         create_and_updatelog(e)
 
 
-# E.g. http://localhost:5000/sdg/linearregression/template/region=Africa&gender=male
+# E.g. http://localhost:5000/sdg/linear_regression/template/region=Africa&gender=male
 @cross_origin()
-@app.route("/sdg/linearregression/template/region=<string:region>&gender=<string:gender>")
+@app.route("/sdg/linear_regression/template/region=<string:region>&gender=<string:gender>")
 def sdg_linear_regression_template(region, gender):
     if gender not in ["both", "male", "female"]:
         create_and_updatelog("400")
