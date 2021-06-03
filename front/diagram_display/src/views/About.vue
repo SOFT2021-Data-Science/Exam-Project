@@ -27,13 +27,23 @@
       <li><b>Gender</b>: This field specifies if you want data from male or female.</li>
       <li><b>Preview</b>: Here you can choose between preview and template.</li>
       <li><b>Preview</b>: If you choose this it will give you a static graph made from the chosen values.</li>
-      <li><b>Template: If you choose this it will give you an interactable graph made from the chosen values, where you can zoom in and out on the graph.</b></li>
+      <li><b>Template:</b> If you choose this it will give you an interactable graph made from the chosen values, where you can zoom in and out on the graph.</li>
     </ul>
     <h2>Diagram Descriptions</h2>
     <ul>
       <li>LinearRegression</li>
       <li>Kaggle/Clustering</li>
       <li>Kaggle/Elbow</li>
+    </ul>
+
+    <ul>
+      <li>
+        <p>
+        R² R-squared is a metric of correlation. Correlation is measured by “r” and it tells us how strongly two variables can be related. A correlation closer to +1 means a strong relationship in the positive direction, 
+        while -1 means a stronger relationship in the opposite direction. A value closer to 0 means that there is not much of a relationship between the variables. R-squared is closely related to correlation.
+        source: https://towardsdatascience.com/data-science-explaining-r%C2%B2-in-statistics-6f34e7f0a9bb
+        </p>
+      </li>
     </ul>
   </div>
 </template>
