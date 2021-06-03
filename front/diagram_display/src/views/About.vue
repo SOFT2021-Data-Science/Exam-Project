@@ -29,6 +29,12 @@
       <li><b>Preview</b>: If you choose this it will give you a static graph made from the chosen values.</li>
       <li><b>Template: If you choose this it will give you an interactable graph made from the chosen values, where you can zoom in and out on the graph.</b></li>
     </ul>
+    <h2>Diagram Descriptions</h2>
+    <ul>
+      <li>LinearRegression</li>
+      <li>Kaggle/Clustering</li>
+      <li>Kaggle/Elbow</li>
+    </ul>
   </div>
 </template>
 

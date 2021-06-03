@@ -34,7 +34,7 @@ class KaggleInstruction(AbstractInstruction):
         }
 
         linear_regression_model = Model(
-            "linear_regression", linear_regression_params
+            "linear_regression", linear_regression_params,
         ).as_json()
         kmeans_clustering_model = Model(
             "kmeans/clustering", kmeans_clustering_params
