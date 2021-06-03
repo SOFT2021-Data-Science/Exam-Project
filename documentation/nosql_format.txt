@@ -1,29 +1,53 @@
-"recipes" : {
-    "name":"sdg",
-    "params": {
-        "models": {
-            "basic": ["min", "max],
-            "linear_regression": ["region", "gender"]
-        },
-        "header_enums": {
-            "gender_enums": ["male", "female","both"],
-            "region_enums": ["Africa", "Europe"],
-            "date_range": [2000, 2019]
+{
+    "models": [
+        {
+            "name": "linear_regression", 
+            "params": {
+                "region": {
+                    "values": ["Africa", "Americas", "Eastern_Mediterranean", "Europe", "Global", "South_East_Asia", "Western_Pacific"], 
+                    "input_type": "enum"
+                }, 
+                "gender": {
+                    "values": ["both", "female", "male"], 
+                    "input_type": "enum"
+                }
+            }
+        }, 
+        {
+            "name": "kmeans/clustering", 
+            "params": {
+                "region": {
+                    "values": ["Africa", "Americas", "Eastern_Mediterranean", "Europe", "Global", "South_East_Asia", "Western_Pacific"], 
+                    "input_type": "enum"
+                }, 
+                "gender": {
+                    "values": ["both", "female", "male"], 
+                    "input_type": "enum"
+                }, 
+                "clusters": {
+                    "values": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10], 
+                    "input_type": "range"
+                }
+            }
+        }, 
+        {
+            "name": "kmeans/elbow", 
+            "params": {
+                "region": {
+                    "values": ["Africa", "Americas", "Eastern_Mediterranean", "Europe", "Global", "South_East_Asia", "Western_Pacific"], 
+                    "input_type": "enum"
+                }, 
+                "gender": {
+                    "values": ["both", "female", "male"], 
+                    "input_type": "enum"
+                }, 
+                "clusters": {
+                    "values": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10], 
+                    "input_type": "range"
+                }
+            }
         }
-    },
-    "name":"kaggle",
-    "params":{
-        "models":{        
-            "basic": ["min", "max],
-            "linear_regression": ["region", "gender"]
-        },
-        "header_enums": {
-            "gender_enums": ["male", "female"],
-            "country_enums": [ALL OF THE COUNTRIES..!?],
-            "date_range": [1985, 2016]
-        }
-    }
+    ], 
+    "dataset_link": "https://apps.who.int/gho/data/view.sdg.3-4-data-reg?lang=en", 
+    "description": "The SDG dataset is compiled by the WHO organization"
 }
-
-
-
