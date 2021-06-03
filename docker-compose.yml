@@ -38,6 +38,10 @@ services:
         image: redis
         ports:
             - "6379:6379"
+        volumes:
+            - ./data/redis:/data
+            - ./data/conf:/usr/local/etc/redis
+
         environment:
             - CONTAINERIZED_VARIABLES=1
         networks:
