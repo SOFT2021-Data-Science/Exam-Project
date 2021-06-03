@@ -17,8 +17,6 @@ class KaggleInstruction(AbstractInstruction):
     :type AbstractInstruction: ABC
     """
 
-
-
     def __init__(self):
         linear_regression_params = {
             "country": Param(country, "enum").as_json(),
@@ -45,7 +43,21 @@ class KaggleInstruction(AbstractInstruction):
         self.dataset_name = "kaggle"
         self.models = [linear_regression_model, kmeans_clustering_model, kmeans_elbow_model]
         self.dataset_link = (
-            "https://apps.who.int/gho/data/view.sdg.3-4-data-reg?lang=en"
+            "https://www.kaggle.com/russellyates88/suicide-rates-overview-1985-to-2016"
         )
-        self.description = "Insert description here"
+        self.description = """
+        Content:
+        
+        This compiled dataset pulled from four other datasets linked by time and place, and was built to find signals correlated to increased suicide rates among different cohorts globally, across the socio-economic spectrum.
+
+        References: 
+        
+        United Nations Development Program. (2018). Human development index (HDI). Retrieved from http://hdr.undp.org/en/indicators/137506
+
+        World Bank. (2018). World development indicators: GDP (current US$) by country:1985 to 2016. Retrieved from http://databank.worldbank.org/data/source/world-development-indicators#
+
+        [Szamil]. (2017). Suicide in the Twenty-First Century [dataset]. Retrieved from https://www.kaggle.com/szamil/suicide-in-the-twenty-first-century/notebook
+
+        World Health Organization. (2018). Suicide prevention. Retrieved from http://www.who.int/mental_health/suicide-prevention/en/
+        """
         super().set_instruction()

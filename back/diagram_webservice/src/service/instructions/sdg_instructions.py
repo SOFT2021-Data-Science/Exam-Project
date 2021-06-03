@@ -55,5 +55,5 @@ class SDGInstruction(AbstractInstruction):
         self.dataset_link = (
             "https://apps.who.int/gho/data/view.sdg.3-4-data-reg?lang=en"
         )
-        self.description = "Insert description here"
+        self.description = "The SDG dataset is compiled by the WHO organization"
         super().set_instruction()

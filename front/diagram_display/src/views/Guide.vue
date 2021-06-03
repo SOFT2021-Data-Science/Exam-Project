@@ -10,8 +10,9 @@
         <ol>
           <li>Select <b>kaggle linear regression</b> from the dropdown menu.</li>
           <li>You should now see two fields: <b>region</b> and <b>gender</b>, where we'll pick <b>Denmark</b> and <b>Male</b> as our input values.</li>
-          <li>Click the <b>toggle</b> button </li>
-          <li style="color: red;">TDB, FINISH THIS!</li>
+          <li>There are two options for displaying the images</li>
+          <li>The <b>Display image</b> button displays the image on the site</li>
+          <li>The <b>Reroute to template</b> button reroutes to a service with some simple tools for managing the image</li>
         </ol>
       </div>
     </div>
