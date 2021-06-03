@@ -42,8 +42,7 @@ services:
             - CONTAINERIZED_VARIABLES=1
         networks:
             - "net"
-
-        
+  
 networks:
     net:
         driver: "bridge"
