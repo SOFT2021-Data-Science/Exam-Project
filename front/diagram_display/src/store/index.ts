@@ -55,10 +55,10 @@ export default createStore({
     SET_IMG_TAG_VALUE(state, value) {
       state.imgTagValue = value
     },
-    RESET_URL_PARAMS(state){
+    RESET_URL_PARAMS(state) {
       state.URLParams = new Map();
     },
-    SET_URL_PARAMS_INITIAL_VALUES(state, URLParams){
+    SET_URL_PARAMS_INITIAL_VALUES(state, URLParams) {
       state.URLParams = URLParams
     }
   },
@@ -90,26 +90,16 @@ export default createStore({
       context.commit("SET_AVAILABLE_DATASETS", availableDatasets)
     },
     appendToURLParams(context, values) {
-      console.log(values);
       context.commit("APPEND_TO_URL_PARAMS", values)
     },
     rerouteToTemplate() {
       const model = this.state.selectedModel as any | null;
       let stuff
 
-      for (const value in Object.values(model)) {
-        console.log(value);
-      }
-
       if (typeof model !== null) {
         stuff = Object.entries(model)
-        console.log(stuff);
-        
       }
       stuff = Object.values(model)[0]
-      console.log(stuff);
-      
-
 
       let url_string = process.env.VUE_APP_BACKEND + "/" + this.state.selected + "/" + stuff + "/template/"
       for (const key_val in this.state.URLParams) {
@@ -119,13 +109,13 @@ export default createStore({
 
       window.open(url_string, "_blank")
     },
-    setURLParamsInitialValues(context, URLParams){
+    setURLParamsInitialValues(context, URLParams) {
       context.commit("SET_URL_PARAMS_INITIAL_VALUES", URLParams)
     },
     setImgTagValue(context) {
       let model_name = ""
       const selected_model = this.state.selectedModel as any | null;
-      if (typeof selected_model!==null){
+      if (typeof selected_model !== null) {
         model_name = selected_model.name
       }
       let url_string = process.env.VUE_APP_BACKEND + "/" + this.state.selected + "/" + model_name + "/" + "preview/"
@@ -135,7 +125,7 @@ export default createStore({
       url_string = url_string.substring(0, url_string.length - 1);
       context.commit("SET_IMG_TAG_VALUE", url_string)
     },
-    resetURLParams(context){
+    resetURLParams(context) {
       context.commit("RESET_URL_PARAMS")
     }
   },

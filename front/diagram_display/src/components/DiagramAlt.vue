@@ -75,15 +75,11 @@ export default defineComponent({
     let tempInputValue = ref("");
 
     const setModel = () => {
-      console.log("bboop");
-
-      console.log(Object.entries(store.state.selectedModel.params));
       const selected_model_params = store.state.selectedModel.params;
       const selected_model_params_keys = Object.keys(selected_model_params);
       let URLParams = new Map();
 
       selected_model_params_keys.forEach((key, index) => {
-        console.log(key + selected_model_params[key]);
         URLParams[key] = selected_model_params[key].values[0];
       });
 
