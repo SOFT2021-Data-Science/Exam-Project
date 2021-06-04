@@ -15,7 +15,7 @@ for char in str(KEYS):
 def available_datasets_route():
     """A route for retrieving current available datasets
 
-    :return: Bytes object extracted from redis database
-    :rtype: Bytes
+    :return: Dictionary with keys
+    :rtype: Dict
     """
     return KEYS_STR
