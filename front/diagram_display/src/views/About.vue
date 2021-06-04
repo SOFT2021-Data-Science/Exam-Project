@@ -109,21 +109,24 @@
           <b>Polynomial regression</b>
           “Polynomial regression is a regression algorithm which models the relationship between dependent and the independent variable is modeled such that the dependent variable Y is an nth degree function of the independent variable Y.”
 
-          “The formula of Polynomial Regression is, in this case, is modeled as:”
-          <img src="@/assets/p1.png" alt="">
+          “The formula of Polynomial Regression is, in this case, is modeled as:”<br />
+          <img src="@/assets/p1.png" alt=""><br />
 
-          “Where y is the dependent variable and the betas are the coefficient for different nth powers of the independent variable x starting from 0 to n. The calculation is often done in a matrix form as shown below:”
-          <img src="@/assets/p2.png" alt="">
+          “Where y is the dependent variable and the betas are the coefficient for different nth powers of the independent variable x starting from 0 to n. The calculation is often done in a matrix form as shown below:”<br />
+          <img src="@/assets/p2.png" alt=""><br />
+
           
           https://mindmajix.com/polynomial-regression
         </p>
         <p>
           <b>K-Means clustering</b>
-          “K-Means clustering intends to partition n objects into k clusters in which each object belongs to the cluster with the nearest mean. This method produces exactly k different clusters of greatest possible distinction. The best number of clusters k leading to the greatest separation (distance) is not known as a priori and must be computed from the data. The objective of K-Means clustering is to minimize total intra-cluster variance, or, the squared error function:”
+          “K-Means clustering intends to partition n objects into k clusters in which each object belongs to the cluster with the nearest mean. This method produces exactly k different clusters of greatest possible distinction. The best number of clusters k leading to the greatest separation (distance) is not known as a priori and must be computed from the data. The objective of K-Means clustering is to minimize total intra-cluster variance, or, the squared error function:”<br />
+          
           <img src="@/assets/k1.png" alt="">
           
           https://www.saedsayad.com/clustering_kmeans.htm
-          “The Elbow Method is one of the most popular methods to determine this optimal value of k.”
+          <br /> 
+          “The Elbow Method is one of the most popular methods to determine this optimal value of k.”<br />
           
           
           https://www.geeksforgeeks.org/elbow-method-for-optimal-value-of-k-in-kmeans/ 
