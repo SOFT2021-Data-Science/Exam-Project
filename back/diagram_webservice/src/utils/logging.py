@@ -4,6 +4,8 @@ import os
 
 
 def create_and_updatelog(*args):
+    """Creates a logger. Takes any amount of arguments.
+    """    
     if not os.path.isdir(LOGGING_DIR):
         os.makedirs(LOGGING_DIR)
 

@@ -12,7 +12,8 @@ genders = [
 class SDGInstruction(AbstractInstruction):
     """Instructions for the SDG dataset. Implements AbstractInstruction
 
-    :param AbstractInstruction: Instructions for what the frontend must display. Stored with redis
+    :param AbstractInstruction: Instructions for what the frontend must display. 
+    Stored within a dictionary on defined as a constant when running the program
     :type AbstractInstruction: ABC
     """
 

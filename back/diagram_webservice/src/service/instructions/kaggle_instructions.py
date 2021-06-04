@@ -13,7 +13,8 @@ country = kaggle_get_list_of_all_values_in_row_by_column_name("country")
 class KaggleInstruction(AbstractInstruction):
     """Instructions for the Kaggle dataset. Implements AbstractInstruction
 
-    :param AbstractInstruction: Instructions for what the frontend must display. Stored with redis
+    :param AbstractInstruction: Instructions for what the frontend must display. 
+    Stored within a dictionary on defined as a constant when running the program
     :type AbstractInstruction: ABC
     """
 
