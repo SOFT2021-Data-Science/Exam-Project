@@ -1,0 +1,29 @@
+diagram\_webservice.src.logic package
+=====================================
+
+Submodules
+----------
+
+diagram\_webservice.src.logic.kaggle module
+-------------------------------------------
+
+.. automodule:: diagram_webservice.src.logic.kaggle
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+diagram\_webservice.src.logic.sdg module
+----------------------------------------
+
+.. automodule:: diagram_webservice.src.logic.sdg
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Module contents
+---------------
+
+.. automodule:: diagram_webservice.src.logic
+   :members:
+   :undoc-members:
+   :show-inheritance:

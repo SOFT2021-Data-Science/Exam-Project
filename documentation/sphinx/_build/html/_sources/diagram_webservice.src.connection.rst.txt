@@ -1,0 +1,21 @@
+diagram\_webservice.src.connection package
+==========================================
+
+Submodules
+----------
+
+diagram\_webservice.src.connection.redis\_connection module
+-----------------------------------------------------------
+
+.. automodule:: diagram_webservice.src.connection.redis_connection
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Module contents
+---------------
+
+.. automodule:: diagram_webservice.src.connection
+   :members:
+   :undoc-members:
+   :show-inheritance:

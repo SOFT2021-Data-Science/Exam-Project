@@ -1,0 +1,32 @@
+diagram\_webservice.src package
+===============================
+
+Subpackages
+-----------
+
+.. toctree::
+   :maxdepth: 4
+
+   diagram_webservice.src.connection
+   diagram_webservice.src.logic
+   diagram_webservice.src.service
+   diagram_webservice.src.utils
+
+Submodules
+----------
+
+diagram\_webservice.src.main module
+-----------------------------------
+
+.. automodule:: diagram_webservice.src.main
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Module contents
+---------------
+
+.. automodule:: diagram_webservice.src
+   :members:
+   :undoc-members:
+   :show-inheritance:

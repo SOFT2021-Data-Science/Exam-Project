@@ -1,0 +1,191 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>service.instructions package &#8212; dsc_suicide 0.0.1 documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/haiku.css" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="utils package" href="utils.html" />
+    <link rel="prev" title="service package" href="service.html" /> 
+  </head><body>
+      <div class="header" role="banner"><h1 class="heading"><a href="index.html">
+          <span>dsc_suicide 0.0.1 documentation</span></a></h1>
+        <h2 class="heading"><span>service.instructions package</span></h2>
+      </div>
+      <div class="topnav" role="navigation" aria-label="top navigation">
+      
+        <p>
+        «&#160;&#160;<a href="service.html">service package</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="index.html">Contents</a>
+        &#160;&#160;::&#160;&#160;
+        <a href="utils.html">utils package</a>&#160;&#160;»
+        </p>
+
+      </div>
+      <div class="content" role="main">
+        
+        
+  <section id="service-instructions-package">
+<h1>service.instructions package<a class="headerlink" href="#service-instructions-package" title="Permalink to this headline">¶</a></h1>
+<section id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="module-service.instructions.abstract_instructions">
+<span id="service-instructions-abstract-instructions-module"></span><h2>service.instructions.abstract_instructions module<a class="headerlink" href="#module-service.instructions.abstract_instructions" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="service.instructions.abstract_instructions.AbstractInstruction">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">service.instructions.abstract_instructions.</span></span><span class="sig-name descname"><span class="pre">AbstractInstruction</span></span><a class="headerlink" href="#service.instructions.abstract_instructions.AbstractInstruction" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">abc.ABC</span></code></p>
+<p>Instructions for what the frontend must display. Stored with redis</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="service.instructions.abstract_instructions.AbstractInstruction.dataset_format">
+<span class="sig-name descname"><span class="pre">dataset_format</span></span><em class="property"> <span class="pre">=</span> <span class="pre">{'dataset_link':</span> <span class="pre">'https://apps.who.int/gho/data/view.sdg.3-4-data-reg?lang=en',</span> <span class="pre">'description':</span> <span class="pre">'The</span> <span class="pre">SDG</span> <span class="pre">dataset</span> <span class="pre">is</span> <span class="pre">compiled</span> <span class="pre">by</span> <span class="pre">the</span> <span class="pre">WHO</span> <span class="pre">organization',</span> <span class="pre">'models':</span> <span class="pre">[{'name':</span> <span class="pre">'linear_regression',</span> <span class="pre">'params':</span> <span class="pre">{'region':</span> <span class="pre">{'values':</span> <span class="pre">['Africa',</span> <span class="pre">'Americas',</span> <span class="pre">'Eastern_Mediterranean',</span> <span class="pre">'Europe',</span> <span class="pre">'Global',</span> <span class="pre">'South_East_Asia',</span> <span class="pre">'Western_Pacific'],</span> <span class="pre">'input_type':</span> <span class="pre">'enum'},</span> <span class="pre">'gender':</span> <span class="pre">{'values':</span> <span class="pre">['both',</span> <span class="pre">'female',</span> <span class="pre">'male'],</span> <span class="pre">'input_type':</span> <span class="pre">'enum'}}},</span> <span class="pre">{'name':</span> <span class="pre">'kmeans/clustering',</span> <span class="pre">'params':</span> <span class="pre">{'region':</span> <span class="pre">{'values':</span> <span class="pre">['Africa',</span> <span class="pre">'Americas',</span> <span class="pre">'Eastern_Mediterranean',</span> <span class="pre">'Europe',</span> <span class="pre">'Global',</span> <span class="pre">'South_East_Asia',</span> <span class="pre">'Western_Pacific'],</span> <span class="pre">'input_type':</span> <span class="pre">'enum'},</span> <span class="pre">'gender':</span> <span class="pre">{'values':</span> <span class="pre">['both',</span> <span class="pre">'female',</span> <span class="pre">'male'],</span> <span class="pre">'input_type':</span> <span class="pre">'enum'},</span> <span class="pre">'clusters':</span> <span class="pre">{'values':</span> <span class="pre">[1,</span> <span class="pre">2,</span> <span class="pre">3,</span> <span class="pre">4,</span> <span class="pre">5,</span> <span class="pre">6,</span> <span class="pre">7,</span> <span class="pre">8,</span> <span class="pre">9,</span> <span class="pre">10],</span> <span class="pre">'input_type':</span> <span class="pre">'range'}}},</span> <span class="pre">{'name':</span> <span class="pre">'kmeans/elbow',</span> <span class="pre">'params':</span> <span class="pre">{'region':</span> <span class="pre">{'values':</span> <span class="pre">['Africa',</span> <span class="pre">'Americas',</span> <span class="pre">'Eastern_Mediterranean',</span> <span class="pre">'Europe',</span> <span class="pre">'Global',</span> <span class="pre">'South_East_Asia',</span> <span class="pre">'Western_Pacific'],</span> <span class="pre">'input_type':</span> <span class="pre">'enum'},</span> <span class="pre">'gender':</span> <span class="pre">{'values':</span> <span class="pre">['both',</span> <span class="pre">'female',</span> <span class="pre">'male'],</span> <span class="pre">'input_type':</span> <span class="pre">'enum'},</span> <span class="pre">'clusters':</span> <span class="pre">{'values':</span> <span class="pre">[1,</span> <span class="pre">2,</span> <span class="pre">3,</span> <span class="pre">4,</span> <span class="pre">5,</span> <span class="pre">6,</span> <span class="pre">7,</span> <span class="pre">8,</span> <span class="pre">9,</span> <span class="pre">10],</span> <span class="pre">'input_type':</span> <span class="pre">'range'}}}]}</span></em><a class="headerlink" href="#service.instructions.abstract_instructions.AbstractInstruction.dataset_format" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="service.instructions.abstract_instructions.AbstractInstruction.dataset_link">
+<span class="sig-name descname"><span class="pre">dataset_link</span></span><em class="property"> <span class="pre">=</span> <span class="pre">''</span></em><a class="headerlink" href="#service.instructions.abstract_instructions.AbstractInstruction.dataset_link" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="service.instructions.abstract_instructions.AbstractInstruction.dataset_name">
+<span class="sig-name descname"><span class="pre">dataset_name</span></span><em class="property"> <span class="pre">=</span> <span class="pre">''</span></em><a class="headerlink" href="#service.instructions.abstract_instructions.AbstractInstruction.dataset_name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="service.instructions.abstract_instructions.AbstractInstruction.description">
+<span class="sig-name descname"><span class="pre">description</span></span><em class="property"> <span class="pre">=</span> <span class="pre">''</span></em><a class="headerlink" href="#service.instructions.abstract_instructions.AbstractInstruction.description" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="service.instructions.abstract_instructions.AbstractInstruction.get_instruction">
+<span class="sig-name descname"><span class="pre">get_instruction</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#service.instructions.abstract_instructions.AbstractInstruction.get_instruction" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieves instruction from redis. Uses the object’s dataset name</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>Bytes containing the json string</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>Bytes</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="service.instructions.abstract_instructions.AbstractInstruction.headers">
+<span class="sig-name descname"><span class="pre">headers</span></span><em class="property"> <span class="pre">=</span> <span class="pre">''</span></em><a class="headerlink" href="#service.instructions.abstract_instructions.AbstractInstruction.headers" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="service.instructions.abstract_instructions.AbstractInstruction.json_obj">
+<span class="sig-name descname"><span class="pre">json_obj</span></span><em class="property"> <span class="pre">=</span> <span class="pre">None</span></em><a class="headerlink" href="#service.instructions.abstract_instructions.AbstractInstruction.json_obj" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="service.instructions.abstract_instructions.AbstractInstruction.models">
+<span class="sig-name descname"><span class="pre">models</span></span><em class="property"> <span class="pre">=</span> <span class="pre">''</span></em><a class="headerlink" href="#service.instructions.abstract_instructions.AbstractInstruction.models" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="service.instructions.abstract_instructions.AbstractInstruction.set_instruction">
+<span class="sig-name descname"><span class="pre">set_instruction</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#service.instructions.abstract_instructions.AbstractInstruction.set_instruction" title="Permalink to this definition">¶</a></dt>
+<dd><p>Converts object variables into json format and stores it on redis database</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-service.instructions.kaggle_instructions">
+<span id="service-instructions-kaggle-instructions-module"></span><h2>service.instructions.kaggle_instructions module<a class="headerlink" href="#module-service.instructions.kaggle_instructions" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="service.instructions.kaggle_instructions.KaggleInstruction">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">service.instructions.kaggle_instructions.</span></span><span class="sig-name descname"><span class="pre">KaggleInstruction</span></span><a class="headerlink" href="#service.instructions.kaggle_instructions.KaggleInstruction" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#service.instructions.abstract_instructions.AbstractInstruction" title="service.instructions.abstract_instructions.AbstractInstruction"><code class="xref py py-class docutils literal notranslate"><span class="pre">service.instructions.abstract_instructions.AbstractInstruction</span></code></a></p>
+<p>Instructions for the Kaggle dataset. Implements AbstractInstruction</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>AbstractInstruction</strong> (<em>ABC</em>) – Instructions for what the frontend must display. Stored with redis</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-service.instructions.model">
+<span id="service-instructions-model-module"></span><h2>service.instructions.model module<a class="headerlink" href="#module-service.instructions.model" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="service.instructions.model.Model">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">service.instructions.model.</span></span><span class="sig-name descname"><span class="pre">Model</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#service.instructions.model.Model" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="service.instructions.model.Model.as_json">
+<span class="sig-name descname"><span class="pre">as_json</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#service.instructions.model.Model.as_json" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-service.instructions.param">
+<span id="service-instructions-param-module"></span><h2>service.instructions.param module<a class="headerlink" href="#module-service.instructions.param" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="service.instructions.param.Param">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">service.instructions.param.</span></span><span class="sig-name descname"><span class="pre">Param</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">values</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">input_type</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#service.instructions.param.Param" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="service.instructions.param.Param.as_json">
+<span class="sig-name descname"><span class="pre">as_json</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#service.instructions.param.Param.as_json" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-service.instructions.sdg_instructions">
+<span id="service-instructions-sdg-instructions-module"></span><h2>service.instructions.sdg_instructions module<a class="headerlink" href="#module-service.instructions.sdg_instructions" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="service.instructions.sdg_instructions.SDGInstruction">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">service.instructions.sdg_instructions.</span></span><span class="sig-name descname"><span class="pre">SDGInstruction</span></span><a class="headerlink" href="#service.instructions.sdg_instructions.SDGInstruction" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#service.instructions.abstract_instructions.AbstractInstruction" title="service.instructions.abstract_instructions.AbstractInstruction"><code class="xref py py-class docutils literal notranslate"><span class="pre">service.instructions.abstract_instructions.AbstractInstruction</span></code></a></p>
+<p>Instructions for the SDG dataset. Implements AbstractInstruction</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>AbstractInstruction</strong> (<em>ABC</em>) – Instructions for what the frontend must display. Stored with redis</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-service.instructions">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-service.instructions" title="Permalink to this headline">¶</a></h2>
+</section>
+</section>
+
+
+      </div>
+      <div class="bottomnav" role="navigation" aria-label="bottom navigation">
+      
+        <p>
+        «&#160;&#160;<a href="service.html">service package</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="index.html">Contents</a>
+        &#160;&#160;::&#160;&#160;
+        <a href="utils.html">utils package</a>&#160;&#160;»
+        </p>
+
+      </div>
+
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2021, Srax, Zenzus, Mutestock.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.0.2.
+    </div>
+  </body>
+</html>

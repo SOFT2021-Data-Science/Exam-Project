@@ -1,0 +1,7 @@
+kaggle module
+=============
+
+.. automodule:: kaggle
+   :members:
+   :undoc-members:
+   :show-inheritance:

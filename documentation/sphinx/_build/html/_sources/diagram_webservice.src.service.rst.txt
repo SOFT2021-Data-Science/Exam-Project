@@ -1,0 +1,29 @@
+diagram\_webservice.src.service package
+=======================================
+
+Subpackages
+-----------
+
+.. toctree::
+   :maxdepth: 4
+
+   diagram_webservice.src.service.instructions
+
+Submodules
+----------
+
+diagram\_webservice.src.service.utility\_routes module
+------------------------------------------------------
+
+.. automodule:: diagram_webservice.src.service.utility_routes
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Module contents
+---------------
+
+.. automodule:: diagram_webservice.src.service
+   :members:
+   :undoc-members:
+   :show-inheritance:

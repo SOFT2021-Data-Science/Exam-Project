@@ -1,0 +1,137 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>utils package &#8212; dsc_suicide 0.0.1 documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/haiku.css" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="service.instructions package" href="service.instructions.html" /> 
+  </head><body>
+      <div class="header" role="banner"><h1 class="heading"><a href="index.html">
+          <span>dsc_suicide 0.0.1 documentation</span></a></h1>
+        <h2 class="heading"><span>utils package</span></h2>
+      </div>
+      <div class="topnav" role="navigation" aria-label="top navigation">
+      
+        <p>
+        «&#160;&#160;<a href="service.instructions.html">service.instructions package</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="index.html">Contents</a>
+        </p>
+
+      </div>
+      <div class="content" role="main">
+        
+        
+  <section id="utils-package">
+<h1>utils package<a class="headerlink" href="#utils-package" title="Permalink to this headline">¶</a></h1>
+<section id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="module-utils.aliases">
+<span id="utils-aliases-module"></span><h2>utils.aliases module<a class="headerlink" href="#module-utils.aliases" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="module-utils.file_handling">
+<span id="utils-file-handling-module"></span><h2>utils.file_handling module<a class="headerlink" href="#module-utils.file_handling" title="Permalink to this headline">¶</a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="utils.file_handling.file_name_exists">
+<span class="sig-prename descclassname"><span class="pre">utils.file_handling.</span></span><span class="sig-name descname"><span class="pre">file_name_exists</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file_name</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utils.file_handling.file_name_exists" title="Permalink to this definition">¶</a></dt>
+<dd><p>Checks whether or not a file exists</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>file_name</strong> (<em>String</em>) – Checks whether file exists</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Returns true if the file exists</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>Bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utils.file_handling.generate_file_name">
+<span class="sig-prename descclassname"><span class="pre">utils.file_handling.</span></span><span class="sig-name descname"><span class="pre">generate_file_name</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utils.file_handling.generate_file_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generates file name from args</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>String created with args</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>String</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-utils.logging">
+<span id="utils-logging-module"></span><h2>utils.logging module<a class="headerlink" href="#module-utils.logging" title="Permalink to this headline">¶</a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="utils.logging.create_and_updatelog">
+<span class="sig-prename descclassname"><span class="pre">utils.logging.</span></span><span class="sig-name descname"><span class="pre">create_and_updatelog</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utils.logging.create_and_updatelog" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</section>
+<section id="module-utils.misc">
+<span id="utils-misc-module"></span><h2>utils.misc module<a class="headerlink" href="#module-utils.misc" title="Permalink to this headline">¶</a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="utils.misc.check_debug">
+<span class="sig-prename descclassname"><span class="pre">utils.misc.</span></span><span class="sig-name descname"><span class="pre">check_debug</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">error</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utils.misc.check_debug" title="Permalink to this definition">¶</a></dt>
+<dd><p>Used in flask endpoints. Returns an error message depending on a DEBUG environment variable</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>error</strong> (<em>Exception</em>) – Generic exception</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Error code. Includes error message if debug. Returns either int or string.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>int or String.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utils.misc.load_variables">
+<span class="sig-prename descclassname"><span class="pre">utils.misc.</span></span><span class="sig-name descname"><span class="pre">load_variables</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#utils.misc.load_variables" title="Permalink to this definition">¶</a></dt>
+<dd><p>Checks for environment variable called “CONTAINERIZED_VARIABLES”
+This variable is set in the container upon execution.
+It’s basically like a switch which will make the project load the environment variables,
+which are set in the docker compose file instead of the .env files.</p>
+</dd></dl>
+
+</section>
+<section id="module-utils">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-utils" title="Permalink to this headline">¶</a></h2>
+</section>
+</section>
+
+
+      </div>
+      <div class="bottomnav" role="navigation" aria-label="bottom navigation">
+      
+        <p>
+        «&#160;&#160;<a href="service.instructions.html">service.instructions package</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="index.html">Contents</a>
+        </p>
+
+      </div>
+
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2021, Srax, Zenzus, Mutestock.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.0.2.
+    </div>
+  </body>
+</html>

@@ -1,0 +1,53 @@
+src.service.instructions package
+================================
+
+Submodules
+----------
+
+src.service.instructions.abstract\_instructions module
+------------------------------------------------------
+
+.. automodule:: src.service.instructions.abstract_instructions
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+src.service.instructions.kaggle\_instructions module
+----------------------------------------------------
+
+.. automodule:: src.service.instructions.kaggle_instructions
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+src.service.instructions.model module
+-------------------------------------
+
+.. automodule:: src.service.instructions.model
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+src.service.instructions.param module
+-------------------------------------
+
+.. automodule:: src.service.instructions.param
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+src.service.instructions.sdg\_instructions module
+-------------------------------------------------
+
+.. automodule:: src.service.instructions.sdg_instructions
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Module contents
+---------------
+
+.. automodule:: src.service.instructions
+   :members:
+   :undoc-members:
+   :show-inheritance:
