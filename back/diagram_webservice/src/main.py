@@ -14,7 +14,7 @@ from service.utility_routes import *
 
 from logic.sdg import sdg_kmeans_cluster, sdg_kmeans_elbow, sdg_get_list_of_all_values_in_row_by_column_name
 
-from logic.kaggle import kaggle_linear_regression, kaggle_kmeans_cluster, kaggle_kmeans_elbow, kaggle_get_list_of_all_values_in_row_by_column_name
+from logic.kaggle import kaggle_linear_regression, kaggle_kmeans_cluster, kaggle_kmeans_elbow, kaggle_get_list_of_all_values_in_row_by_column_name, kaggle_polynomial_regression, kaggle_compare_male_female_from_country, kaggle_compare_suicide_rates_for_gender_between_two_countries
 
 from utils.logging import create_and_updatelog
 
@@ -50,6 +50,9 @@ def index():
 def sdg_row_values(row_values):
     return jsonify(sdg_get_list_of_all_values_in_row_by_column_name(row_values))
 
+
+
+
 # E.g. http://localhost:5000/sdg/linear_regression/preview/region=Africa&gender=male
 @cross_origin()
 @app.route("/sdg/linear_regression/preview/region=<string:region>&gender=<string:gender>")
@@ -81,7 +84,7 @@ def sdg_linear_regression_template(region, gender):
     except Exception as e:
         check_debug(e)
         create_and_updatelog(e)
-        
+
    
 # E.g. http://localhost:5000/sdg/kmeans/clustering/preview/region=Africa&gender=male&clusters=2
 @cross_origin()
@@ -202,6 +205,39 @@ def kaggle_linear_regression_template(country, gender):
         check_debug(e)
         create_and_updatelog(e)
 
+# E.g. http://localhost:5000/kaggle/polynomial_regression/preview/country=United_States&gender=male&degrees=2&future_years=5
+@cross_origin()
+@app.route("/kaggle/polynomial_regression/preview/country=<string:country>&gender=<string:gender>&degrees=<int:degrees>&future_years=<int:future_years>")
+def kaggle_polynomial_regression_preview(country, gender, degrees, future_years):
+    if gender not in ["both", "male", "female"]:
+        create_and_updatelog("400")
+        return "400"
+
+        # File name is false if a file with the same name already exists.
+    file_name = generate_file_name("kaggle_polynomial_regression", country, gender, degrees, future_years)
+    if not file_name_exists(file_name):
+        kaggle_polynomial_regression(country, gender, degrees, future_years, preview=True, file_name=file_name)
+    try:
+        return send_file(f"{OUT_DIR}/{file_name}{IMAGE_FORMAT}")
+    except Exception as e:
+        check_debug(e)
+        create_and_updatelog(e)
+
+# E.g. http://localhost:5000/kaggle/polynomial_regression/template/country=United_States&gender=male&degrees=2&future_years=5
+@cross_origin()
+@app.route("/kaggle/polynomial_regression/template/country=<string:country>&gender=<string:gender>&degrees=<int:degrees>&future_years=<int:future_years>")
+def kaggle_polynomial_regression_template(country, gender, degrees, future_years):
+    if gender not in ["both", "male", "female"]:
+        create_and_updatelog("400")
+        return "400"
+
+    try:
+        img = kaggle_polynomial_regression(country, gender, degrees, future_years, preview=False)
+        return render_template_string(img)
+    except Exception as e:
+        check_debug(e)
+        create_and_updatelog(e)
+
 
 # E.g. http://localhost:5000/kaggle/kmeans/clustering/preview/country=United_States&gender=male&clusters=2
 @cross_origin()
@@ -278,6 +314,55 @@ def kaggle_kmeans_elbow_template(country, gender, clusters):
         check_debug(e)
         create_and_updatelog(e)
 
+# E.g. http://localhost:5000/kaggle/compare/country_comparison_genders/preview/country=Denmark
+@cross_origin()
+@app.route("/kaggle/compare/country_comparison_genders/preview/country=<string:country>")
+def kaggle_compare_country_male_female_preview(country):
+    # File name is false if a file with the same name already exists.
+    file_name = generate_file_name("kaggle_compare_country_male_female", country)
+    if not file_name_exists(file_name):
+        kaggle_compare_male_female_from_country(country, preview=True, file_name=file_name)
+    try:
+        return send_file(f"{OUT_DIR}/{file_name}{IMAGE_FORMAT}")
+    except Exception as e:
+        check_debug(e)
+        create_and_updatelog(e)
+
+# E.g. http://localhost:5000/kaggle/compare/country_comparison_genders/template/country=Denmark
+@cross_origin()
+@app.route("/kaggle/compare/country_comparison_genders/template/country=<string:country>")
+def kaggle_compare_country_male_female_template(country):
+    try:
+        img = kaggle_compare_male_female_from_country(country, preview=False)
+        return render_template_string(img)
+    except Exception as e:
+        check_debug(e)
+        create_and_updatelog(e)
+
+# E.g. http://localhost:5000/kaggle/compare/countries_comparison/preview/country_1=Denmark&country_2=Sweden&gender=male
+@cross_origin()
+@app.route("/kaggle/compare/countries_comparison/preview/country_1=<string:country_1>&country_2=<string:country_2>&gender=<string:gender>")
+def kaggle_compare_suicide_rates_for_gender_between_two_countries_preview(country_1, country_2, gender):
+    # File name is false if a file with the same name already exists.
+    file_name = generate_file_name("kaggle_compare_suicide_rates_for_gender_between_two_countries", country_1, country_2, gender)
+    if not file_name_exists(file_name):
+        kaggle_compare_suicide_rates_for_gender_between_two_countries(country_1, country_2, gender, preview=True, file_name=file_name)
+    try:
+        return send_file(f"{OUT_DIR}/{file_name}{IMAGE_FORMAT}")
+    except Exception as e:
+        check_debug(e)
+        create_and_updatelog(e)
+
+# E.g. http://localhost:5000/kaggle/compare/countries_comparison/template/country_1=Denmark&country_2=Sweden&gender=male
+@cross_origin()
+@app.route("/kaggle/compare/countries_comparison/template/country_1=<string:country_1>&country_2=<string:country_2>&gender=<string:gender>")
+def kaggle_compare_suicide_rates_for_gender_between_two_countries_template(country_1, country_2, gender):
+    try:
+        img = kaggle_compare_suicide_rates_for_gender_between_two_countries(country_1, country_2, gender, preview=False)
+        return render_template_string(img)
+    except Exception as e:
+        check_debug(e)
+        create_and_updatelog(e)
 
 
 
