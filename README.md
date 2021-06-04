@@ -1,6 +1,6 @@
 # Exam-Project
 
-Server: mutezone.site
+## Deployed at: [mutezone.site](http://mutezone.site)
 
 
 
@@ -90,7 +90,10 @@ A VR visualisation that we could apply to our project could be that we made a wo
 
 This would help the viewer to get a better scope of the dataset because of the intractability, while also giver the opportunity to better compare the the different regions suicide rates to notice different trendes in amound the data.  
 
-### notes
+![img](/resources/visualisation.png)
+
+
+## notes
 ./resources/out is generated the first time [aliases.py](back/diagram_webservice/src/utils/aliases.py) is imported.
 
 
