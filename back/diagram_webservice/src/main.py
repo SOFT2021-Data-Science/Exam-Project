@@ -12,7 +12,7 @@ from logic.sdg import sdg_linear_regression
 from service.instructions.abstract_instructions import AbstractInstruction
 from service.utility_routes import *
 
-from logic.sdg import sdg_kmeans_cluster, sdg_kmeans_elbow, sdg_get_list_of_all_values_in_row_by_column_name
+from logic.sdg import sdg_kmeans_cluster, sdg_kmeans_elbow, sdg_get_list_of_all_values_in_row_by_column_name, sdg_polynomial_regression, sdg_compare_male_female_from_region, sdg_compare_suicide_rates_for_gender_between_two_regions
 
 from logic.kaggle import kaggle_linear_regression, kaggle_kmeans_cluster, kaggle_kmeans_elbow, kaggle_get_list_of_all_values_in_row_by_column_name, kaggle_polynomial_regression, kaggle_compare_male_female_from_country, kaggle_compare_suicide_rates_for_gender_between_two_countries
 
@@ -143,7 +143,7 @@ def sdg_kmeans_elbow_preview(region, gender, clusters):
         create_and_updatelog(e)
 
 
-# E.g. http://localhost:5000/sdg/kmeans/elbow/template/regio    n=Africa&gender=male&clusters=5
+# E.g. http://localhost:5000/sdg/kmeans/elbow/template/region=Africa&gender=male&clusters=5
 @cross_origin()
 @app.route("/sdg/kmeans/elbow/template/region=<string:region>&gender=<string:gender>&clusters=<int:clusters>")
 def sdg_kmeans_elbow_template(region, gender, clusters):
@@ -156,6 +156,89 @@ def sdg_kmeans_elbow_template(region, gender, clusters):
 
     try:
         img = sdg_kmeans_elbow(region, gender, clusters, preview=False)
+        return render_template_string(img)
+    except Exception as e:
+        check_debug(e)
+        create_and_updatelog(e)
+
+# E.g. http://localhost:5000/sdg/polynomial_regression/preview/region=Europe&gender=male&degrees=2&future_years=5
+@cross_origin()
+@app.route("/sdg/polynomial_regression/preview/region=<string:region>&gender=<string:gender>&degrees=<int:degrees>&future_years=<int:future_years>")
+def sdg_polynomial_regression_preview(region, gender, degrees, future_years):
+    if gender not in ["both", "male", "female"]:
+        create_and_updatelog("400")
+        return "400"
+
+        # File name is false if a file with the same name already exists.
+    file_name = generate_file_name("sdg_polynomial_regression", region, gender, degrees, future_years)
+    if not file_name_exists(file_name):
+        sdg_polynomial_regression(region, gender, degrees, future_years, preview=True, file_name=file_name)
+    try:
+        return send_file(f"{OUT_DIR}/{file_name}{IMAGE_FORMAT}")
+    except Exception as e:
+        check_debug(e)
+        create_and_updatelog(e)
+
+# E.g. http://localhost:5000/sdg/polynomial_regression/template/region=Europe&gender=male&degrees=2&future_years=5
+@cross_origin()
+@app.route("/sdg/polynomial_regression/template/region=<string:region>&gender=<string:gender>&degrees=<int:degrees>&future_years=<int:future_years>")
+def sdg_polynomial_regression_template(region, gender, degrees, future_years):
+    if gender not in ["both", "male", "female"]:
+        create_and_updatelog("400")
+        return "400"
+
+    try:
+        img = sdg_polynomial_regression(region, gender, degrees, future_years, preview=False)
+        return render_template_string(img)
+    except Exception as e:
+        check_debug(e)
+        create_and_updatelog(e)
+
+# E.g. http://localhost:5000/sdg/compare/region_comparison_genders/preview/region=Europe
+@cross_origin()
+@app.route("/sdg/compare/region_comparison_genders/preview/region=<string:region>")
+def sdg_compare_region_male_female_preview(region):
+    # File name is false if a file with the same name already exists.
+    file_name = generate_file_name("sdg_compare_region_male_female", region)
+    if not file_name_exists(file_name):
+        sdg_compare_male_female_from_region(region, preview=True, file_name=file_name)
+    try:
+        return send_file(f"{OUT_DIR}/{file_name}{IMAGE_FORMAT}")
+    except Exception as e:
+        check_debug(e)
+        create_and_updatelog(e)
+
+# E.g. http://localhost:5000/sdg/compare/region_comparison_genders/template/region=Europe
+@cross_origin()
+@app.route("/sdg/compare/region_comparison_genders/template/region=<string:region>")
+def sdg_compare_region_male_female_template(region):
+    try:
+        img = sdg_compare_male_female_from_region(region, preview=False)
+        return render_template_string(img)
+    except Exception as e:
+        check_debug(e)
+        create_and_updatelog(e)
+
+# E.g.  http://localhost:5000/sdg/compare/regions_comparison/preview/region_1=Europe&region_2=Africa&gender=male
+@cross_origin()
+@app.route("/sdg/compare/regions_comparison/preview/region_1=<string:region_1>&region_2=<string:region_2>&gender=<string:gender>")
+def sdg_compare_suicide_rates_for_gender_between_two_regions_preview(region_1, region_2, gender):
+    # File name is false if a file with the same name already exists.
+    file_name = generate_file_name("sdg_compare_suicide_rates_for_gender_between_two_regions", region_1, region_2, gender)
+    if not file_name_exists(file_name):
+        sdg_compare_suicide_rates_for_gender_between_two_regions(region_1, region_2, gender, preview=True, file_name=file_name)
+    try:
+        return send_file(f"{OUT_DIR}/{file_name}{IMAGE_FORMAT}")
+    except Exception as e:
+        check_debug(e)
+        create_and_updatelog(e)
+
+# E.g. http://localhost:5000/sdg/compare/regions_comparison/template/region_1=Europe&region_2=Africa&gender=male
+@cross_origin()
+@app.route("/sdg/compare/regions_comparison/template/region_1=<string:region_1>&region_2=<string:region_2>&gender=<string:gender>")
+def sdg_compare_suicide_rates_for_gender_between_two_regions_template(region_1, region_2, gender):
+    try:
+        img = sdg_compare_suicide_rates_for_gender_between_two_regions(region_1, region_2, gender, preview=False)
         return render_template_string(img)
     except Exception as e:
         check_debug(e)

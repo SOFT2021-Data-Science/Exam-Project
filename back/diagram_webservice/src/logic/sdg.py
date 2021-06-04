@@ -8,6 +8,7 @@ import multiprocessing
 
 # Sklearn data analysis
 from sklearn.linear_model import LinearRegression
+from sklearn.preprocessing import PolynomialFeatures
 from sklearn.model_selection import train_test_split
 from sklearn.cluster import KMeans
 
@@ -264,6 +265,83 @@ def _create_kmeans_elbow_plot(min, max, wcss, title, return_dict):
     # Return figure (this does nothing when running it as a process, thats why we have the return_dict)
     return figure
 
+def _create_polynomial_regression_plot(title, r2_score, degrees, future_years, x_test, y_test, x_train, y_train, x_predicted, y_predicted, regression_line, return_dict):
+    # Create plot figure
+    figure = plt.figure(figsize=(10,6))
+
+    # Round r2_score to make it more readable
+    r2_score = round(r2_score, 4)
+    # Define the axes
+    ax = plt.axes()
+    ax.plot([], [], ' ', label="R2 SCORE: " + str(r2_score))
+    ax.plot([], [], ' ', label="Degrees: " + str(degrees))
+    ax.plot([], [], ' ', label="Years Predicted: " + str(future_years))
+
+    # Make scatterplot of actual data
+    ax.scatter(x_test, y_test, c="orange", label="Testing Data")
+    ax.scatter(x_train, y_train, c="red", label="Training Data")
+
+    # Make scatterplot of predicted data
+    ax.scatter(x_predicted, y_predicted, c='blue', label='Predicted Future Value')
+
+    # Add regression model to plot
+    ax.plot(x_train, regression_line, c='black', label='Polynomial regression line')    
+
+    # Defining plot labels and styling
+    ax.set_title(title, fontsize=18)
+    ax.set_xlabel("years", fontsize=14)
+    ax.set_ylabel("suicide rate", fontsize=14)
+    ax.legend(facecolor="white", fontsize=11, loc="upper left")
+    ax.axis("tight")
+
+    # Add the figure to the return dict
+    return_dict[title] = figure
+
+    # Return figure (this does nothing when running it as a process, thats why we have the return_dict)
+    return figure
+
+
+def _create_plot_for_two_genders_by_region(title, male_x_1, male_y_1, female_x_1, female_y_1, return_dict):
+        # Create plot figure
+    figure = plt.figure(figsize=(10,6))
+
+    # Define the axes
+    ax = plt.axes()
+
+    # Make scatterplot of actual data
+    ax.plot(male_x_1, male_y_1, c="orange", label="Male")
+    ax.plot(female_x_1, female_y_1, c="red", label="Female")
+
+    # Defining plot labels and styling
+    ax.set_title(title, fontsize=18)
+    ax.set_xlabel("years", fontsize=14)
+    ax.set_ylabel("suicide rate pr 100k population", fontsize=14)
+    ax.legend(facecolor="white", fontsize=11, loc="upper left")
+    ax.axis("tight")
+    # Add the figure to the return dict
+    return_dict[title] = figure
+    return figure
+    
+def _create_plot_for_gender_for_two_regions(title, first_region_name, second_region_name, gender, first_region_x, first_region_y, second_region_x, second_region_y , return_dict):
+           # Create plot figure
+    figure = plt.figure(figsize=(10,6))
+
+    # Define the axes
+    ax = plt.axes()
+
+    # Make scatterplot of actual data
+    ax.plot(first_region_x, first_region_y, c="orange", label=first_region_name)
+    ax.plot(second_region_x, second_region_y, c="red", label=second_region_name)
+
+    # Defining plot labels and styling
+    ax.set_title(title, fontsize=12)
+    ax.set_xlabel("years", fontsize=14)
+    ax.set_ylabel("suicide rate pr 100k population", fontsize=14)
+    ax.legend(facecolor="white", fontsize=11, loc="upper left")
+    ax.axis("tight")
+    # Add the figure to the return dict
+    return_dict[title] = figure
+    return figure
 
 def sdg_linear_regression(region, gender, preview, file_name=False):
     """Function to generate linear regression model for the sdg dataset
@@ -483,3 +561,166 @@ def sdg_kmeans_elbow(region, gender, clusters, preview, file_name=False):
         return
     else:
         return mpld3.fig_to_html(finished_plot)
+
+
+
+def sdg_polynomial_regression(region, gender, degrees, future_years, preview, file_name=False):
+    
+    
+    # Prepare the dataset
+    df = prepare_sdg(region, gender)
+
+    # Reverse Dataframe
+    df = df.iloc[::-1]
+
+ 
+
+    # Split the dataframe into independent X_axis and Y_axis
+    x = df.iloc[:, :-1].values
+    y = df.iloc[:, 1].values
+
+    x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.2, random_state=42)
+
+    x_train = x_train.reshape(-1, 1)
+    y_train = y_train.reshape(-1, 1)
+
+    y_train = y_train[x_train[:,0].argsort()]
+    x_train = x_train[x_train[:, 0].argsort()]
+
+    poly = PolynomialFeatures(degree=degrees)
+    x_poly = poly.fit_transform(x_train)
+
+    poly_reg = LinearRegression()
+    poly_reg.fit(x_poly, y_train)
+
+
+    r2_score = poly_reg.score(x_poly, y_train)
+    regression_line = poly_reg.predict(x_poly)
+
+    df_future_predictions = pd.DataFrame(columns = df.columns)
+    for i in range(future_years):
+        i+=1
+        year = x[len(x)-1] + i
+        suicides_no = poly_reg.predict(poly.fit_transform([year]))
+        ob = {df.columns[0]:int(year[0]), df.columns[1]: suicides_no[0]}
+        df_future_predictions = df_future_predictions.append(ob, ignore_index=True)
+
+    
+    x_new_predicted = df_future_predictions.iloc[:, :-1].values
+    y_new_predicted = df_future_predictions.iloc[:,1].values
+
+
+        # Output path for generated plot image
+    full_file_out_path = f"{OUT_DIR}/{file_name}{IMAGE_FORMAT}"
+
+    manager = multiprocessing.Manager()
+
+    # Return Dict (used to save the data we return from the plot process)
+    return_dict = manager.dict()
+
+    plot_title = f"sdg polynomial regression {region} {gender}"
+
+    # Create multiprocess to generate plot
+    create_plot_process = multiprocessing.Process(
+        target=_create_polynomial_regression_plot,
+        args=(plot_title, r2_score, degrees, future_years, x_test, y_test, x_train, y_train, x_new_predicted, y_new_predicted, regression_line, return_dict),
+    )
+
+    create_plot_process.start()
+    # Join the plot process. This is usually only necessary if we have multiple processes running,
+    # however we want to make sure the function is finished before we proceed, therefore we add "join()"
+    create_plot_process.join()
+
+    # The finished plot - return_dict is an array of values, but we generate only one value, therefore we pick the one at index [0]
+    finished_plot = return_dict.values()[0]
+
+    if preview:
+        finished_plot.savefig(full_file_out_path)
+        return
+    else:
+        return mpld3.fig_to_html(finished_plot)
+
+def sdg_compare_male_female_from_region(region, preview, file_name=False):
+    female_df = prepare_sdg(region, "female")
+    male_df = prepare_sdg(region, "male")
+
+    maleX = male_df.iloc[:, :-1].values
+    maleY = male_df.iloc[:,1].values
+
+    femaleX = female_df.iloc[:, :-1].values
+    femaleY = female_df.iloc[:,1].values
+
+    # Output path for generated plot image
+    full_file_out_path = f"{OUT_DIR}/{file_name}{IMAGE_FORMAT}"
+
+    manager = multiprocessing.Manager()
+
+    # Return Dict (used to save the data we return from the plot process)
+    return_dict = manager.dict()
+
+    plot_title = f"Comparing male and female suicide rate for {region} pr 100k population"
+
+    # Create multiprocess to generate plot
+    create_plot_process = multiprocessing.Process(
+        target=_create_plot_for_two_genders_by_region,
+        args=(plot_title, maleX, maleY, femaleX, femaleY, return_dict),
+    )
+
+    create_plot_process.start()
+    # Join the plot process. This is usually only nessesary if we have multiple processes running,
+    # however we want to make sure the function is finished before we proceed, therefore we add "join()"
+    create_plot_process.join()
+
+    # The finished plot - return_dict is an array of values, but we generate only one value, therefore we pick the one at index [0]
+    finished_plot = return_dict.values()[0]
+
+    if preview:
+        finished_plot.savefig(full_file_out_path)
+        return
+    else:
+        return mpld3.fig_to_html(finished_plot)
+
+        
+def sdg_compare_suicide_rates_for_gender_between_two_regions(first_region, second_region, gender, preview, file_name=False):
+    region_1 = prepare_sdg(first_region, gender)
+    region_2 = prepare_sdg(second_region, gender)
+
+    first_region_x = region_1.iloc[:, :-1].values
+    first_region_y = region_1.iloc[:,1].values
+
+    second_region_x = region_2.iloc[:, :-1].values
+    second_region_y = region_2.iloc[:,1].values
+
+
+    # Output path for generated plot image
+    full_file_out_path = f"{OUT_DIR}/{file_name}{IMAGE_FORMAT}"
+
+    manager = multiprocessing.Manager()
+
+    # Return Dict (used to save the data we return from the plot process)
+    return_dict = manager.dict()
+
+    plot_title = f"Comparing {gender} suicide rate pr 100k population between {first_region} and {second_region}"
+
+    # Create multiprocess to generate plot
+    create_plot_process = multiprocessing.Process(
+        target=_create_plot_for_gender_for_two_regions,
+        args=(plot_title, first_region, second_region, gender, first_region_x, first_region_y, second_region_x, second_region_y , return_dict),
+    )
+
+    create_plot_process.start()
+    # Join the plot process. This is usually only nessesary if we have multiple processes running,
+    # however we want to make sure the function is finished before we proceed, therefore we add "join()"
+    create_plot_process.join()
+
+    # The finished plot - return_dict is an array of values, but we generate only one value, therefore we pick the one at index [0]
+    finished_plot = return_dict.values()[0]
+
+    if preview:
+        finished_plot.savefig(full_file_out_path)
+        return
+    else:
+        return mpld3.fig_to_html(finished_plot)
+
+
+
