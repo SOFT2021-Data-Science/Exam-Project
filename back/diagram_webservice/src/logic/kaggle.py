@@ -14,9 +14,18 @@ from utils.aliases import DATASETS, OUT_DIR
 from utils.file_handling import IMAGE_FORMAT
 
 
-def prepare_kaggle(region, gender):
+def prepare_kaggle(country, gender):
+    """Function used to prepare the kaggle dataset
+
+    :param country: Filter dataset by country
+    :type country: String
+    :param gender: Filter dataset by gender
+    :type gender: String
+    :return: Returns a filtered kaggle dataset by country and gender as a pandas dataframe
+    :rtype: Pandas.DataFrame
+    """    
     df = pd.read_csv(DATASETS.get("kaggle"))
-    df = df[df.country == region]
+    df = df[df.country == country]
     df = df[df.sex == gender]
 
     data = [df["year"], df["suicides_no"]]
@@ -30,9 +39,18 @@ def prepare_kaggle(region, gender):
     return df
 
 
-def prepare_kaggle_suicides_100k_pop(region, gender):
+def prepare_kaggle_suicides_100k_pop(country, gender):
+    """Function used to prepare the kaggle dataset
+
+    :param country: Filter dataset by country
+    :type country: String
+    :param gender: Filter dataset by gender
+    :type gender: String
+    :return: Returns a filtered kaggle dataset by country and gender as a pandas dataframe
+    :rtype: Pandas.DataFrame
+    """   
     df = pd.read_csv(DATASETS.get("kaggle"))
-    df = df[df.country == region]
+    df = df[df.country == country]
     df = df[df.sex == gender]
 
     data = [df["year"], df["suicides_100k_pop"]]
@@ -46,14 +64,14 @@ def prepare_kaggle_suicides_100k_pop(region, gender):
     return df
 
 
-def get_x_y_from_dataset_by_country_and_gender(country, gender):
-    df = prepare_kaggle(country, gender)
-    x = df.iloc[:, :-1].values
-    y = df.iloc[:,1].values
-    return x, y
-
-
 def kaggle_get_list_of_all_values_in_row_by_column_name(column_name):
+    """Function to return a list of all values in a row for the kaggle dataframe
+
+    :param column_name: Used to filter the column by the specified column name
+    :type column_name: String
+    :return: Returns a list of all values in a row
+    :rtype: pandas.series.tolist
+    """    
     column_name = column_name.lower()
     df = pd.read_csv(DATASETS.get("kaggle"))
     df.columns = [x.lower() for x in df.columns]
@@ -104,6 +122,35 @@ def _make_wcss(min, max, X):
     return distortions
 
 def _create_polynomial_regression_plot(title, r2_score, degrees, future_years, x_test, y_test, x_train, y_train, x_predicted, y_predicted, regression_line, return_dict):
+    """Function to generate polynomial regression pot for the kaggle dataset
+
+    :param title: The title of the plot
+    :type title: String
+    :param r2_score: The calculated r2 score for the regression model
+    :type r2_score: Float
+    :param degrees: The amount of degrees in the regression model
+    :type degrees: Integer
+    :param future_years: The amount of years that is used in the future prediction
+    :type future_years: Integer
+    :param x_test: Test data on the x_axis for the regression model
+    :type x_test: numpy.ndarray
+    :param y_test: The test data on the y_axis for the regression model
+    :type y_test: numpy.ndarray
+    :param x_train: The train data on the x_axis for the regression model
+    :type x_train: numpy.ndarray
+    :param y_train: The train data on the y_axis for the regression model
+    :type y_train: numpy.ndarray
+    :param x_predicted: The predicted data on the x_axis for the regression model
+    :type x_predicted: numpy.ndarray
+    :param y_predicted: The predicted data on the y_axis for the regression model
+    :type y_predicted: numpy.ndarray
+    :param regression_line: The regression line for the regression model
+    :type regression_line: numpy.ndarray
+    :param return_dict: A shared list object that is used to save data to from inside a multiprocess
+    :type return_dict: multiprocessing.managers.DictProxy
+    :return: Returns the generated figure
+    :rtype: matplotlib.figure.Figure
+    """    
     # Create plot figure
     figure = plt.figure(figsize=(10,6))
 
@@ -139,7 +186,25 @@ def _create_polynomial_regression_plot(title, r2_score, degrees, future_years, x
     return figure
 
 def _create_plot_for_two_genders_by_country(title, male_x_1, male_y_1, female_x_1, female_y_1, return_dict):
-        # Create plot figure
+    """Function to generate plot for male and female data in a country for the kaggle dataset
+
+    :param title: The title of the plot
+    :type title: String
+    :param male_x_1: The males x_axis value for the plot
+    :type male_x_1: numpy.ndarray
+    :param male_y_1: The males y_axis value for the plot
+    :type male_y_1: numpy.ndarray
+    :param female_x_1: The females x_axis value for the plot
+    :type female_x_1: numpy.ndarray
+    :param female_y_1: The females y_axis value for the plot
+    :type female_y_1: numpy.ndarray
+    :param return_dict: A shared list object that is used to save data to from inside a multiprocess
+    :type return_dict: multiprocessing.managers.DictProxy
+    :return: Returns the generated figure
+    :rtype: matplotlib.figure.Figure
+    """  
+
+    # Create plot figure
     figure = plt.figure(figsize=(10,6))
 
     # Define the axes
@@ -160,7 +225,30 @@ def _create_plot_for_two_genders_by_country(title, male_x_1, male_y_1, female_x_
     return figure
     
 def _create_plot_for_gender_for_two_countries(title, first_country_name, second_country_name, gender, first_country_x, first_country_y, second_country_x, second_country_y , return_dict):
-           # Create plot figure
+    """Function to generate plot for specified gender between two countries for the kaggle dataset 
+
+    :param title: Title of the plot
+    :type title: String
+    :param first_country_name: The name of the first country to show on the plot
+    :type first_country_name: String
+    :param second_country_name: The name of the second country to show on the plot
+    :type second_country_name: String
+    :param gender: The specified gender for the data
+    :type gender: String
+    :param first_country_x: The first countries x_axis value for the plot
+    :type first_country_x: np.ndarray
+    :param first_country_y: The first countries y_axis value for the plot
+    :type first_country_y: np.ndarray
+    :param second_country_x: The second countries x_axis value for the plot
+    :type second_country_x: np.ndarray
+    :param second_country_y: The second countries y_axis value for the plot
+    :type second_country_y: np.ndarray
+    :param return_dict: A shared list object that is used to save data to from inside a multiprocess
+    :type return_dict: multiprocessing.managers.DictProxy
+    :return: Returns the generated figure
+    :rtype: matplotlib.figure.Figure
+    """    
+    # Create plot figure
     figure = plt.figure(figsize=(10,6))
 
     # Define the axes
@@ -173,7 +261,7 @@ def _create_plot_for_gender_for_two_countries(title, first_country_name, second_
     # Defining plot labels and styling
     ax.set_title(title, fontsize=12)
     ax.set_xlabel("years", fontsize=14)
-    ax.set_ylabel("suicide rate pr 100k population", fontsize=14)
+    ax.set_ylabel(f"{gender} suicide rate pr 100k population", fontsize=14)
     ax.legend(facecolor="white", fontsize=11, loc="upper left")
     ax.axis("tight")
     # Add the figure to the return dict
@@ -322,11 +410,11 @@ def _create_kmeans_elbow_plot(min, max, wcss, title, return_dict):
     return figure
 
 
-def kaggle_linear_regression(region, gender, preview, file_name=False):
+def kaggle_linear_regression(country, gender, preview, file_name=False):
     """Function to generate linear regression model for the kaggle dataset
 
-    :param region: Used to filter the dataset by region
-    :type region: String
+    :param country: Used to filter the dataset by country
+    :type country: String
     :param gender: Used to filter the dataset by gender
     :type gender: String
     :param preview: Boolean value used to determent if the return value is 'Preview' or 'Template' based on True or False
@@ -338,7 +426,7 @@ def kaggle_linear_regression(region, gender, preview, file_name=False):
     """
 
     # Prepare the dataset
-    df = prepare_kaggle(region, gender)
+    df = prepare_kaggle(country, gender)
 
     ### === Train Model === ###
 
@@ -371,7 +459,7 @@ def kaggle_linear_regression(region, gender, preview, file_name=False):
     # Return Dict (used to save the data we return from the plot process)
     return_dict = manager.dict()
 
-    plot_title = f"kaggle linear regression {region} {gender}"
+    plot_title = f"kaggle linear regression {country} {gender}"
 
     # Create multiprocess to generate plot
     create_plot_process = multiprocessing.Process(
@@ -404,11 +492,11 @@ def kaggle_linear_regression(region, gender, preview, file_name=False):
         return mpld3.fig_to_html(finished_plot)
 
 
-def kaggle_kmeans_cluster(region, gender, clusters, preview, file_name=False):
+def kaggle_kmeans_cluster(country, gender, clusters, preview, file_name=False):
     """Function to generate k-means elbow method for the kaggle dataset
 
-    :param region: Used to filter the dataset by region
-    :type region: String
+    :param country: Used to filter the dataset by country
+    :type country: String
     :param gender: Used to filter the dataset by gender
     :type gender: String
     :param clusters: Used to define the number of clusters
@@ -422,7 +510,7 @@ def kaggle_kmeans_cluster(region, gender, clusters, preview, file_name=False):
     """
 
     # Prepare the dataset
-    df = prepare_kaggle(region, gender)
+    df = prepare_kaggle(country, gender)
 
     # Generate Kmeans
     kmeans = KMeans(init="k-means++", n_clusters=clusters, n_init=3, random_state=10)
@@ -439,7 +527,7 @@ def kaggle_kmeans_cluster(region, gender, clusters, preview, file_name=False):
     return_dict = manager.dict()
 
     # The title of the plot
-    plot_title = f"kaggle Cluster k-means {region} {gender}"
+    plot_title = f"kaggle Cluster k-means {country} {gender}"
 
     # Create multiprocess to generate plot
     create_plot_process = multiprocessing.Process(
@@ -470,11 +558,11 @@ def kaggle_kmeans_cluster(region, gender, clusters, preview, file_name=False):
         return mpld3.fig_to_html(finished_plot)
 
 
-def kaggle_kmeans_elbow(region, gender, clusters, preview, file_name=False):
+def kaggle_kmeans_elbow(country, gender, clusters, preview, file_name=False):
     """Function to generate k-means elbow method for the kaggle dataset
 
-    :param region: Used to filter the dataset by region
-    :type region: String
+    :param country: Used to filter the dataset by country
+    :type country: String
     :param gender: Used to filter the dataset by gender
     :type gender: String
     :param clusters: Used to define the number of clusters in the WCSS model
@@ -488,7 +576,7 @@ def kaggle_kmeans_elbow(region, gender, clusters, preview, file_name=False):
     """
 
     # Prepare the data
-    df = prepare_kaggle(region, gender)
+    df = prepare_kaggle(country, gender)
 
     # The values of the dataframe
     X = df.values
@@ -510,7 +598,7 @@ def kaggle_kmeans_elbow(region, gender, clusters, preview, file_name=False):
     return_dict = manager.dict()
 
     # The title of the plot
-    plot_title = f"kaggle k-means elbow {region} {gender}"
+    plot_title = f"kaggle k-means elbow {country} {gender}"
 
     # Create multiprocess to generate plot
     create_plot_process = multiprocessing.Process(
@@ -628,7 +716,7 @@ def kaggle_polynomial_regression(country, gender, degrees, future_years, preview
     )
 
     create_plot_process.start()
-    # Join the plot process. This is usually only nessesary if we have multiple processes running,
+    # Join the plot process. This is usually only necessary if we have multiple processes running,
     # however we want to make sure the function is finished before we proceed, therefore we add "join()"
     create_plot_process.join()
 
@@ -642,12 +730,23 @@ def kaggle_polynomial_regression(country, gender, degrees, future_years, preview
         return mpld3.fig_to_html(finished_plot)
 
 def kaggle_compare_male_female_from_country(country, preview, file_name=False):
+    """Function to compare male and female suicide rates in a country for the kaggle dataset
 
-    # Retrieve sdg dataset for two countries
+    :param country: Used to filter the dataset by country
+    :type country: String
+    :param preview: Boolean value used to determent if the return value is 'Preview' or 'Template' based on True or False
+    :type preview: Boolean
+    :param file_name: Used to generate the plots filename . Defaults to False.
+    :type file_name: Boolean, Optional
+    :return: If preview is FALSE, then we return a mpld3-figure as html, and if it's true it returns nothing
+    :rtype: mpld3.fig_to_html
+    """    
+
+    # Retrieve kaggle dataset for two countries
     female_df = prepare_kaggle_suicides_100k_pop(country, "female")
     male_df = prepare_kaggle_suicides_100k_pop(country, "male")
 
-    # Split the region data into two different X and Y coordinates
+    # Split the country data into two different X and Y coordinates
     maleX = male_df.iloc[:, :-1].values
     maleY = male_df.iloc[:,1].values
     femaleX = female_df.iloc[:, :-1].values
@@ -685,11 +784,26 @@ def kaggle_compare_male_female_from_country(country, preview, file_name=False):
 
         
 def kaggle_compare_suicide_rates_for_gender_between_two_countries(first_country, second_country, gender, preview, file_name=False):
-    # Retrieve sdg dataset for two countries
+    """Function to compare suicide rates for a specified gender between two countries for the kaggle dataset
+
+    :param first_country: Used to filter dataset by the first country specified
+    :type first_country: String
+    :param second_country: Used to filter dataset by the second country specified
+    :type second_country: String
+    :param gender: Used to filter dataset by gender
+    :type gender: String
+    :param preview: Boolean value used to determent if the return value is 'Preview' or 'Template' based on True or False
+    :type preview: Boolean
+    :param file_name: Used to generate the plots filename . Defaults to False.
+    :type file_name: Boolean, Optional
+    :return: If preview is FALSE, then we return a mpld3-figure as html, and if it's true it returns nothing
+    :rtype: mpld3.fig_to_html
+    """   
+    # Retrieve kaggle dataset for two countries
     country_1 = prepare_kaggle_suicides_100k_pop(first_country, gender)
     country_2 = prepare_kaggle_suicides_100k_pop(second_country, gender)
 
-    # Split the region data into two different X and Y coordinates
+    # Split the country data into two different X and Y coordinates
     first_country_x = country_1.iloc[:, :-1].values
     first_country_y = country_1.iloc[:,1].values
     second_country_x = country_2.iloc[:, :-1].values

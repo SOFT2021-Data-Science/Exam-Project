@@ -266,6 +266,36 @@ def _create_kmeans_elbow_plot(min, max, wcss, title, return_dict):
     return figure
 
 def _create_polynomial_regression_plot(title, r2_score, degrees, future_years, x_test, y_test, x_train, y_train, x_predicted, y_predicted, regression_line, return_dict):
+    """Function to generate polynomial regression pot for the sdg dataset
+
+    :param title: The title of the plot
+    :type title: String
+    :param r2_score: The calculated r2 score for the regression model
+    :type r2_score: Float
+    :param degrees: The amount of degrees in the regression model
+    :type degrees: Integer
+    :param future_years: The amount of years that is used in the future prediction
+    :type future_years: Integer
+    :param x_test: Test data on the x_axis for the regression model
+    :type x_test: numpy.ndarray
+    :param y_test: The test data on the y_axis for the regression model
+    :type y_test: numpy.ndarray
+    :param x_train: The train data on the x_axis for the regression model
+    :type x_train: numpy.ndarray
+    :param y_train: The train data on the y_axis for the regression model
+    :type y_train: numpy.ndarray
+    :param x_predicted: The predicted data on the x_axis for the regression model
+    :type x_predicted: numpy.ndarray
+    :param y_predicted: The predicted data on the y_axis for the regression model
+    :type y_predicted: numpy.ndarray
+    :param regression_line: The regression line for the regression model
+    :type regression_line: numpy.ndarray
+    :param return_dict: A shared list object that is used to save data to from inside a multiprocess
+    :type return_dict: multiprocessing.managers.DictProxy
+    :return: Returns the generated figure
+    :rtype: matplotlib.figure.Figure
+    """   
+    
     # Create plot figure
     figure = plt.figure(figsize=(10,6))
 
@@ -302,7 +332,25 @@ def _create_polynomial_regression_plot(title, r2_score, degrees, future_years, x
 
 
 def _create_plot_for_two_genders_by_region(title, male_x_1, male_y_1, female_x_1, female_y_1, return_dict):
-        # Create plot figure
+    """Function to generate plot for male and female data in a region for the sdg dataset
+
+    :param title: The title of the plot
+    :type title: String
+    :param male_x_1: The males x_axis value for the plot
+    :type male_x_1: numpy.ndarray
+    :param male_y_1: The males y_axis value for the plot
+    :type male_y_1: numpy.ndarray
+    :param female_x_1: The females x_axis value for the plot
+    :type female_x_1: numpy.ndarray
+    :param female_y_1: The females y_axis value for the plot
+    :type female_y_1: numpy.ndarray
+    :param return_dict: A shared list object that is used to save data to from inside a multiprocess
+    :type return_dict: multiprocessing.managers.DictProxy
+    :return: Returns the generated figure
+    :rtype: matplotlib.figure.Figure
+    """   
+
+    # Create plot figure
     figure = plt.figure(figsize=(10,6))
 
     # Define the axes
@@ -323,7 +371,31 @@ def _create_plot_for_two_genders_by_region(title, male_x_1, male_y_1, female_x_1
     return figure
     
 def _create_plot_for_gender_for_two_regions(title, first_region_name, second_region_name, gender, first_region_x, first_region_y, second_region_x, second_region_y , return_dict):
-           # Create plot figure
+    """Function to generate plot for specified gender between two countries for the sdg dataset 
+
+    :param title: Title of the plot
+    :type title: String
+    :param first_country_name: The name of the first country to show on the plot
+    :type first_country_name: String
+    :param second_country_name: The name of the second country to show on the plot
+    :type second_country_name: String
+    :param gender: The specified gender for the data
+    :type gender: String
+    :param first_country_x: The first countries x_axis value for the plot
+    :type first_country_x: np.ndarray
+    :param first_country_y: The first countries y_axis value for the plot
+    :type first_country_y: np.ndarray
+    :param second_country_x: The second countries x_axis value for the plot
+    :type second_country_x: np.ndarray
+    :param second_country_y: The second countries y_axis value for the plot
+    :type second_country_y: np.ndarray
+    :param return_dict: A shared list object that is used to save data to from inside a multiprocess
+    :type return_dict: multiprocessing.managers.DictProxy
+    :return: Returns the generated figure
+    :rtype: matplotlib.figure.Figure
+    """    
+    
+    # Create plot figure
     figure = plt.figure(figsize=(10,6))
 
     # Define the axes
@@ -667,6 +739,18 @@ def sdg_polynomial_regression(region, gender, degrees, future_years, preview, fi
         return mpld3.fig_to_html(finished_plot)
 
 def sdg_compare_male_female_from_region(region, preview, file_name=False):
+    """Function to compare male and female suicide rates in a region for the sdg dataset
+
+    :param region: Used to filter the dataset by region
+    :type region: String
+    :param preview: Boolean value used to determent if the return value is 'Preview' or 'Template' based on True or False
+    :type preview: Boolean
+    :param file_name: Used to generate the plots filename . Defaults to False.
+    :type file_name: Boolean, Optional
+    :return: If preview is FALSE, then we return a mpld3-figure as html, and if it's true it returns nothing
+    :rtype: mpld3.fig_to_html
+    """    
+    
     # Retrieve sdg dataset for two regions
     female_df = prepare_sdg(region, "female")
     male_df = prepare_sdg(region, "male")
@@ -709,6 +793,22 @@ def sdg_compare_male_female_from_region(region, preview, file_name=False):
 
         
 def sdg_compare_suicide_rates_for_gender_between_two_regions(first_region, second_region, gender, preview, file_name=False):
+    """Function to compare suicide rates for a specified gender between two regions for the sdg dataset
+
+    :param first_region: Used to filter dataset by the first region specified
+    :type first_region: String
+    :param second_region: Used to filter dataset by the second region specified
+    :type second_region: String
+    :param gender: Used to filter dataset by gender
+    :type gender: String
+    :param preview: Boolean value used to determent if the return value is 'Preview' or 'Template' based on True or False
+    :type preview: Boolean
+    :param file_name: Used to generate the plots filename . Defaults to False.
+    :type file_name: Boolean, Optional
+    :return: If preview is FALSE, then we return a mpld3-figure as html, and if it's true it returns nothing
+    :rtype: mpld3.fig_to_html
+    """  
+
     # Retrieve sdg dataset for two regions
     region_1 = prepare_sdg(first_region, gender)
     region_2 = prepare_sdg(second_region, gender)
