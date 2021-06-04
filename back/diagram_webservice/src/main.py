@@ -161,7 +161,7 @@ def sdg_kmeans_elbow_template(region, gender, clusters):
         check_debug(e)
         create_and_updatelog(e)
 
-# E.g. http://localhost:5000/sdg/polynomial_regression/preview/region=Europe&gender=male&degrees=2&future_years=5
+# E.g . http://localhost:5000/sdg/polynomial_regression/preview/region=Europe&gender=male&degrees=2&future_years=5
 @cross_origin()
 @app.route("/sdg/polynomial_regression/preview/region=<string:region>&gender=<string:gender>&degrees=<int:degrees>&future_years=<int:future_years>")
 def sdg_polynomial_regression_preview(region, gender, degrees, future_years):
