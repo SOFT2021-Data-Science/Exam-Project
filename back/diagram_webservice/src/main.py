@@ -29,6 +29,8 @@ INSTRUCTIONS_BASE_PATH = "/instructions"
 for subclass in AbstractInstruction.__subclasses__():
     subclass = subclass()
     url = f"{INSTRUCTIONS_BASE_PATH}/{subclass.dataset_name}"
+    print(subclass.dataset_name)
+    print(subclass.json_obj)
     app.add_url_rule(url, f"{subclass.dataset_name}", subclass.get_instruction)
 
 app.add_url_rule(

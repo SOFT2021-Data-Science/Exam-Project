@@ -60,4 +60,5 @@ class KaggleInstruction(AbstractInstruction):
 
         World Health Organization. (2018). Suicide prevention. Retrieved from http://www.who.int/mental_health/suicide-prevention/en/
         """
+
         super().set_instruction()

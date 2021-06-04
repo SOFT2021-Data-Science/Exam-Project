@@ -31,21 +31,6 @@ services:
             - ./resources:/resources
         networks:
             - "net"
-    
-    dsc_suicide_redis:
-        container_name: dsc_suicide_redis
-        hostname: redis
-        image: redis
-        ports:
-            - "6379:6379"
-        volumes:
-            - ./data/redis:/data
-            - ./data/redis.conf:/usr/local/etc/redis/redis.conf
-
-        environment:
-            - CONTAINERIZED_VARIABLES=1
-        networks:
-            - "net"
   
 networks:
     net:
