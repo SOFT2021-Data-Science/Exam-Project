@@ -13,6 +13,10 @@
           <li>There are two options for displaying the images</li>
           <li>The <b>Display image</b> button displays the image on the site</li>
           <li>The <b>Reroute to template</b> button reroutes to a service with some simple tools for managing the image</li>
+          <li><span style="color:red">Please be aware, that even if the input fields reset visually, then the internal values still change.
+            <br>A dictionary has been placed in the bottom to signify the current set values for diagram creation.
+            <br>This is a known bug.
+            </span></li>
         </ol>
       </div>
     </div>
