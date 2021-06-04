@@ -82,12 +82,13 @@
       <li>Polynomial regression</li>
       <li>Kaggle/Clustering</li>
       <li>Kaggle/Elbow</li>
-      <li>Compare/Region Comparison</li>
-      <li>Compare/Region Comparison genders</li>
+      <li>Compare Countries/Regions Comparison</li>
+      <li>Compare Country/Region Comparison genders</li>
     </ul>
     <ul>
       <li>
         <p>
+          We use R² to measurer validity of our Diagram
           R² is a metric of correlation. Correlation is measured by “r” and it
           tells us how strongly two variables can be related. A correlation
           closer to +1 means a strong relationship in the positive direction,
@@ -100,19 +101,41 @@
         <p>
           <b>Linear regression</b>
           “A linear regression line has an equation of the form Y = a + bX, where X is the explanatory variable and Y is the dependent variable. The slope of the line is b, and a is the intercept (the value of y when x = 0). “
-          <br />http://www.stat.yale.edu/Courses/1997-98/101/linreg.htm 
+          
+          
+          http://www.stat.yale.edu/Courses/1997-98/101/linreg.htm 
         </p>
         <p>
           <b>Polynomial regression</b>
           “Polynomial regression is a regression algorithm which models the relationship between dependent and the independent variable is modeled such that the dependent variable Y is an nth degree function of the independent variable Y.”
+
+          “The formula of Polynomial Regression is, in this case, is modeled as:”
+          <img src="@/assets/p1.png" alt="">
+
+          “Where y is the dependent variable and the betas are the coefficient for different nth powers of the independent variable x starting from 0 to n. The calculation is often done in a matrix form as shown below:”
+          <img src="@/assets/p2.png" alt="">
+          
           https://mindmajix.com/polynomial-regression
         </p>
         <p>
           <b>K-Means clustering</b>
           “K-Means clustering intends to partition n objects into k clusters in which each object belongs to the cluster with the nearest mean. This method produces exactly k different clusters of greatest possible distinction. The best number of clusters k leading to the greatest separation (distance) is not known as a priori and must be computed from the data. The objective of K-Means clustering is to minimize total intra-cluster variance, or, the squared error function:”
+          <img src="@/assets/k1.png" alt="">
+          
           https://www.saedsayad.com/clustering_kmeans.htm
           “The Elbow Method is one of the most popular methods to determine this optimal value of k.”
-          <br />https://www.geeksforgeeks.org/elbow-method-for-optimal-value-of-k-in-kmeans/ 
+          
+          
+          https://www.geeksforgeeks.org/elbow-method-for-optimal-value-of-k-in-kmeans/ 
+        </p>
+
+        <p>
+          <b>Compare Countries/Regions Comparison</b>
+          This diagram compares two Countries/Regions suicide rate for females or males. Pr 100K
+        </p>
+        <p>
+          <b>Compare Country/Region Comparison genders</b>
+          This diagram compares Country/Region suicide rate between the genders. Pr 100K
         </p>
         
       </li>
