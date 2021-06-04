@@ -27,3 +27,7 @@ This requirements.txt is like a recipe for the required modules. It's so the ser
 
 ### Run tests with:
 >nose2 -v
+
+### Run sphinx:
+cd to ./documentation/sphinx
+>make html

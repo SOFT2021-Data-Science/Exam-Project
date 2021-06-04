@@ -76,12 +76,12 @@ Stage 2.
 <p>Done. In this repository</p>
 
 Machine Learning Algorithms:
-Linear Regression & Clustering : [Kaggle](https://github.com/SOFT2021-Data-Science/Exam-Project/blob/development/back/diagram_webservice/src/logic/kaggle.py) & [sdg](https://github.com/SOFT2021-Data-Science/Exam-Project/blob/development/back/diagram_webservice/src/logic/sdg.py)
+Linear Regression & Clustering : [Kaggle](back/diagram_webservice/src/logic/kaggle.py) & [sdg](back/diagram_webservice/src/logic/sdg.py)
 
 
-4. Stage 4: Immersive Analytics and Visualisation
-1. Missing
-2. Elaborate on the benefits of applying better visualisation techniques for data analytics.
+1. Stage 4: Immersive Analytics and Visualisation
+2. Missing
+3. Elaborate on the benefits of applying better visualisation techniques for data analytics.
 Better data visualisation allows for greater and faster understanding for big and complex datasets. This is because we as humans are better at spotting patterns when data is presented in easy to graph visuals, such as diagrams. Another method that makes the dataset easier to comprehend, is using the visuals to tell a story that the viewers can follow.  
 
 This is why when you have to represent specific concepts and new ideas it’s ideal to use better visualisation techniques that can create a narrative for the viewers to follow. This can better be achieved with 3D or VR/AR/MR visualisation. These tools can make it easier for the viewers to see new insights in the data that they otherwise would have missed if not for the new layer of visualisation.  
@@ -90,4 +90,9 @@ A VR visualisation that we could apply to our project could be that we made a wo
 
 This would help the viewer to get a better scope of the dataset because of the intractability, while also giver the opportunity to better compare the the different regions suicide rates to notice different trendes in amound the data.  
 
-![img](/resources/visualisation.png)
+### notes
+./resources/out is generated the first time [aliases.py](back/diagram_webservice/src/utils/aliases.py) is imported.
+
+
+This directory gets populated with functions from [Kaggle](back/diagram_webservice/src/logic/kaggle.py) & [sdg](back/diagram_webservice/src/logic/sdg.py)
+Example: kaggle_linear_regression with "savefig"
