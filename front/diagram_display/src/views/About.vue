@@ -2,27 +2,13 @@
   <div class="about">
     <h1>About</h1>
     <p>
-      <br />This site is made with the intent to use data science algoriments to
-      gain a better understanding of trends within suicide rateds throughout the
-      years and in various regions and between the sexes. <br />To achieve this
-      purpose, this site uses two main dataset, Two datasets have been chosen.
-      One from Kaggle and one from WHO. Kaggle covers all countries in the
-      world, while the sdg dataset(WHO) covers all continents. <br />Those
-      dataset can be selected as parameters, for two different data science
-      algoriments Linear regression, polynomial regression and K-Means.
-      <br />K-Means purpose on the site, is to find different groupings of
-      suicide rates throughout the years. <br />On this site we use both Linear
-      regression and Polynomial regression. Linear regression has the
-      disadvantage that it doesn't work with some datasets if the dataset is too
-      curved og bending, this is where Polynomial regression would be better.
-      <br />Linear regression and Polynomial regression is used to give future
-      prediction of the different trends, within the suicide rates acording to
-      the different dataset. This makes for great information, because it can
-      predict the logical next step of the different suicide rates. Which can be
-      compared with the real future suicide rates, <br />to see if there is a
-      unatural rise of fall in suicides. Which inturn can lead catching faster
-      bad trends in rising suicide rates.
-    </p>
+      This site is made with the intent to use data science algorithms to gain a better understanding of trends within suicide rates throughout the years and in various regions and between the genders.<br>
+      To achieve this purpose, two datasets have been chosen: The first being Kaggle  and the second being from WHO . The dataset from kaggle covers countries in the world, whereas the sdg dataset from who covers all continents.<br>
+      Those dataset can be selected as parameters, for three different data science algorithms: Linear regression, polynomial regression and K-Means.<br>
+      Linear regression has the disadvantage that it doesn't work well with some datasets if the data is irregular and nonlinear, therefor we also implemented Polynomial Regression to cover this issue.<br>
+      With the Polynomial regression model we attempt to predict future suicide trends on both datasets, however the predictions accuracy depends on the r2 score that is generated with each run. The closer the r2 score is to 1, the higher the chance is that our prediction valid (at least in theory).<br>
+      K-Means purpose on the site, is to find different groupings of suicide rates throughout the years.<br>
+      We’ve chosen to write about this subject, so people can gain insight into suicidal trends in different countries and genders.    </p>
     <h2>Description of datasets</h2>
     <h3>SDG</h3>
     <p>
