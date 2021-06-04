@@ -18,5 +18,4 @@ def available_datasets_route():
     :return: Bytes object extracted from redis database
     :rtype: Bytes
     """
-    print(KEYS)
     return KEYS_STR
