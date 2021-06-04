@@ -35,10 +35,16 @@ class KaggleInstruction(AbstractInstruction):
         comparison_genders_single_country_params = {
             "country": Param(country, "enum").as_json(),
         }
-        comparison_two_countries = {
+        comparison_two_countries_params = {
             "country_1": Param(country, "enum").as_json(),
             "country_2": Param(country, "enum").as_json(),
             "gender": Param(genders, "enum").as_json(),
+        }
+        polynomial_regression_params = {
+            "country": Param(country, "enum").as_json(),
+            "gender": Param(genders, "enum").as_json(),
+            "degrees": Param([1, 2, 3, 4, 5, 6, 7, 8, 9, 10], "enum").as_json(),
+            "future_years": Param([1, 2, 3, 4, 5, 6, 7, 8, 9, 10], "enum").as_json(),
         }
 
         linear_regression_model = Model(
@@ -57,8 +63,12 @@ class KaggleInstruction(AbstractInstruction):
             comparison_genders_single_country_params,
         ).as_json()
 
-        compare_countries_comparison = Model(
-            "compare/countries_comparison", comparison_two_countries
+        compare_countries_comparison_model = Model(
+            "compare/countries_comparison", comparison_two_countries_params
+        ).as_json()
+
+        polynomial_regression_model = Model(
+            "polynomial_regression", polynomial_regression_params
         ).as_json()
 
         self.dataset_name = "kaggle"
@@ -68,7 +78,8 @@ class KaggleInstruction(AbstractInstruction):
             kmeans_clustering_model,
             kmeans_elbow_model,
             compare_country_comparison_genders_model,
-            compare_countries_comparison
+            compare_countries_comparison_model,
+            polynomial_regression_model,
         ]
 
         self.dataset_link = (
