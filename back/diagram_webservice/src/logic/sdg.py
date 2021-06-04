@@ -59,6 +59,13 @@ def prepare_sdg(region, gender):
 
 
 def sdg_get_list_of_all_values_in_row_by_column_name(column_name):
+    """Function to return a list of all values in a row for the sdg dataset
+
+    :param column_name: Used to filter the column by the specified column name
+    :type column_name: String
+    :return: Returns a list of all values in a row
+    :rtype: pandas.series.tolist
+    """    
     column_name = column_name.lower()
     df = pd.read_csv(DATASETS.get("sdg"))
 

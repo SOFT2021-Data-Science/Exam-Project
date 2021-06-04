@@ -65,7 +65,7 @@ def prepare_kaggle_suicides_100k_pop(country, gender):
 
 
 def kaggle_get_list_of_all_values_in_row_by_column_name(column_name):
-    """Function to return a list of all values in a row for the kaggle dataframe
+    """Function to return a list of all values in a row for the kaggle dataset
 
     :param column_name: Used to filter the column by the specified column name
     :type column_name: String
