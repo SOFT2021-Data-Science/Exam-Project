@@ -88,15 +88,6 @@ def sdg_get_list_of_all_values_in_row_by_column_name(column_name):
 
     return df[column_name].values.tolist()
 
-
-# Simplifying list comprehension
-def _is_digit_and_is_between_range(column, min, max):
-    if column.isdigit():
-        if int(column) < min or int(column) > max:
-            return True
-    return False
-
-
 def _move_down_header(df):
     header = df.iloc[0]
     df = df[1:]
