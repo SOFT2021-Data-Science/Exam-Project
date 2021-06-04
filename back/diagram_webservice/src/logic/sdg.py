@@ -565,52 +565,78 @@ def sdg_kmeans_elbow(region, gender, clusters, preview, file_name=False):
 
 
 def sdg_polynomial_regression(region, gender, degrees, future_years, preview, file_name=False):
-    
-    
+    """Function to generate polynomial regression method and future prediction for the sdg dataset
+
+    :param region: Used to filter the dataset by region
+    :type region: String
+    :param gender: Used to filter the dataset by gender
+    :type gender: String
+    :param degrees: Used to define the number of degrees in regression model
+    :type degrees: Interger
+    :param future_years: Used to define the number of future years to predict
+    :type future_years: Integer
+    :param preview: Boolean value used to determent if the return value is 'Preview' or 'Template' based on True or False
+    :type preview: Boolean
+    :param file_name: Used to generate the plots filename . Defaults to False.
+    :type file_name: Boolean, Optional
+    :return: If preview is FALSE, then we return a mpld3-figure as html, and if it's true it returns nothing
+    :rtype: mpld3.fig_to_html
+    """
     # Prepare the dataset
     df = prepare_sdg(region, gender)
 
-    # Reverse Dataframe
+    # Reverse the dataframe
     df = df.iloc[::-1]
-
- 
 
     # Split the dataframe into independent X_axis and Y_axis
     x = df.iloc[:, :-1].values
     y = df.iloc[:, 1].values
 
+    # Create train and test subset data
     x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.2, random_state=42)
 
+    # Reshape the data
     x_train = x_train.reshape(-1, 1)
     y_train = y_train.reshape(-1, 1)
 
+    # Sort the data
     y_train = y_train[x_train[:,0].argsort()]
     x_train = x_train[x_train[:, 0].argsort()]
 
+    # Fit the X_train and into the regressor model
     poly = PolynomialFeatures(degree=degrees)
     x_poly = poly.fit_transform(x_train)
 
+    # Fit x_poly and y_train into the regressor model
     poly_reg = LinearRegression()
     poly_reg.fit(x_poly, y_train)
 
-
+    # Calculate the r2_score for the model
+    # The closer the r2_score is to 1 the more precise our predictions will be.
     r2_score = poly_reg.score(x_poly, y_train)
+
+    # Create the regression line
     regression_line = poly_reg.predict(x_poly)
 
+
+    # Dataframe for future predictions
     df_future_predictions = pd.DataFrame(columns = df.columns)
+
     for i in range(future_years):
         i+=1
         year = x[len(x)-1] + i
+
+        # Predict suicide rate for specified year.
+        # E.g. "poly.fit_transform([2020])" will a suicide rate for the year 2020
         suicides_no = poly_reg.predict(poly.fit_transform([year]))
         ob = {df.columns[0]:int(year[0]), df.columns[1]: suicides_no[0]}
         df_future_predictions = df_future_predictions.append(ob, ignore_index=True)
 
-    
+    # X and Y coordinates for the predicted future values
     x_new_predicted = df_future_predictions.iloc[:, :-1].values
     y_new_predicted = df_future_predictions.iloc[:,1].values
 
-
-        # Output path for generated plot image
+    # Output path for generated plot image
     full_file_out_path = f"{OUT_DIR}/{file_name}{IMAGE_FORMAT}"
 
     manager = multiprocessing.Manager()
@@ -641,12 +667,13 @@ def sdg_polynomial_regression(region, gender, degrees, future_years, preview, fi
         return mpld3.fig_to_html(finished_plot)
 
 def sdg_compare_male_female_from_region(region, preview, file_name=False):
+    # Retrieve sdg dataset for two regions
     female_df = prepare_sdg(region, "female")
     male_df = prepare_sdg(region, "male")
 
+    # Split the region data into two different X and Y coordinates
     maleX = male_df.iloc[:, :-1].values
     maleY = male_df.iloc[:,1].values
-
     femaleX = female_df.iloc[:, :-1].values
     femaleY = female_df.iloc[:,1].values
 
@@ -682,12 +709,13 @@ def sdg_compare_male_female_from_region(region, preview, file_name=False):
 
         
 def sdg_compare_suicide_rates_for_gender_between_two_regions(first_region, second_region, gender, preview, file_name=False):
+    # Retrieve sdg dataset for two regions
     region_1 = prepare_sdg(first_region, gender)
     region_2 = prepare_sdg(second_region, gender)
 
+    # Split the region data into two different X and Y coordinates
     first_region_x = region_1.iloc[:, :-1].values
     first_region_y = region_1.iloc[:,1].values
-
     second_region_x = region_2.iloc[:, :-1].values
     second_region_y = region_2.iloc[:,1].values
 
