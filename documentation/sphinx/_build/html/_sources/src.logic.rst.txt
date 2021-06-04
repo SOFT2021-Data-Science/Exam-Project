@@ -1,0 +1,29 @@
+src.logic package
+=================
+
+Submodules
+----------
+
+src.logic.kaggle module
+-----------------------
+
+.. automodule:: src.logic.kaggle
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+src.logic.sdg module
+--------------------
+
+.. automodule:: src.logic.sdg
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Module contents
+---------------
+
+.. automodule:: src.logic
+   :members:
+   :undoc-members:
+   :show-inheritance:

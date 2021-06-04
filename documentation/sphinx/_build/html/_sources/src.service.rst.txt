@@ -1,0 +1,29 @@
+src.service package
+===================
+
+Subpackages
+-----------
+
+.. toctree::
+   :maxdepth: 4
+
+   src.service.instructions
+
+Submodules
+----------
+
+src.service.utility\_routes module
+----------------------------------
+
+.. automodule:: src.service.utility_routes
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Module contents
+---------------
+
+.. automodule:: src.service
+   :members:
+   :undoc-members:
+   :show-inheritance:

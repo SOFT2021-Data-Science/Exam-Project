@@ -1,0 +1,7 @@
+sdg module
+==========
+
+.. automodule:: sdg
+   :members:
+   :undoc-members:
+   :show-inheritance:
