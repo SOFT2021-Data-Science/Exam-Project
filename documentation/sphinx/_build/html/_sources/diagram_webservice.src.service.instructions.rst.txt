@@ -1,0 +1,53 @@
+diagram\_webservice.src.service.instructions package
+====================================================
+
+Submodules
+----------
+
+diagram\_webservice.src.service.instructions.abstract\_instructions module
+--------------------------------------------------------------------------
+
+.. automodule:: diagram_webservice.src.service.instructions.abstract_instructions
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+diagram\_webservice.src.service.instructions.kaggle\_instructions module
+------------------------------------------------------------------------
+
+.. automodule:: diagram_webservice.src.service.instructions.kaggle_instructions
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+diagram\_webservice.src.service.instructions.model module
+---------------------------------------------------------
+
+.. automodule:: diagram_webservice.src.service.instructions.model
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+diagram\_webservice.src.service.instructions.param module
+---------------------------------------------------------
+
+.. automodule:: diagram_webservice.src.service.instructions.param
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+diagram\_webservice.src.service.instructions.sdg\_instructions module
+---------------------------------------------------------------------
+
+.. automodule:: diagram_webservice.src.service.instructions.sdg_instructions
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Module contents
+---------------
+
+.. automodule:: diagram_webservice.src.service.instructions
+   :members:
+   :undoc-members:
+   :show-inheritance:

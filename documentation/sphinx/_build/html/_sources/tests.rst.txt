@@ -1,0 +1,21 @@
+tests package
+=============
+
+Submodules
+----------
+
+tests.test\_diagram\_webservice module
+--------------------------------------
+
+.. automodule:: tests.test_diagram_webservice
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Module contents
+---------------
+
+.. automodule:: tests
+   :members:
+   :undoc-members:
+   :show-inheritance:

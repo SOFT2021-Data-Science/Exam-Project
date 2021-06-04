@@ -1,0 +1,45 @@
+diagram\_webservice.src.utils package
+=====================================
+
+Submodules
+----------
+
+diagram\_webservice.src.utils.aliases module
+--------------------------------------------
+
+.. automodule:: diagram_webservice.src.utils.aliases
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+diagram\_webservice.src.utils.file\_handling module
+---------------------------------------------------
+
+.. automodule:: diagram_webservice.src.utils.file_handling
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+diagram\_webservice.src.utils.logging module
+--------------------------------------------
+
+.. automodule:: diagram_webservice.src.utils.logging
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+diagram\_webservice.src.utils.misc module
+-----------------------------------------
+
+.. automodule:: diagram_webservice.src.utils.misc
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Module contents
+---------------
+
+.. automodule:: diagram_webservice.src.utils
+   :members:
+   :undoc-members:
+   :show-inheritance:

@@ -1,0 +1,7 @@
+aliases module
+==============
+
+.. automodule:: aliases
+   :members:
+   :undoc-members:
+   :show-inheritance:

@@ -1,0 +1,53 @@
+instructions package
+====================
+
+Submodules
+----------
+
+instructions.abstract\_instructions module
+------------------------------------------
+
+.. automodule:: instructions.abstract_instructions
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+instructions.kaggle\_instructions module
+----------------------------------------
+
+.. automodule:: instructions.kaggle_instructions
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+instructions.model module
+-------------------------
+
+.. automodule:: instructions.model
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+instructions.param module
+-------------------------
+
+.. automodule:: instructions.param
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+instructions.sdg\_instructions module
+-------------------------------------
+
+.. automodule:: instructions.sdg_instructions
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Module contents
+---------------
+
+.. automodule:: instructions
+   :members:
+   :undoc-members:
+   :show-inheritance:
