@@ -100,7 +100,7 @@
         <p>
           <b>Linear regression</b>
           “A linear regression line has an equation of the form Y = a + bX, where X is the explanatory variable and Y is the dependent variable. The slope of the line is b, and a is the intercept (the value of y when x = 0). “
-          http://www.stat.yale.edu/Courses/1997-98/101/linreg.htm 
+          <br />http://www.stat.yale.edu/Courses/1997-98/101/linreg.htm 
         </p>
         <p>
           <b>Polynomial regression</b>
@@ -112,7 +112,7 @@
           “K-Means clustering intends to partition n objects into k clusters in which each object belongs to the cluster with the nearest mean. This method produces exactly k different clusters of greatest possible distinction. The best number of clusters k leading to the greatest separation (distance) is not known as a priori and must be computed from the data. The objective of K-Means clustering is to minimize total intra-cluster variance, or, the squared error function:”
           https://www.saedsayad.com/clustering_kmeans.htm
           “The Elbow Method is one of the most popular methods to determine this optimal value of k.”
-          https://www.geeksforgeeks.org/elbow-method-for-optimal-value-of-k-in-kmeans/ 
+          <br />https://www.geeksforgeeks.org/elbow-method-for-optimal-value-of-k-in-kmeans/ 
         </p>
         
       </li>
