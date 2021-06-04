@@ -90,13 +90,6 @@ This would help the viewer to get a better scope of the dataset because of the i
 Example:
 ![img](/resources/visualisation.png)
 
-## notes
-./resources/out is generated the first time [aliases.py](back/diagram_webservice/src/utils/aliases.py) is imported.
-
-
-This directory gets populated with functions from [Kaggle](back/diagram_webservice/src/logic/kaggle.py) & [sdg](back/diagram_webservice/src/logic/sdg.py)
-Example: kaggle_linear_regression with "savefig"
-
 ## Stage 5
 
 ### Problem objectives
@@ -144,6 +137,14 @@ K-means with elbow
 
 ## Implementation Instructions
 1. Clone the project.
-2. Open the cloned directory in a terminal.
+2. Open the root of cloned directory in a terminal.
 3. Have docker installed.
 4. Type command: ***```docker-compose up```***
+
+
+## notes
+./resources/out is generated the first time [aliases.py](back/diagram_webservice/src/utils/aliases.py) is imported.
+
+
+This directory gets populated with functions from [Kaggle](back/diagram_webservice/src/logic/kaggle.py) & [sdg](back/diagram_webservice/src/logic/sdg.py)
+Example: kaggle_linear_regression with "savefig"
