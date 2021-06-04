@@ -631,7 +631,7 @@ def kaggle_compare_male_female_from_country(country, preview, file_name=False):
     # Return Dict (used to save the data we return from the plot process)
     return_dict = manager.dict()
 
-    plot_title = f"Comparing Male and Female Suicide Rate for {country}"
+    plot_title = f"Comparing male and female suicide rate for {country} pr 100k population"
 
     # Create multiprocess to generate plot
     create_plot_process = multiprocessing.Process(
@@ -664,9 +664,6 @@ def kaggle_compare_suicide_rates_for_gender_between_two_countries(first_country,
     second_country_x = country_2.iloc[:, :-1].values
     second_country_y = country_2.iloc[:,1].values
 
-    print(first_country_x, first_country_y)
-    print(second_country_x, second_country_y)
-
     # Output path for generated plot image
     full_file_out_path = f"{OUT_DIR}/{file_name}{IMAGE_FORMAT}"
 
@@ -696,5 +693,3 @@ def kaggle_compare_suicide_rates_for_gender_between_two_countries(first_country,
         return
     else:
         return mpld3.fig_to_html(finished_plot)
-
-
